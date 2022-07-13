@@ -1,5 +1,4 @@
 import "./index.scss";
-
 import React from "react";
 import { Button } from "@mui/material";
 import { websiteName } from "../../constants/general";

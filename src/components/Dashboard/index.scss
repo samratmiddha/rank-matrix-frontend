@@ -1,0 +1,48 @@
+.dashboard-container {
+  background-image: url("../../images/dashboard-background.png");
+  padding-top: 1rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  .css-1oqqzyl-MuiContainer-root {
+    .css-96vknt-MuiGrid-root {
+      margin-top: 2.7rem;
+      margin-bottom: 2.7rem;
+    }
+    .css-bhp9pd-MuiPaper-root-MuiCard-root {
+      padding: 1rem;
+      .css-46bh2p-MuiCardContent-root {
+        padding: 0.5rem;
+      }
+      img {
+        border-radius: 12px;
+      }
+    }
+  }
+  .new-update {
+    position: sticky;
+    top: 0;
+    background: #f8faff;
+    box-shadow: inset 4px 0px 19px rgba(0, 60, 173, 0.15);
+    width: 100%;
+    margin: 0;
+    .MuiGrid-item{
+        padding: 0;
+    }
+    .title{
+        z-index: 1;
+        background-color: #2F51A7;
+        color: #ffffff;
+        padding: 1rem 1rem;
+        text-align: center;
+    }
+    .description{
+        z-index: 0;
+        padding: 1rem 0;
+        padding-bottom: 0.5rem;
+    }
+    .progress{
+        text-align: center;
+        padding: 0.5rem;
+    }
+  }
+}

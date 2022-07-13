@@ -10,3 +10,5 @@ export const customtheme = createTheme({
     },
   },
 });
+
+export const apiURL = 'http://localhost:8000'
