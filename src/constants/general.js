@@ -6,9 +6,10 @@ export const customtheme = createTheme({
   palette: {
     primary: {
       main: "#6096FC",
-      contrastText: '#fff',
+      contrastText: "#fff",
     },
   },
 });
 
-export const apiURL = 'http://localhost:8000'
+export const apiURL = "http://localhost:8000";
+

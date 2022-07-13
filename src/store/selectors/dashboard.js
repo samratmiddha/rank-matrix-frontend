@@ -6,6 +6,13 @@ const selectDashboard = (state) => state.dashboard || initialState;
 export const makeSelectNewUpdate = createSelector(
     selectDashboard,
     (pageState) => {
-        return pageState.newUpdate
+        return pageState.newUpdate;
     }
-)
+);
+
+export const makeSelectRecentUpdate = createSelector(
+    selectDashboard,
+    (pageState) => {
+        return pageState.recentUpdate;
+    }
+);

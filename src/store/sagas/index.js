@@ -1,6 +1,8 @@
 import { all } from "redux-saga/effects";
-import watchAll from "./dashboard";
+import { dashboardSagas } from "./dashboard";
 
 export default function* rootSaga() {
-  yield all([watchAll()]);
+  yield all([
+    ...dashboardSagas,
+  ]);
 }

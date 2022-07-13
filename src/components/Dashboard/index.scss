@@ -25,24 +25,53 @@
     box-shadow: inset 4px 0px 19px rgba(0, 60, 173, 0.15);
     width: 100%;
     margin: 0;
-    .MuiGrid-item{
-        padding: 0;
+    .MuiGrid-item {
+      padding: 0;
     }
-    .title{
-        z-index: 1;
-        background-color: #2F51A7;
-        color: #ffffff;
-        padding: 1rem 1rem;
-        text-align: center;
+    .title {
+      z-index: 1;
+      background-color: #2f51a7;
+      color: #ffffff;
+      padding: 1rem 1rem;
+      text-align: center;
     }
-    .description{
-        z-index: 0;
-        padding: 1rem 0;
-        padding-bottom: 0.5rem;
+    .description {
+      z-index: 0;
+      padding: 1rem 0;
+      padding-bottom: 0.5rem;
     }
-    .progress{
-        text-align: center;
-        padding: 0.5rem;
+    .progress {
+      text-align: center;
+      padding: 0.5rem;
+    }
+  }
+}
+.how-to-use {
+  margin: 3rem;
+  margin-bottom: 1rem;
+  .MuiBox-root {
+    background: #ffffff;
+    box-shadow: 0px 0px 30px 4px rgba(0, 25, 71, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    .content {
+      max-height: 655px;
+      overflow-y: scroll;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar{
+        display: none;
+      }
+      .MuiBox-root {
+        background: #fbfcff;
+        box-shadow: inset 0px 0px 12px rgba(74, 96, 138, 0.12);
+        border-radius: 12px;
+        padding: 0.5rem 1rem;
+        li{
+          margin: 0.5rem 0;
+          font-size: 1rem;
+        }
+      }
     }
   }
 }
