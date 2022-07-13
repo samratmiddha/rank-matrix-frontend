@@ -1,11 +1,12 @@
 import { put, takeLatest } from "redux-saga/effects";
-import { getErrorBody, getRequest } from "../../constants/apis";
+import { getErrorBody, getErrorMessage, getRequest } from "../../constants/apis";
 import {
   fetchNewUpdatesError,
   fetchNewUpdatesSuccess,
   fetchRecentUpdatesError,
   fetchRecentUpdatesSuccess,
 } from "../actions/dashboard";
+import { showToast } from "../actions/toast";
 import { NEW_UPDATE_FETCH, RECENT_UPDATE_FETCH } from "../actionTypes";
 
 export function* fetchNewUpdates() {
@@ -13,8 +14,10 @@ export function* fetchNewUpdates() {
   try {
     const response = yield getRequest(requestURL);
     yield put(fetchNewUpdatesSuccess(response));
+
   } catch (err) {
     yield put(fetchNewUpdatesError(getErrorBody(err)));
+    yield put(showToast(getErrorMessage(getErrorBody(err)), 'error', 2000))
   }
 }
 
@@ -25,6 +28,7 @@ export function* fetchRecentUpdates() {
     yield put(fetchRecentUpdatesSuccess(response));
   } catch (err) {
     yield put(fetchRecentUpdatesError(getErrorBody(err)));
+    yield put(showToast(getErrorMessage(getErrorBody(err)), 'error', 2000))
   }
 }
 

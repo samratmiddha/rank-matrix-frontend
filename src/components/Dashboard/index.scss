@@ -1,6 +1,6 @@
 .dashboard-container {
   background-image: url("../../images/dashboard-background.png");
-  padding-top: 1rem;
+  padding: 1rem 0;
   background-size: cover;
   background-repeat: no-repeat;
   .css-1oqqzyl-MuiContainer-root {
@@ -18,32 +18,32 @@
       }
     }
   }
-  .new-update {
-    position: sticky;
-    top: 0;
-    background: #f8faff;
-    box-shadow: inset 4px 0px 19px rgba(0, 60, 173, 0.15);
-    width: 100%;
-    margin: 0;
-    .MuiGrid-item {
-      padding: 0;
-    }
-    .title {
-      z-index: 1;
-      background-color: #2f51a7;
-      color: #ffffff;
-      padding: 1rem 1rem;
-      text-align: center;
-    }
-    .description {
-      z-index: 0;
-      padding: 1rem 0;
-      padding-bottom: 0.5rem;
-    }
-    .progress {
-      text-align: center;
-      padding: 0.5rem;
-    }
+}
+.new-update {
+  position: sticky;
+  top: 0;
+  background: #f8faff;
+  box-shadow: inset 4px 0px 19px rgba(0, 60, 173, 0.15);
+  width: 100%;
+  margin: 0;
+  .MuiGrid-item {
+    padding: 0 !important;
+  }
+  .title {
+    z-index: 1;
+    background-color: #2f51a7;
+    color: #ffffff;
+    padding: 1rem 1rem;
+    text-align: center;
+  }
+  .description {
+    z-index: 0;
+    padding: 1rem 0;
+    padding-bottom: 0.5rem;
+  }
+  .progress {
+    text-align: center;
+    padding: 0.5rem;
   }
 }
 .how-to-use {
@@ -59,7 +59,7 @@
       overflow-y: scroll;
       -ms-overflow-style: none;
       scrollbar-width: none;
-      &::-webkit-scrollbar{
+      &::-webkit-scrollbar {
         display: none;
       }
       .MuiBox-root {
@@ -67,7 +67,7 @@
         box-shadow: inset 0px 0px 12px rgba(74, 96, 138, 0.12);
         border-radius: 12px;
         padding: 0.5rem 1rem;
-        li{
+        li {
           margin: 0.5rem 0;
           font-size: 1rem;
         }

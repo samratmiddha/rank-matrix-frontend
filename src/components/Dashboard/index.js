@@ -24,30 +24,38 @@ import {
   makeSelectRecentUpdate,
 } from "../../store/selectors/dashboard";
 import useOnScreen from "../../constants/hooks";
-
+import { Link } from "react-router-dom";
 
 const Dashboard = ({
   newUpdateComponent,
   recentUpdateComponent,
   newUpdateObject,
   recentUpdateObject,
+  howToUseClick,
+  setHowToUseClick,
 }) => {
+  const howToUseRef = useRef(null);
+  const featuresRef = useRef(null);
+  const howToUseVisible = useOnScreen(howToUseRef);
+  const featuresVisible = useOnScreen(featuresRef);
+
   useEffect(() => {
     newUpdateComponent();
     recentUpdateComponent();
   }, []);
 
-  const howToUseRef = useRef(null);
-  const featuresRef = useRef(null);
-  const howToUseVisible = useOnScreen(howToUseRef);
-  // const featuresVisible = useOnScreen(featuresRef);
   useEffect(() => {
-    console.log(howToUseVisible);
-    if (howToUseVisible) {
-      howToUseRef.current.scrollTop = 0;
+    if (howToUseVisible || howToUseClick) {
+      window.scrollTo(0, howToUseRef.current.offsetTop);
+      setHowToUseClick(false);
     }
-    // console.log()
-  }, [howToUseVisible]);
+  }, [howToUseVisible, howToUseClick]);
+
+  useEffect(() => {
+    if (featuresVisible) {
+      window.scrollTo(0, 0);
+    }
+  }, [featuresVisible]);
 
   return (
     <div>
@@ -71,12 +79,14 @@ const Dashboard = ({
                       </Typography>
                     </CardContent>
                     <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        height="160"
-                        alt={card.title}
-                        image={extra}
-                      />
+                      <Link to={card.link}>
+                        <CardMedia
+                          component="img"
+                          height="160"
+                          alt={card.title}
+                          image={extra}
+                        />
+                      </Link>
                     </CardActionArea>
                   </Card>
                 </Grid>
@@ -84,29 +94,23 @@ const Dashboard = ({
             </Grid>
           </Box>
         </Container>
-        <Grid container spacing={2} className="new-update">
-          <Grid item xs={2}>
-            <div className="title">New Updates!</div>
-          </Grid>
-          <Grid item xs={10}>
-            {newUpdateObject.loading ? (
-              <div className="progress">
-                <CircularProgress />
-              </div>
-            ) : (
-              <div className="description">
-                {!newUpdateObject.error ? (
-                  newUpdateObject.data.length > 0 && (
-                    <marquee>{newUpdateObject.data[0].text}</marquee>
-                  )
-                ) : (
-                  <></>
-                )}
-              </div>
-            )}
-          </Grid>
-        </Grid>
       </div>
+      <Grid container spacing={2} className="new-update">
+        <Grid item xs={2}>
+          <div className="title">New Updates!</div>
+        </Grid>
+        <Grid item xs={10}>
+          {!newUpdateObject.loading && (
+            <div className="description">
+              {!newUpdateObject.error && (
+                newUpdateObject.data.length > 0 && (
+                  <marquee>{newUpdateObject.data[0].text}</marquee>
+                )
+              )}
+            </div>
+          )}
+        </Grid>
+      </Grid>
       <div className="how-to-use" ref={howToUseRef}>
         <Container>
           <Grid
@@ -149,12 +153,13 @@ const Dashboard = ({
                     {recentUpdateObject.loading ? (
                       <CircularProgress />
                     ) : !recentUpdateObject.error ? (
-                      recentUpdateObject.data.length > 0 && 
-                      <ul>
-                        {recentUpdateObject.data.map((update, index) => (
-                          <li key={index}>{update.text}</li>
-                        ))}
-                      </ul>
+                      recentUpdateObject.data.length > 0 && (
+                        <ul>
+                          {recentUpdateObject.data.map((update, index) => (
+                            <li key={index}>{update.text}</li>
+                          ))}
+                        </ul>
+                      )
                     ) : (
                       <></>
                     )}
@@ -174,6 +179,8 @@ Dashboard.propTypes = {
   recentUpdateComponent: PropTypes.func,
   newUpdateObject: PropTypes.object,
   recentUpdateObject: PropTypes.object,
+  howToUseClick: PropTypes.bool,
+  setHowToUseClick: PropTypes.func,
 };
 
 function mapStateToProps(state) {

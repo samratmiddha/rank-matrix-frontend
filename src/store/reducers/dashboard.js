@@ -21,7 +21,8 @@ export const initialState = {
   },
 };
 
-const reducer = (state = initialState, action) =>
+
+const reducer = (state = initialState, action) => 
   produce(state, (draft) => {
     switch (action.type) {
       case NEW_UPDATE_FETCH:

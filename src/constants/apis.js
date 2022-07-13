@@ -16,11 +16,30 @@ export function getErrorBody(error) {
         response = {};
     }
     response = response || {};
-    if(response.data.includes("<!DOCTYPE html>")){
-        response = {};
+    if(typeof(response.data) == 'string'){
+        if(response.data.includes("<!DOCTYPE html>")){
+            response = {};
+        }
     }
     return {
-        ...response.data,
+        data: response.data,
         status: response.status ? response.status : 408,
     };
+}
+
+export function getErrorMessage(error) {
+    let message = ""
+    console.log(error)
+    if(error.data){
+        if(error.data.detail){
+            message = error.data.detail
+        }else{
+            message = error.data
+        }
+    }
+    if(message === ""){
+        message = "Some error occured. Please refresh"
+    }
+
+    return message
 }
