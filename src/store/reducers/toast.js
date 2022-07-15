@@ -1,4 +1,5 @@
 import produce from "immer";
+import { errorToastDuration } from "../../constants/general";
 import { CLOSE_TOAST, SHOW_TOAST } from "../actionTypes";
 
 export const initialState = {
@@ -6,7 +7,7 @@ export const initialState = {
         open: false,
         message: "",
         type: 'error',
-        duration: 2000,
+        duration: errorToastDuration,
     }
 }
 

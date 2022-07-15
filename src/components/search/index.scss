@@ -1,0 +1,10 @@
+.search-container{
+    text-align: end;
+    .MuiOutlinedInput-input{
+        padding: 0.5rem 0;
+        padding-right: 0.5rem;
+    }
+    .MuiInputLabel-root{
+        z-index: 0;
+    }
+}

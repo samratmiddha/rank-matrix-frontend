@@ -1,0 +1,23 @@
+.header-container {
+    background-color: #6096fc;
+    .header-content {
+        display: flex;
+        align-items: center;
+        .MuiTypography-root {
+            width: fit-content;
+            padding: 3rem 0;
+            color: #ffffff;
+            margin-right: 1rem;
+        }
+        .MuiInputBase-root {
+            .MuiSelect-select {
+                height: fit-content;
+                font-family: "Poppins", sans-serif;
+            }
+
+            fieldset{
+                border: none;   
+            }
+        }
+    }
+}

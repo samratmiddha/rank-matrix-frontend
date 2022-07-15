@@ -1,0 +1,18 @@
+.institute-container{
+    .table-container{
+        margin: 2rem 5rem;
+        position: relative;
+        .MuiTableCell-root{
+            font-family: "Poppins", sans-serif;
+        }
+        .MuiTableCell-head{
+            font-weight: 600;
+        }
+        .filters{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+
+}

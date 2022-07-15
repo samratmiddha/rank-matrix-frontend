@@ -3,7 +3,6 @@ import { apiURL } from "./general";
 
 export const getRequest = (requestURL) => {
     const url = `${apiURL}${requestURL}`;
-    
     return axios.get(url).then((resposne) => resposne);
 
 };
@@ -29,7 +28,6 @@ export function getErrorBody(error) {
 
 export function getErrorMessage(error) {
     let message = ""
-    console.log(error)
     if(error.data){
         if(error.data.detail){
             message = error.data.detail

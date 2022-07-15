@@ -14,6 +14,8 @@ const store = configureStore();
 
 export const App = () => {
   const [howToUseClick, setHowToUseClick] = useState(false);
+  
+  
   return (
     <ThemeProvider theme={customtheme}>
       <Provider store={store}>
