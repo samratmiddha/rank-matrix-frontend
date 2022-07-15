@@ -12,14 +12,14 @@ export const featuresCard = [
     link: "A",
   },
   {
-    title: "Seat Matrix",
+    title: "Opening and Closing Ranks",
     image: { extra },
     link: "A",
   },
   {
-    title: "Opening and Closing Ranks",
+    title: "Seat Matrix",
     image: { extra },
-    link: "A",
+    link: "/seat_matrix",
   },
   {
     title: "List of Colleges",

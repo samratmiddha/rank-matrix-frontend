@@ -5,6 +5,9 @@
         padding-right: 0.5rem;
     }
     .MuiInputLabel-root{
-        z-index: 0;
+        z-index: 1;
+    }
+    .MuiInputBase-root{
+        background-color: #ffffff;
     }
 }

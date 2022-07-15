@@ -6,7 +6,7 @@ export const CustomPagination = ({ totalPage, onChange, page }) => {
   
   return (
     <div className="custom-pagination-container">
-      <Pagination count={totalPage} page={page} color="secondary" onChange={onChange} />
+      <Pagination count={totalPage} page={page} color="secondary" onChange={onChange} siblingCount={1} boundaryCount={2} />
     </div>
   );
 };

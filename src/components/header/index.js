@@ -27,13 +27,15 @@ export const Header = ({ heading, dropDownList, setValue }) => {
           <CircularProgress color="black" />
         ) : (
           !dropDownList.error && (
-            <Select defaultValue={"IIT"} onChange={handleChange}>
-              {dropDownList.data.map((item, index) => (
-                <MenuItem value={item} key={index}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
+            <>
+              <Select defaultValue={"IIT"} onChange={handleChange}>
+                {dropDownList.data.map((item, index) => (
+                  <MenuItem value={item} key={index}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </>
           )
         )}
       </Container>

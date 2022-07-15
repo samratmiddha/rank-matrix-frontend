@@ -43,3 +43,46 @@ export const instituteListHeader = [
     },
     
 ]
+
+export const seatMatrixHeader = [
+    {
+        id: 'institute_code__name',
+        label: 'Institute Name',
+        order: true,
+    },
+    {
+        id: 'branch_code__branch_name',
+        label: 'Branch Name',
+        order: true,
+    },
+    {
+        id: 'branch_code__duration',
+        label: 'Duration',
+        order: true,
+    },
+    {
+        id: 'degree',
+        label: 'Degree',
+        order: false,
+    },
+    {
+        id: 'seat_pool',
+        label: 'Seat Pool',
+        order: false,
+    },
+    {
+        id: 'category',
+        label: 'Category',
+        order: false,
+    },
+    {
+        id: 'quota',
+        label: 'Quota',
+        order: false,
+    },
+    {
+        id: 'seats',
+        label: 'Seats',
+        order: true,
+    },
+]

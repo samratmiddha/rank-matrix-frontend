@@ -1,43 +1,45 @@
 import "./app.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "./Navbar/index";
 import { ThemeProvider } from "@mui/material/styles";
 import { customtheme } from "../constants/general";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import { configureStore } from "../store";
-import { Provider } from "react-redux";
-import CollegeList from "./CollegesList";
+import { useDispatch } from "react-redux";
+import CollegeList from "./Lists/CollegesList";
 import Toast from "./Toast";
-
-const store = configureStore();
+import SeatMatrix from "./Lists/SeatMatrix";
+import { fetchInstituteType, fetchYear } from "../store/actions/form";
 
 export const App = () => {
   const [howToUseClick, setHowToUseClick] = useState(false);
-  
-  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchYear());
+    dispatch(fetchInstituteType())
+  }, []);
+
   return (
     <ThemeProvider theme={customtheme}>
-      <Provider store={store}>
-        <Toast />
-        <Router>
-          <Navbar setHowToUseClick={setHowToUseClick} />
-          <div className="main-container">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Dashboard
-                    howToUseClick={howToUseClick}
-                    setHowToUseClick={setHowToUseClick}
-                  />
-                }
-              />
-              <Route path="/colleges_list" element={<CollegeList />} />
-            </Routes>
-          </div>
-        </Router>
-      </Provider>
+      <Toast />
+      <Router>
+        <Navbar setHowToUseClick={setHowToUseClick} />
+        <div className="main-container">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Dashboard
+                  howToUseClick={howToUseClick}
+                  setHowToUseClick={setHowToUseClick}
+                />
+              }
+            />
+            <Route path="/colleges_list" element={<CollegeList />} />
+            <Route path="/seat_matrix" element={<SeatMatrix />} />
+          </Routes>
+        </div>
+      </Router>
     </ThemeProvider>
   );
 };

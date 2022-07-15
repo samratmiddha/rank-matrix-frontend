@@ -2,7 +2,10 @@ import {
   FETCH_INSTITUTE_LIST,
   FETCH_INSTITUTE_LIST_ERROR,
   FETCH_INSTITUTE_LIST_SUCCESS,
-} from "../../actionTypes";
+  FETCH_SEAT_MATRIX,
+  FETCH_SEAT_MATRIX_ERROR,
+  FETCH_SEAT_MATRIX_SUCCESS,
+} from "../actionTypes";
 
 export const fetchInstituteList = (payload) => {
     return {
@@ -21,6 +24,27 @@ export const fetchInstituteListSuccess = (response) => {
 export const fetchInstituteListError = (errorBody) => {
     return {
         type: FETCH_INSTITUTE_LIST_ERROR,
+        errorBody,
+    };
+};
+
+export const fetchSeatMatrix = (payload) => {
+    return {
+        type: FETCH_SEAT_MATRIX,
+        payload,
+    };
+};
+
+export const fetchSeatMatrixSuccess = (response) => {
+    return {
+        type: FETCH_SEAT_MATRIX_SUCCESS,
+        response,
+    };
+};
+
+export const fetchSeatMatrixError = (errorBody) => {
+    return {
+        type: FETCH_SEAT_MATRIX_ERROR,
         errorBody,
     };
 };

@@ -16,7 +16,7 @@ export const customtheme = createTheme({
     black: {
       main: "#000000",
       contrastText: "#ffffff",
-
+      light: "#000000",
     }
   },
 });

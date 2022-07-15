@@ -13,19 +13,17 @@ import {
   Box,
 } from "@mui/material";
 import { connect } from "react-redux";
-import { Header } from "../../components/header";
-import { CustomPagination } from "../../components/pagination";
-import { fetchInstituteType } from "../../store/actions/form";
-import { fetchInstituteList } from "../../store/actions/lists/instituteList";
-import { makeSelectInstituteType } from "../../store/selectors/form";
-import { makeSelectInstituteList } from "../../store/selectors/lists/instituteList";
-import "./index.scss";
-import { SearchBar } from "../../components/search";
+import { Header } from "../../../components/header";
+import { CustomPagination } from "../../../components/pagination";
+import { fetchInstituteList } from "../../../store/actions/list";
+import { makeSelectInstituteType } from "../../../store/selectors/form";
+import { makeSelectInstituteList } from "../../../store/selectors/list";
+import { SearchBar } from "../../../components/search";
 import { visuallyHidden } from "@mui/utils";
-import { instituteListHeader } from "../../constants/tableHeader";
+import { instituteListHeader } from "../../../constants/tableHeader";
+import "../../list.scss";
 
 const CollegeList = ({
-  instituteTypeComponent,
   instituteListComponent,
   instituteTypeObj,
   instituteListObj,
@@ -36,12 +34,6 @@ const CollegeList = ({
   const [searchWord, setSearchWord] = useState("");
   const [orderBy, setorderBy] = useState("");
   const [order, setorder] = useState("asc");
-  const loading =
-    instituteListObj.loading ||
-    (instituteListObj.data.length === 0 && !instituteListObj.erro);
-  useEffect(() => {
-    instituteTypeComponent();
-  }, []);
 
   useEffect(() => {
     const payload = {
@@ -49,13 +41,12 @@ const CollegeList = ({
       page,
       search: searchWord,
       orderField: orderBy,
-      order
+      orderType: order,
     };
     instituteListComponent(payload);
   }, [institute, page, searchWord, orderBy, order]);
 
   useEffect(() => {
-    console.log(instituteListObj);
     if (instituteListObj.data.length > 0) {
       setNirfLatestYear(instituteListObj.data[0].nirf_year);
     }
@@ -66,30 +57,33 @@ const CollegeList = ({
   };
 
   const createSortHandler = (property) => (event) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setorder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setorder(isAsc ? "desc" : "asc");
     setorderBy(property);
   };
 
   return (
-    <div className="institute-container">
+    <div className="list-container">
       <Header
         heading={"List of Colleges"}
         dropDownList={instituteTypeObj}
         setValue={setInstitute}
       />
       <div className="table-container">
-        <div className="filters">
-          <SearchBar
-            labelText={"Search by any keyword"}
-            defaultWord={searchWord}
-            setSearchKey={setSearchWord}
-          />
-        </div>
-        {loading ? (
+        {instituteListObj.search && (
+          <div className="filters">
+            <SearchBar
+              labelText={"Search by any keyword"}
+              defaultWord={searchWord}
+              setSearchKey={setSearchWord}
+            />
+          </div>
+        )}
+        {instituteListObj.loading ? (
           <CircularProgress />
         ) : (
-          !instituteListObj.error && (
+          !instituteListObj.error &&
+          instituteListObj.data.length != 0 && (
             <>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -177,7 +171,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    instituteTypeComponent: () => dispatch(fetchInstituteType()),
     instituteListComponent: (payload) => dispatch(fetchInstituteList(payload)),
   };
 };

@@ -13,11 +13,16 @@
             .MuiSelect-select {
                 height: fit-content;
                 font-family: "Poppins", sans-serif;
+                font-size: 1.2rem;
             }
 
             fieldset{
                 border: none;   
             }
+        }
+        .MuiCircularProgress-root{
+            width: 10px !important;
+            height: 10px !important;
         }
     }
 }

@@ -9,3 +9,10 @@ export const makeSelectInstituteType = createSelector(
         return pageState.institutes
     }
 )
+
+export const makeSelectYear = createSelector(
+    selectData,
+    (pageState) => {
+        return pageState.year
+    }
+)
