@@ -4,8 +4,6 @@ import { visuallyHidden } from "@mui/utils";
 import {
   Box,
   CircularProgress,
-  Container,
-  Link,
   Paper,
   Tab,
   Table,
@@ -19,7 +17,6 @@ import {
 } from "@mui/material";
 import { Header } from "../../../components/header";
 import { SearchBar } from "../../../components/search";
-import { fetchInstituteType } from "../../../store/actions/form";
 import { fetchSeatMatrix } from "../../../store/actions/list";
 import {
   makeSelectInstituteType,
@@ -38,7 +35,6 @@ const SeatMatrix = ({
 }) => {
   const [instituteType, setInstituteType] = useState("IIT");
   const [page, setPage] = useState(1);
-  const [nirfLatestYear, setNirfLatestYear] = useState(2021);
   const [searchWord, setSearchWord] = useState("");
   const [orderBy, setorderBy] = useState("");
   const [order, setorder] = useState("asc");
@@ -105,7 +101,7 @@ const SeatMatrix = ({
         dropDownList={instituteTypeObj}
         setValue={setInstituteType}
       />
-      <div className="tab-container">
+      <div className="extra-container">
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={tabValue}
@@ -159,8 +155,6 @@ const SeatMatrix = ({
                               onClick={createSortHandler(header.id)}
                             >
                               {header.label}
-                              {header.rank >= 0 &&
-                                ` (${nirfLatestYear - header.rank})`}
                               {orderBy === header.id ? (
                                 <Box component="span" sx={visuallyHidden}>
                                   {order === "desc"

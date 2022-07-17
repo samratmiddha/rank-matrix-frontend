@@ -10,6 +10,7 @@ import CollegeList from "./Lists/CollegesList";
 import Toast from "./Toast";
 import SeatMatrix from "./Lists/SeatMatrix";
 import { fetchInstituteType, fetchYear } from "../store/actions/form";
+import Ranks from "./Lists/Opening&ClosingRank";
 
 export const App = () => {
   const [howToUseClick, setHowToUseClick] = useState(false);
@@ -37,6 +38,7 @@ export const App = () => {
             />
             <Route path="/colleges_list" element={<CollegeList />} />
             <Route path="/seat_matrix" element={<SeatMatrix />} />
+            <Route path="/rank" element={<Ranks />} />
           </Routes>
         </div>
       </Router>

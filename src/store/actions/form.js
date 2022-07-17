@@ -5,6 +5,9 @@ import {
   FETCH_YEAR,
   FETCH_YEAR_ERROR,
   FETCH_YEAR_SUCCESS,
+  FETCH_ROUND,
+  FETCH_ROUND_ERROR,
+  FETCH_ROUND_SUCCESS,
 } from "../actionTypes";
 
 export const fetchInstituteType = () => {
@@ -43,6 +46,27 @@ export const fetchYearSuccess = (response) => {
 export const fetchYearError = (errorBody) => {
     return {
         type: FETCH_YEAR_ERROR,
+        errorBody,
+    }
+}
+
+export const fetchRound = (payload) => {
+    return {
+        type: FETCH_ROUND,
+        payload
+    };
+};
+
+export const fetchRoundSuccess = (response) => {
+    return {
+        type: FETCH_ROUND_SUCCESS,
+        response,
+    };
+};
+
+export const fetchRoundError = (errorBody) => {
+    return {
+        type: FETCH_ROUND_ERROR,
         errorBody,
     }
 }

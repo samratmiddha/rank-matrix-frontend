@@ -8,11 +8,13 @@ import { errorToastDuration } from "../../constants/general";
 import {
   fetchInstituteTypeError,
   fetchInstituteTypeSuccess,
+  fetchRoundError,
+  fetchRoundSuccess,
   fetchYearError,
   fetchYearSuccess,
 } from "../actions/form";
 import { showToast } from "../actions/toast";
-import { FETCH_INSTITUTE_TYPE, FETCH_YEAR } from "../actionTypes";
+import { FETCH_INSTITUTE_TYPE, FETCH_ROUND, FETCH_YEAR } from "../actionTypes";
 
 export function* fetchInstituteType() {
   const requestURL = "/soce/api/v1/available_type/";
@@ -38,7 +40,21 @@ export function* fetchYear() {
   }
 }
 
+
+export function* fetchRound(action) {
+  const requestURL = `/soce/api/v1/total_rounds/?year=${action.payload.year}`;
+  try {
+    const response = yield getRequest(requestURL);
+    yield put(fetchRoundSuccess(response));
+  } catch (err) {
+    const errBody = getErrorBody(err);
+    yield put(fetchRoundError(errBody));
+    yield put(showToast(getErrorMessage(errBody), "error", errorToastDuration));
+  }
+}
+
 export const formSaga = [
   takeLatest(FETCH_INSTITUTE_TYPE, fetchInstituteType),
   takeLatest(FETCH_YEAR, fetchYear),
+  takeLatest(FETCH_ROUND, fetchRound),
 ];

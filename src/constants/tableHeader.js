@@ -86,3 +86,41 @@ export const seatMatrixHeader = [
         order: true,
     },
 ]
+
+export const rankHeader = [
+    {
+        id: 'institute_code__name',
+        label: 'Institute Name',
+        order: true,
+    },
+    {
+        id: 'branch_code__branch_name',
+        label: 'Branch Name',
+        order: true,
+    },
+    {
+        id: 'category',
+        label: 'Category',
+        order: false,
+    },
+    {
+        id: 'quota',
+        label: 'Quota',
+        order: false,
+    },
+    {
+        id: 'seat_pool',
+        label: 'Seat Pool',
+        order: false,
+    },
+    {
+        id: 'opening_rank',
+        label: 'Opening Rank',
+        order: true,
+    },
+    {
+        id: 'closing_rank',
+        label: 'Closing Rank',
+        order: true,
+    },
+]

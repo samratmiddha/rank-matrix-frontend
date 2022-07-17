@@ -16,3 +16,10 @@ export const makeSelectSeatMatrix = createSelector(
     return pageState.seatMatrix;
   }
 );
+
+export const makeSelectRankList = createSelector(
+  selectList,
+  (pageState) => {
+    return pageState.rankList;
+  }
+);

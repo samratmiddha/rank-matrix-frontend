@@ -1,29 +1,34 @@
-import extra from "../../images/extra.png";
+import colleges from "../../images/colleges.png";
+import prediction from "../../images/prediction.png";
+import rank from "../../images/rank.png";
+import seats from "../../images/seats.png";
+import testChoices from "../../images/testChoices.png";
+
 
 export const featuresCard = [
   {
     title: "Test Your JoSAA Choices",
-    image: { extra },
+    image: testChoices,
     link: "A",
   },
   {
     title: "SOCE Prediction",
-    image: { extra },
+    image: prediction,
     link: "A",
   },
   {
     title: "Opening and Closing Ranks",
-    image: { extra },
-    link: "A",
+    image: rank,
+    link: "/rank",
   },
   {
     title: "Seat Matrix",
-    image: { extra },
+    image: seats,
     link: "/seat_matrix",
   },
   {
     title: "List of Colleges",
-    image: { extra },
+    image: colleges,
     link: "/colleges_list",
   },
 ];

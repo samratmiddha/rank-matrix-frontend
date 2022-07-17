@@ -12,9 +12,12 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            &.between{
+                justify-content: space-between;
+            }
         }
     }
-    .tab-container{
+    .extra-container{
         margin: 2rem 5rem;
     }
 }

@@ -16,3 +16,10 @@ export const makeSelectYear = createSelector(
         return pageState.year
     }
 )
+
+export const makeSelectRound = createSelector(
+    selectData,
+    (pageState) => {
+        return pageState.rounds
+    }
+)

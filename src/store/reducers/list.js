@@ -6,6 +6,9 @@ import {
   FETCH_SEAT_MATRIX,
   FETCH_SEAT_MATRIX_ERROR,
   FETCH_SEAT_MATRIX_SUCCESS,
+  FETCH_RANK_LIST,
+  FETCH_RANK_LIST_ERROR,
+  FETCH_RANK_LIST_SUCCESS,
 } from "../actionTypes";
 
 export const initialState = {
@@ -17,6 +20,13 @@ export const initialState = {
     search: false,
   },
   seatMatrix: {
+    loading: false,
+    error: false,
+    data: [],
+    total_pages: 0,
+    search: false,
+  },
+  rankList: {
     loading: false,
     error: false,
     data: [],
@@ -63,6 +73,24 @@ const reducer = (state = initialState, action) =>
         draft.seatMatrix.error = true;
         draft.seatMatrix.data = [];
         draft.seatMatrix.search = false;
+        break;
+      case FETCH_RANK_LIST:
+        draft.rankList.loading = true;
+        draft.rankList.error = false;
+        draft.rankList.data = [];
+        break;
+      case FETCH_RANK_LIST_SUCCESS:
+        draft.rankList.loading = false;
+        draft.rankList.error = false;
+        draft.rankList.data = action.response.data.results;
+        draft.rankList.total_pages = action.response.data.total_pages;
+        draft.rankList.search = true;
+        break;
+      case FETCH_RANK_LIST_ERROR:
+        draft.rankList.loading = false;
+        draft.rankList.error = true;
+        draft.rankList.data = [];
+        draft.rankList.search = false;
         break;
       default:
         break;

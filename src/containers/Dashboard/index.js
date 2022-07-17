@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { featuresCard, howToUse } from "./constants";
-import extra from "../../images/extra.png";
 import {
   fetchNewUpdates,
   fetchRecentUpdates,
@@ -84,7 +83,7 @@ const Dashboard = ({
                           component="img"
                           height="160"
                           alt={card.title}
-                          image={extra}
+                          image={card.image}
                         />
                       </Link>
                     </CardActionArea>
