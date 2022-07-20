@@ -89,7 +89,7 @@ const CollegeList = ({
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      {instituteListHeader.map((header) => (
+                      {instituteListHeader.map((header, index) => (
                         <TableCell
                           sortDirection={
                             header.order
@@ -98,6 +98,7 @@ const CollegeList = ({
                                 : false
                               : false
                           }
+                          key={index}
                         >
                           {header.order ? (
                             <TableSortLabel

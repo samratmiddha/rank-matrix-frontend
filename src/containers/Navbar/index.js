@@ -22,11 +22,8 @@ export const Navbar = ({ setHowToUseClick }) => {
         </div>
       </Link>
       <div className="content">
-        <Button onClick={howUseClick} className="element how-to-use">
+        <Button variant="contained"onClick={howUseClick} className="element">
           How to Use
-        </Button>
-        <Button variant="contained" className="element">
-          Contact Us
         </Button>
       </div>
     </div>

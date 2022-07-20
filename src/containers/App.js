@@ -9,15 +9,28 @@ import { useDispatch } from "react-redux";
 import CollegeList from "./Lists/CollegesList";
 import Toast from "./Toast";
 import SeatMatrix from "./Lists/SeatMatrix";
-import { fetchInstituteType, fetchYear } from "../store/actions/form";
+import {
+  fetchCategory,
+  fetchGender,
+  fetchInstituteType,
+  fetchYear,
+} from "../store/actions/form";
 import Ranks from "./Lists/Opening&ClosingRank";
+import Prediction from "./Prediction/All_All";
+import { NotFound } from "./404";
+import TestChoices from "./TestChoice";
 
 export const App = () => {
   const [howToUseClick, setHowToUseClick] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
+    const payload = {
+      choice: "both",
+    }
     dispatch(fetchYear());
-    dispatch(fetchInstituteType())
+    dispatch(fetchInstituteType(payload));
+    dispatch(fetchCategory());
+    dispatch(fetchGender());
   }, []);
 
   return (
@@ -39,6 +52,9 @@ export const App = () => {
             <Route path="/colleges_list" element={<CollegeList />} />
             <Route path="/seat_matrix" element={<SeatMatrix />} />
             <Route path="/rank" element={<Ranks />} />
+            <Route path="/prediction" element={<Prediction />} />
+            <Route path="/choices" element={<TestChoices />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </Router>

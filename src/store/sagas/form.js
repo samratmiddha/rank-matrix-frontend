@@ -4,27 +4,49 @@ import {
   getErrorMessage,
   getRequest,
 } from "../../constants/apis";
-import { errorToastDuration } from "../../constants/general";
+import { toastDuration } from "../../constants/general";
 import {
+  fetchBranchListError,
+  fetchBranchListSuccess,
+  fetchBranchOneOneListError,
+  fetchBranchOneOneListSuccess,
+  fetchCategoryError,
+  fetchCategorySuccess,
+  fetchGenderError,
+  fetchGenderSuccess,
+  fetchInstituteListError,
+  fetchInstituteListSuccess,
   fetchInstituteTypeError,
   fetchInstituteTypeSuccess,
+  fetchQuotaError,
+  fetchQuotaSuccess,
   fetchRoundError,
   fetchRoundSuccess,
   fetchYearError,
   fetchYearSuccess,
 } from "../actions/form";
 import { showToast } from "../actions/toast";
-import { FETCH_INSTITUTE_TYPE, FETCH_ROUND, FETCH_YEAR } from "../actionTypes";
+import {
+  FETCH_BRANCH_FORM_LIST,
+  FETCH_BRANCH_ONE_ONE_LIST,
+  FETCH_CATEGORY,
+  FETCH_GENDER,
+  FETCH_INSTITUTE_FORM_LIST,
+  FETCH_INSTITUTE_TYPE,
+  FETCH_QUOTA,
+  FETCH_ROUND,
+  FETCH_YEAR,
+} from "../actionTypes";
 
-export function* fetchInstituteType() {
-  const requestURL = "/soce/api/v1/available_type/";
+export function* fetchInstituteType(action) {
+  const requestURL = `/soce/api/v1/available_type/?choice=${action.payload.choice}`;
   try {
     const response = yield getRequest(requestURL);
     yield put(fetchInstituteTypeSuccess(response));
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchInstituteTypeError(errBody));
-    yield put(showToast(getErrorMessage(errBody), "error", errorToastDuration));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
   }
 }
 
@@ -36,10 +58,9 @@ export function* fetchYear() {
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchYearError(errBody));
-    yield put(showToast(getErrorMessage(errBody), "error", errorToastDuration));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
   }
 }
-
 
 export function* fetchRound(action) {
   const requestURL = `/soce/api/v1/total_rounds/?year=${action.payload.year}`;
@@ -49,7 +70,79 @@ export function* fetchRound(action) {
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchRoundError(errBody));
-    yield put(showToast(getErrorMessage(errBody), "error", errorToastDuration));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+  }
+}
+
+export function* fetchGender() {
+  const requestURL = "/soce/api/v1/gender/";
+  try {
+    const response = yield getRequest(requestURL);
+    yield put(fetchGenderSuccess(response));
+  } catch (err) {
+    const errBody = getErrorBody(err);
+    yield put(fetchGenderError(errBody));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+  }
+}
+
+export function* fetchCategory() {
+  const requestURL = "/soce/api/v1/category/";
+  try {
+    const response = yield getRequest(requestURL);
+    yield put(fetchCategorySuccess(response));
+  } catch (err) {
+    const errBody = getErrorBody(err);
+    yield put(fetchCategoryError(errBody));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+  }
+}
+
+export function* fetchQuota(action) {
+  const requestURL = `/soce/api/v1/quota/?institute_type=${action.payload.institute_type}`;
+  try {
+    const response = yield getRequest(requestURL);
+    yield put(fetchQuotaSuccess(response));
+  } catch (err) {
+    const errBody = getErrorBody(err);
+    yield put(fetchQuotaError(errBody));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+  }
+}
+
+export function* fetchInstituteList(action) {
+  const requestURL = `/soce/api/v1/institute_list/?institute_type=${action.payload.institute_type}`;
+  try {
+    const response = yield getRequest(requestURL);
+    yield put(fetchInstituteListSuccess(response));
+  } catch (err) {
+    const errBody = getErrorBody(err);
+    yield put(fetchInstituteListError(errBody));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+  }
+}
+
+export function* fetchBranchList(action) {
+  const requestURL = `/soce/api/v1/one_all/branch_list/?institute_type=${action.payload.institute_type}`;
+  try {
+    const response = yield getRequest(requestURL);
+    yield put(fetchBranchListSuccess(response));
+  } catch (err) {
+    const errBody = getErrorBody(err);
+    yield put(fetchBranchListError(errBody));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+  }
+}
+
+export function* fetchBranchOneOneList(action) {
+  const requestURL = `/soce/api/v1/one_one/branch_list/?institute_id=${action.payload.instituteId}`;
+  try {
+    const response = yield getRequest(requestURL);
+    yield put(fetchBranchOneOneListSuccess(response));
+  } catch (err) {
+    const errBody = getErrorBody(err);
+    yield put(fetchBranchOneOneListError(errBody));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
   }
 }
 
@@ -57,4 +150,10 @@ export const formSaga = [
   takeLatest(FETCH_INSTITUTE_TYPE, fetchInstituteType),
   takeLatest(FETCH_YEAR, fetchYear),
   takeLatest(FETCH_ROUND, fetchRound),
+  takeLatest(FETCH_CATEGORY, fetchCategory),
+  takeLatest(FETCH_GENDER, fetchGender),
+  takeLatest(FETCH_QUOTA, fetchQuota),
+  takeLatest(FETCH_INSTITUTE_FORM_LIST, fetchInstituteList),
+  takeLatest(FETCH_BRANCH_FORM_LIST, fetchBranchList),
+  takeLatest(FETCH_BRANCH_ONE_ONE_LIST, fetchBranchOneOneList),
 ];

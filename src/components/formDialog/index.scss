@@ -1,0 +1,38 @@
+.form-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    .form-dialog {
+        flex-basis: 100%;
+        margin: 0.3rem 0;
+        .MuiFilledInput-root {
+          background-color: #fbfcff;
+          border: 2px solid #eff2fa;
+          border-radius: 8px;
+          &::before {
+            display: none;
+          }
+          &:hover {
+            background-color: #fbfcff;
+          }
+        }
+        .Mui-focused {
+          background-color: #fbfcff !important;
+        }
+        .MuiInputLabel-root {
+          color: black;
+          font-family: "Poppins", sans-serif;
+          font-weight: 300;
+        }
+        .Mui-disabled{
+            background-color: #ffffff;
+            color: rgba(0, 0, 0, 0.38);;
+        }
+      }
+}
+
+
+.MuiDialogTitle-root {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500 !important;
+}

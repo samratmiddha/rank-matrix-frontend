@@ -9,12 +9,12 @@ export const featuresCard = [
   {
     title: "Test Your JoSAA Choices",
     image: testChoices,
-    link: "A",
+    link: "/choices",
   },
   {
-    title: "SOCE Prediction",
+    title: "Prediction",
     image: prediction,
-    link: "A",
+    link: "/prediction",
   },
   {
     title: "Opening and Closing Ranks",

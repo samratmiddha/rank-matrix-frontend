@@ -1,23 +1,53 @@
-.list-container{
-    .table-container{
-        margin: 2rem 5rem;
-        position: relative;
-        .MuiTableCell-root{
-            font-family: "Poppins", sans-serif;
-        }
-        .MuiTableCell-head{
-            font-weight: 600;
-        }
-        .filters{
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            &.between{
-                justify-content: space-between;
-            }
-        }
+.list-container {
+  .table-container {
+    margin: 2rem 5rem;
+    position: relative;
+    .MuiTableCell-root {
+      font-family: "Poppins", sans-serif;
+      font-size: 1rem;
     }
-    .extra-container{
-        margin: 2rem 5rem;
+    .MuiTableCell-head {
+      font-weight: 600;
     }
+    .insitute_head {
+      background-color: #f5f8ff;
+    }
+    .filters {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      &.between {
+        justify-content: space-between;
+      }
+      .choice-button {
+        background-color: #ffffff;
+        margin: 1rem 0rem;
+        margin-right: 1rem;
+        &:hover {
+          background-color: rgba(96, 150, 252, 0.04);
+        }
+      }
+    }
+    .prediction {
+      .rank {
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      .green {
+        background-color: #07d507;
+      }
+      .yellow {
+        background-color: yellow;
+      }
+      .orange {
+        background-color: orange;
+      }
+      .red {
+        background-color: red;
+      }
+    }
+  }
+  .extra-container {
+    margin: 2rem 5rem;
+  }
 }

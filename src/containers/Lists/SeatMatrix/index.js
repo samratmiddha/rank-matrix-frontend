@@ -138,7 +138,7 @@ const SeatMatrix = ({
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      {seatMatrixHeader.map((header) => (
+                      {seatMatrixHeader.map((header, index) => (
                         <TableCell
                           sortDirection={
                             header.order
@@ -147,6 +147,7 @@ const SeatMatrix = ({
                                 : false
                               : false
                           }
+                          key = {index}
                         >
                           {header.order ? (
                             <TableSortLabel

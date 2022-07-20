@@ -1,6 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
 import { getErrorBody, getErrorMessage, getRequest } from "../../constants/apis";
-import { errorToastDuration } from "../../constants/general";
+import { toastDuration } from "../../constants/general";
 import {
   fetchNewUpdatesError,
   fetchNewUpdatesSuccess,
@@ -19,7 +19,7 @@ export function* fetchNewUpdates() {
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchNewUpdatesError(errBody));
-    yield put(showToast(getErrorMessage(errBody), 'error', errorToastDuration))
+    yield put(showToast(getErrorMessage(errBody), 'error', toastDuration))
   }
 }
 
@@ -31,7 +31,7 @@ export function* fetchRecentUpdates() {
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchRecentUpdatesError(errBody));
-    yield put(showToast(getErrorMessage(errBody), 'error', errorToastDuration))
+    yield put(showToast(getErrorMessage(errBody), 'error', toastDuration))
   }
 }
 

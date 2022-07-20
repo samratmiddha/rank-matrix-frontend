@@ -4,7 +4,7 @@ import {
   getErrorMessage,
   getRequest,
 } from "../../constants/apis";
-import { errorToastDuration } from "../../constants/general";
+import { toastDuration } from "../../constants/general";
 import {
   fetchInstituteListError,
   fetchInstituteListSuccess,
@@ -34,12 +34,12 @@ export function* fetchInstituteList(action) {
     const response = yield getRequest(requestURL);
     yield put(fetchInstituteListSuccess(response));
     if(response.data.results.length == 0){
-      yield put(showToast("No data found", "warning", errorToastDuration))
+      yield put(showToast("No data found", "warning", toastDuration))
     }
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchInstituteListError(errBody));
-    yield put(showToast(getErrorMessage(errBody), "error", errorToastDuration));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
   }
 }
 
@@ -68,12 +68,12 @@ export function* fetchSeatMatrix(action) {
     const response = yield getRequest(requestURL);
     yield put(fetchSeatMatrixSuccess(response));
     if(response.data.results.length == 0){
-      yield put(showToast("No data found", "warning", errorToastDuration))
+      yield put(showToast("No data found", "warning", toastDuration))
     }
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchSeatMatrixError(errBody));
-    yield put(showToast(getErrorMessage(errBody), "error", errorToastDuration));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
   }
 }
 
@@ -100,12 +100,12 @@ export function* fetchRankList(action) {
     const response = yield getRequest(requestURL);
     yield put(fetchRankListSuccess(response));
     if(response.data.results.length == 0){
-      yield put(showToast("No data found", "warning", errorToastDuration))
+      yield put(showToast("No data found", "warning", toastDuration))
     }
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchRankListError(errBody));
-    yield put(showToast(getErrorMessage(errBody), "error", errorToastDuration));
+    yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
   }
 }
 

@@ -19,7 +19,6 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
-  Tooltip,
 } from "@mui/material";
 import { rankHeader } from "../../../constants/tableHeader";
 import { CustomPagination } from "../../../components/pagination";
@@ -139,12 +138,12 @@ const Ranks = ({
           !rankListObj.error &&
           rankListObj.data.length != 0 && (
             <>
-              <LightTooltip title={`Opening & Closing Ranks for JoSAA ${year} Round ${round}`} color="primary">
+              <LightTooltip title={`JoSAA ${year} Round ${round}`} color="primary">
                 <TableContainer component={Paper}>
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        {rankHeader.map((header) => (
+                        {rankHeader.map((header, index) => (
                           <TableCell
                             sortDirection={
                               header.order
@@ -153,6 +152,7 @@ const Ranks = ({
                                   : false
                                 : false
                             }
+                            key={index}
                           >
                             {header.order ? (
                               <TableSortLabel

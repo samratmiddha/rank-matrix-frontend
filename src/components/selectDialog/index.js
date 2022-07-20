@@ -14,7 +14,7 @@ import "./index.scss";
 import { CircularProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../store/actions/toast";
-import { errorToastDuration } from "../../constants/general";
+import { toastDuration } from "../../constants/general";
 
 export const YearRoundSelect = ({
   buttonText,
@@ -62,7 +62,7 @@ export const YearRoundSelect = ({
         okClick(true);
         setOpen(false);
     }else{
-        dispatch(showToast('Select both institute and round', 'warning', errorToastDuration))
+        dispatch(showToast('Select both institute and round', 'warning', toastDuration))
     }
   };
 
