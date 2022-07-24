@@ -22,7 +22,7 @@ import {
   makeSelectRound,
   makeSelectYear,
 } from "../../store/selectors/form";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import {
   fetchBranchList,
   fetchBranchOneOneList,
@@ -71,6 +71,8 @@ const FormDialog = ({
   setChoice,
   setdataSubmit,
   fetchinstituteTypeDetail,
+  isEditing,
+  showToastComponent,
 }) => {
   const [open, setOpen] = useState(openForm);
   const [year, setyear] = useState(parseInt(localStorage.getItem("year")) || 0);
@@ -91,6 +93,7 @@ const FormDialog = ({
   const [option, setoption] = useState(localStorage.getItem("option") || "");
   const [round, setround] = useState(localStorage.getItem("round") || "");
   const [choice, setchoice] = useState(localStorage.getItem("choice") || "");
+  const [choiceEdit, setchoiceEdit] = useState(localStorage.getItem("choice"));
   const [instituteId, setinstituteId] = useState(
     localStorage.getItem("instituteId") || 0
   );
@@ -99,7 +102,6 @@ const FormDialog = ({
   );
   const [rankLabel, setrankLabel] = useState("Rank");
 
-  const dispatch = useDispatch();
   const location = useLocation();
 
 
@@ -120,6 +122,7 @@ const FormDialog = ({
 
   useEffect(() => {
     setOpen(openForm);
+    console.log(isEditing, 'abcd')
   }, [openForm]);
 
   useEffect(() => {
@@ -185,6 +188,11 @@ const FormDialog = ({
     } else if (selectdata.name == "branch_list") {
       setbranchId(selectdata.value);
     } else if(selectdata.name == "choice_option") {
+      if(isEditing){
+        if(selectdata.value != choiceEdit){
+          showToastComponent("All the choices you filled will be removed", "warning", toastDuration)
+        }
+      }
       setchoice(selectdata.value);
     }
   };
@@ -207,9 +215,7 @@ const FormDialog = ({
       instituteId == 0 ||
       branchId == 0
     ) {
-      dispatch(
-        showToast("Please fill all the details", "warning", toastDuration)
-      );
+        showToastComponent("Please fill all the details", "warning", toastDuration)
     } else {
       if (setInstituteType) {
         setInstituteType(instituteType);
@@ -539,6 +545,7 @@ const mapDispatchToProps = (dispatch) => {
     branchListComponent: (payload) => dispatch(fetchBranchList(payload)),
     branchOneOneListComponent: (payload) =>
       dispatch(fetchBranchOneOneList(payload)),
+    showToastComponent: (message, type, duration) => dispatch(showToast(message, type, duration)),
   };
 };
 

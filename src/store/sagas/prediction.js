@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeEvery, takeLatest } from "redux-saga/effects";
 import {
   getErrorBody,
   getErrorMessage,
@@ -95,9 +95,6 @@ export function* fetchTestChoice(action) {
   try {
     const response = yield getRequest(requestURL);
     yield put(fetchTestChoiceSuccess(response));
-    // if (response.data.keys.length == 0) {
-    //   yield put(showToast("No data found", "warning", toastDuration));
-    // }
   } catch (err) {
     const errBody = getErrorBody(err);
     yield put(fetchTestChoiceError(errBody));
@@ -110,5 +107,5 @@ export const predictionSaga = [
   takeLatest(FETCH_ALL_ONE_PREDICTION, fetchAllOnePrediction),
   takeLatest(FETCH_ONE_ALL_PREDICTION, fetchOneAllPrediction),
   takeLatest(FETCH_ONE_ONE_PREDICTION, fetchOneOnePrediction),
-  takeLatest(FETCH_TEST_CHOICE, fetchTestChoice),
+  takeEvery(FETCH_TEST_CHOICE, fetchTestChoice),
 ];

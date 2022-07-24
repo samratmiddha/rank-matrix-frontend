@@ -153,3 +153,14 @@ export const choicesHeader = [
     label: "Closing Rank",
   },
 ];
+
+export const download_headers = [
+  {label: 'Institute Type', key: 'institute_type'},
+  {label: 'Institute Name', key: 'institute_name'},
+  {label: 'Branch Name', key: 'branch_name'},
+  {label: 'Category', key: 'category'},
+  {label: 'Quota', key: 'quota'},
+  {label: 'Seat Pool', key: 'seat_pool'},
+  {label: 'Opening Rank', key: 'opening_rank'},
+  {label: 'Closing Rank', key: 'closing_rank'},
+]

@@ -10,19 +10,22 @@ import {
   TableRow,
   TableSortLabel,
 } from "@mui/material";
+import DownloadIcon from "@mui/icons-material/Download";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import FormDialog from "../../components/formDialog";
 import { Header } from "../../components/header";
 import {
   AddChoice,
+  fileName,
   TestYourChoice,
   toastDuration,
 } from "../../constants/general";
-import { choicesHeader } from "../../constants/tableHeader";
+import { choicesHeader, download_headers } from "../../constants/tableHeader";
 import { fetchTestChoice } from "../../store/actions/prediction";
 import { showToast } from "../../store/actions/toast";
 import { makeSelectTestChoice } from "../../store/selectors/prediction";
+import { CSVLink } from "react-csv";
 import "../list.scss";
 
 const TestChoices = ({
@@ -41,12 +44,14 @@ const TestChoices = ({
   const [openForm, setopenForm] = useState(false);
   const [dataSubmit, setdataSubmit] = useState(false);
   const [choiceFormOpen, setchoiceFormOpen] = useState(false);
+  const [isEditing, setisEditing] = useState(false);
   const [seatPool, setseatPool] = useState("");
   const [quota, setquota] = useState("");
   const [category, setcategory] = useState("");
   const [choiceDataSubmit, setchoiceDataSubmit] = useState(false);
-  const [enableAdd, setenableAdd] = useState(true);
+  const [disableAdd, setdisableAdd] = useState(true);
   const [testChoices, settestChoices] = useState([]);
+  const [saveTestChoices, setsaveTestChoices] = useState([]);
 
   useEffect(() => {
     setopenForm(true);
@@ -54,14 +59,44 @@ const TestChoices = ({
 
   useEffect(() => {
     if (dataSubmit) {
+      settestChoices([]);
+      if (choice == localStorage.getItem("choice")) {
+        // saveTestChoices.map((obj) => {
+        //   const payload = {
+        //     instituteId: obj.institute_id,
+        //     branchId: obj.branch_id,
+        //     quota: obj.quota,
+        //     category: obj.category,
+        //     seatPool: obj.seat_pool,
+        //     rank,
+        //     cutoff,
+        //     round,
+        //     year,
+        //   };
+        //   testChoiceComponent(payload);
+        // });
+        saveTestChoices.forEach((element) => {
+          const payload = {
+            instituteId: element.institute_id,
+            branchId: element.branch_id,
+            quota: element.quota,
+            category: element.category,
+            seatPool: element.seat_pool,
+            rank,
+            cutoff,
+            round,
+            year,
+          };
+          testChoiceComponent(payload);
+        });
+      }
       localStorage.setItem("cutoff", cutoff);
       localStorage.setItem("rank", rank);
       localStorage.setItem("year", year);
       localStorage.setItem("round", round);
       localStorage.setItem("choice", choice);
-      setenableAdd(false);
+      setdisableAdd(false);
       setdataSubmit(false);
-      settestChoices([]);
     }
   }, [dataSubmit]);
 
@@ -86,6 +121,9 @@ const TestChoices = ({
       localStorage.setItem("quota", quota);
       localStorage.setItem("category", category);
       setchoiceDataSubmit(false);
+      if (isEditing) {
+        setisEditing(false);
+      }
     }
   }, [choiceDataSubmit]);
 
@@ -95,22 +133,33 @@ const TestChoices = ({
         const choice = {
           institute_type: testChoiceObj.data.institute.category,
           institute_name: testChoiceObj.data.institute.name,
-          branch_name: testChoiceObj.data.branch.branch_name,
+          branch_name: testChoiceObj.data.branch.branch_code,
           quota: testChoiceObj.data.quota,
           seat_pool: testChoiceObj.data.seat_pool,
           category: testChoiceObj.data.category,
-          opening_rank: testChoiceObj.data.opening_rank,
-          closing_rank: testChoiceObj.data.closing_rank,
+          opening_rank: testChoiceObj.data.opening_rank || "-",
+          closing_rank: testChoiceObj.data.closing_rank || "-",
           color: testChoiceObj.data.color,
           id: testChoiceObj.data.id,
         };
+        const saveChoice = {
+          institute_id: testChoiceObj.data.institute.id,
+          branch_id: testChoiceObj.data.branch.id,
+          quota: testChoiceObj.data.quota,
+          seat_pool: testChoiceObj.data.seat_pool,
+          category: testChoiceObj.data.category,
+          id: testChoiceObj.data.id,
+        };
         settestChoices((prevChoice) => [...prevChoice, choice]);
+        setsaveTestChoices((prevChoice) => [...prevChoice, saveChoice]);
       } else {
-        showToastComponent(
-          "You have already added this choice",
-          "error",
-          toastDuration
-        );
+        if (!isEditing) {
+          showToastComponent(
+            "You have already added this choice",
+            "error",
+            toastDuration
+          );
+        }
       }
     }
   }, [testChoiceObj]);
@@ -120,7 +169,16 @@ const TestChoices = ({
   };
 
   const editDetailButtonClick = () => {
+    setisEditing(true);
     setopenForm(true);
+  };
+
+  const downloadClick = () => {
+    showToastComponent(
+      "Your choices have been exported",
+      "success",
+      toastDuration
+    );
   };
 
   return (
@@ -136,6 +194,7 @@ const TestChoices = ({
         setRound={setround}
         setChoice={setchoice}
         setdataSubmit={setdataSubmit}
+        isEditing={isEditing}
       />
       <FormDialog
         openForm={choiceFormOpen}
@@ -157,13 +216,22 @@ const TestChoices = ({
               Edit Details
             </Button>
             <Button
-              disabled={enableAdd}
+              disabled={disableAdd}
               onClick={choiceButtonClick}
               className="choice-button"
             >
               Add Your Choice
             </Button>
           </div>
+          <CSVLink
+            data={testChoices}
+            headers={download_headers}
+            filename={fileName}
+            target="_blank"
+            onClick={downloadClick}
+          >
+            <DownloadIcon color="primary" className="choice-button icon" />
+          </CSVLink>
         </div>
         {testChoiceObj.loading ? (
           <CircularProgress />
@@ -188,7 +256,7 @@ const TestChoices = ({
                         className={`${row.color} rank`}
                         key={row.id}
                       >
-                        <TableCell>{index}</TableCell>
+                        <TableCell>{index + 1}</TableCell>
                         <TableCell>{row.institute_type}</TableCell>
                         <TableCell>{row.institute_name}</TableCell>
                         <TableCell>{row.branch_name}</TableCell>

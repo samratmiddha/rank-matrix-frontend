@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import { createTheme } from "@mui/material/styles";
 
 export const websiteName = "GoSOCE";
+export const fileName = `${websiteName}_your_choices`
 
 export const customtheme = createTheme({
   palette: {

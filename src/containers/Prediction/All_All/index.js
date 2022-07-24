@@ -51,7 +51,7 @@ const AllBranchAllCollegePrediction = ({
         quota,
         option,
         year,
-        round: round.split(" ")[1],
+        round,
         rank,
         cutoff,
       };
