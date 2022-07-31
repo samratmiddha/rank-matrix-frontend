@@ -111,8 +111,8 @@ const FormDialog = ({
 	useEffect(() => {
 		if (fetchinstituteTypeDetail) {
 			setchoice(localStorage.getItem("choice"));
-			if (location.pathname == "/choices") {
-				if (choice != "") {
+			if (location.pathname === "/choices") {
+				if (choice !== "") {
 					const payload = {
 						choice,
 					};
@@ -128,7 +128,7 @@ const FormDialog = ({
 	}, [openForm]);
 
 	useEffect(() => {
-		if (year != 0) {
+		if (year !== 0) {
 			const payload = {
 				year,
 			};
@@ -146,7 +146,7 @@ const FormDialog = ({
 	}, [instituteId]);
 
 	useEffect(() => {
-		if (instituteType != "") {
+		if (instituteType !== "") {
 			const payload = {
 				institute_type: instituteType,
 			};
@@ -157,7 +157,7 @@ const FormDialog = ({
 			if (setBranchId) {
 				branchListComponent(payload);
 			}
-			if (instituteType == "IIT") {
+			if (instituteType === "IIT") {
 				setrankLabel("JEE Advance rank");
 			} else {
 				setrankLabel("JEE Mains rank");
@@ -167,31 +167,31 @@ const FormDialog = ({
 
 	const handleChange = (event) => {
 		const selectdata = event.target;
-		if (selectdata.name == "institute_type") {
+		if (selectdata.name === "institute_type") {
 			setinstituteType(selectdata.value);
-		} else if (selectdata.name == "category") {
+		} else if (selectdata.name === "category") {
 			setcategory(selectdata.value);
-		} else if (selectdata.name == "cutoff") {
+		} else if (selectdata.name === "cutoff") {
 			setcutoffVariation(selectdata.value);
-		} else if (selectdata.name == "seatPool") {
+		} else if (selectdata.name === "seatPool") {
 			setseatPool(selectdata.value);
-		} else if (selectdata.name == "quota") {
+		} else if (selectdata.name === "quota") {
 			setquota(selectdata.value);
-		} else if (selectdata.name == "rank") {
+		} else if (selectdata.name === "rank") {
 			setrank(selectdata.value);
-		} else if (selectdata.name == "option") {
+		} else if (selectdata.name === "option") {
 			setoption(selectdata.value);
-		} else if (selectdata.name == "year") {
+		} else if (selectdata.name === "year") {
 			setyear(selectdata.value);
-		} else if (selectdata.name == "round") {
+		} else if (selectdata.name === "round") {
 			setround(selectdata.value);
-		} else if (selectdata.name == "institute_list") {
+		} else if (selectdata.name === "institute_list") {
 			setinstituteId(selectdata.value);
-		} else if (selectdata.name == "branch_list") {
+		} else if (selectdata.name === "branch_list") {
 			setbranchId(selectdata.value);
-		} else if (selectdata.name == "choice_option") {
+		} else if (selectdata.name === "choice_option") {
 			if (isEditing) {
-				if (selectdata.value != choiceEdit) {
+				if (selectdata.value !== choiceEdit) {
 					showToastComponent(
 						"All the choices you filled will be removed",
 						"warning",
@@ -211,56 +211,56 @@ const FormDialog = ({
 	const handleSubmit = () => {
 		let error = 0;
 		if (setInstituteType) {
-			if (instituteType == "") {
+			if (instituteType === "") {
 				error = 1;
 			}
 		}
 		if (setCategory) {
-			if (category == "") {
+			if (category === "") {
 				error = 1;
 			}
 		}
 		if (setSeatPool) {
-			if (seatPool == "") {
+			if (seatPool === "") {
 				error = 1;
 			}
 		}
 		if (setQuota) {
-			if (quota == "") {
+			if (quota === "") {
 				error = 1;
 			}
 		}
 		if (setRank) {
-			if (rank == 0) {
+			if (rank === 0) {
 				error = 1;
 			}
 		}
 		if (setYear) {
-			if (year == 0) {
+			if (year === 0) {
 				error = 1;
 			}
 		}
 		if (setRound) {
-			if (round == "") {
+			if (round === "") {
 				error = 1;
 			}
 		}
 		if (setOption) {
-			if (option == "") {
+			if (option === "") {
 				error = 1;
 			}
 		}
 		if (setInstituteId) {
-			if (instituteId == 0) {
+			if (instituteId === 0) {
 				error = 1;
 			}
 		}
 		if (setBranchId) {
-			if (branchId == 0) {
+			if (branchId === 0) {
 				error = 1;
 			}
 		}
-		if (error != 0) {
+		if (error !== 0) {
 			showToastComponent(
 				"Please fill all the details",
 				"warning",
@@ -322,21 +322,21 @@ const FormDialog = ({
 				<DialogTitle>{predictionData.formTitle}</DialogTitle>
 				<DialogContent className='form-container'>
 					{predictionData.formData.map((form) => {
-						if (form.type != "select") {
+						if (form.type !== "select") {
 							return (
 								<TextField
 									sx={{ maxWidth: "30%" }}
 									className='form-dialog'
-									label={form.title == "Rank" ? rankLabel : form.title}
+									label={form.title === "Rank" ? rankLabel : form.title}
 									variant='filled'
 									type={form.type}
 									name={form.name}
 									onChange={handleChange}
-									defaultValue={form.name == "cutoff" ? cutoffVariation : rank}
+									defaultValue={form.name === "cutoff" ? cutoffVariation : rank}
 								/>
 							);
 						} else {
-							if (form.list == "option") {
+							if (form.list === "option") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -344,7 +344,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={optionsList.length == 0}
+										disabled={optionsList.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={option}
@@ -359,7 +359,7 @@ const FormDialog = ({
 										))}
 									</TextField>
 								);
-							} else if (form.list == "year") {
+							} else if (form.list === "year") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -367,10 +367,10 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={yearList.length == 0}
+										disabled={yearList.length === 0}
 										onChange={handleChange}
 										name={form.name}
-										defaultValue={year == 0 ? null : year}
+										defaultValue={year === 0 ? null : year}
 									>
 										{yearList.map((option) => (
 											<MenuItem key={option} value={option}>
@@ -379,7 +379,7 @@ const FormDialog = ({
 										))}
 									</TextField>
 								);
-							} else if (form.list == "round") {
+							} else if (form.list === "round") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -387,7 +387,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={roundList.data.length == 0}
+										disabled={roundList.data.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={round}
@@ -400,7 +400,7 @@ const FormDialog = ({
 											))}
 									</TextField>
 								);
-							} else if (form.list == "institute_type") {
+							} else if (form.list === "institute_type") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -408,7 +408,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={instituteTypeList.data.length == 0}
+										disabled={instituteTypeList.data.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={instituteType}
@@ -421,7 +421,7 @@ const FormDialog = ({
 											))}
 									</TextField>
 								);
-							} else if (form.list == "seatPool") {
+							} else if (form.list === "seatPool") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -429,7 +429,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={genderList.length == 0}
+										disabled={genderList.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={seatPool}
@@ -442,7 +442,7 @@ const FormDialog = ({
 											))}
 									</TextField>
 								);
-							} else if (form.list == "category") {
+							} else if (form.list === "category") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -450,7 +450,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={categoryList.length == 0}
+										disabled={categoryList.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={category}
@@ -463,7 +463,7 @@ const FormDialog = ({
 											))}
 									</TextField>
 								);
-							} else if (form.list == "quota") {
+							} else if (form.list === "quota") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -471,7 +471,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={quotaList.data.length == 0}
+										disabled={quotaList.data.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={quota}
@@ -484,7 +484,7 @@ const FormDialog = ({
 											))}
 									</TextField>
 								);
-							} else if (form.list == "institute_list") {
+							} else if (form.list === "institute_list") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -492,7 +492,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={instituteList.data.length == 0}
+										disabled={instituteList.data.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={instituteId}
@@ -505,7 +505,7 @@ const FormDialog = ({
 											))}
 									</TextField>
 								);
-							} else if (form.list == "branch_list") {
+							} else if (form.list === "branch_list") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -513,7 +513,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={branchList.data.length == 0}
+										disabled={branchList.data.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={branchId}
@@ -539,7 +539,7 @@ const FormDialog = ({
 											  ))}
 									</TextField>
 								);
-							} else if (form.list == "choice_option") {
+							} else if (form.list === "choice_option") {
 								return (
 									<TextField
 										sx={{ maxWidth: "30%" }}
@@ -547,7 +547,7 @@ const FormDialog = ({
 										label={form.title}
 										variant='filled'
 										select
-										disabled={choicesList.length == 0}
+										disabled={choicesList.length === 0}
 										onChange={handleChange}
 										name={form.name}
 										defaultValue={choice}
