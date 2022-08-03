@@ -11,6 +11,8 @@ import {
 	Link,
 	TableSortLabel,
 	Box,
+	Chip,
+	IconButton,
 } from "@mui/material";
 import { connect } from "react-redux";
 import { Header } from "../../../components/header";
@@ -22,6 +24,7 @@ import { SearchBar } from "../../../components/search";
 import { visuallyHidden } from "@mui/utils";
 import { instituteListHeader } from "../../../constants/tableHeader";
 import "../../list.scss";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 const CollegeList = ({
 	instituteListComponent,
@@ -34,6 +37,7 @@ const CollegeList = ({
 	const [searchWord, setSearchWord] = useState("");
 	const [orderBy, setorderBy] = useState("");
 	const [order, setorder] = useState("asc");
+	const [nirfRankNumber, setnirfRankNumber] = useState(0);
 
 	useEffect(() => {
 		const payload = {
@@ -60,6 +64,14 @@ const CollegeList = ({
 		const isAsc = orderBy === property && order === "asc";
 		setorder(isAsc ? "desc" : "asc");
 		setorderBy(property);
+	};
+
+	const previous_nirf = () => {
+		setnirfRankNumber(nirfRankNumber - 1);
+	};
+
+	const next_nirf = () => {
+		setnirfRankNumber(nirfRankNumber + 1);
 	};
 
 	return (
@@ -99,6 +111,7 @@ const CollegeList = ({
 															: false
 													}
 													key={index}
+													align={header.alignment}
 												>
 													{header.order ? (
 														<TableSortLabel
@@ -107,8 +120,6 @@ const CollegeList = ({
 															onClick={createSortHandler(header.id)}
 														>
 															{header.label}
-															{header.rank >= 0 &&
-																` (${nirfLatestYear - header.rank})`}
 															{orderBy === header.id ? (
 																<Box component='span' sx={visuallyHidden}>
 																	{order === "desc"
@@ -132,13 +143,50 @@ const CollegeList = ({
 												}}
 												key={row.id}
 											>
-												<TableCell>{row.code}</TableCell>
-												<TableCell>{row.name}</TableCell>
-												<TableCell>{row.state}</TableCell>
-												<TableCell>{row.nirf_3}</TableCell>
-												<TableCell>{row.nirf_2}</TableCell>
-												<TableCell>{row.nirf_1}</TableCell>
-												<TableCell>
+												<TableCell align='left'>{row.code}</TableCell>
+												<TableCell align='left'>{row.name}</TableCell>
+												<TableCell align='left'>{row.state}</TableCell>
+												<TableCell align='center' className='nirf_column'>
+													{nirfRankNumber > 0 && (
+														<IconButton onClick={previous_nirf}>
+															<ArrowBackIos />
+														</IconButton>
+													)}
+													<>
+														<div className='nirf_label'>
+															{nirfRankNumber == 0
+																? row.nirf_1 == 10000
+																	? "-"
+																	: row.nirf_1 > 250
+																	? String(row.nirf_1) +
+																	  "-" +
+																	  String(row.nirf_1 + 49)
+																	: row.nirf_1
+																: nirfRankNumber == 1
+																? row.nirf_2 == 10000
+																	? "-"
+																	: row.nirf_2 > 250
+																	? String(row.nirf_2) +
+																	  "-" +
+																	  String(row.nirf_2 + 49)
+																	: row.nirf_2
+																: row.nirf_3 == 10000
+																? "-"
+																: row.nirf_3 > 250
+																? String(row.nirf_3) +
+																  "-" +
+																  String(row.nirf_3 + 49)
+																: row.nirf_3}
+														</div>
+														in {nirfLatestYear - nirfRankNumber}
+													</>
+													{nirfRankNumber < 2 && (
+														<IconButton onClick={next_nirf}>
+															<ArrowForwardIos />
+														</IconButton>
+													)}
+												</TableCell>
+												<TableCell align='left'>
 													<Link href={row.website} target='_blank'>
 														{row.website}
 													</Link>

@@ -132,6 +132,7 @@ const FormDialog = ({
 			const payload = {
 				year,
 			};
+			setRound(localStorage.getItem("round") || "");
 			roundListComponent(payload);
 		}
 	}, [year]);
@@ -213,51 +214,71 @@ const FormDialog = ({
 		if (setInstituteType) {
 			if (instituteType === "") {
 				error = 1;
+			} else {
+				setInstituteType(instituteType);
 			}
 		}
 		if (setCategory) {
 			if (category === "") {
 				error = 1;
+			} else {
+				setCategory(category);
 			}
 		}
 		if (setSeatPool) {
 			if (seatPool === "") {
 				error = 1;
+			} else {
+				setSeatPool(seatPool);
 			}
 		}
 		if (setQuota) {
 			if (quota === "") {
 				error = 1;
+			} else {
+				setQuota(quota);
 			}
 		}
 		if (setRank) {
 			if (rank === 0) {
 				error = 1;
+			} else {
+				setRank(rank);
 			}
 		}
 		if (setYear) {
 			if (year === 0) {
 				error = 1;
+			} else {
+				setYear(year);
 			}
 		}
 		if (setRound) {
 			if (round === "") {
 				error = 1;
+			} else {
+				setRound(round);
 			}
 		}
 		if (setOption) {
 			if (option === "") {
 				error = 1;
+			} else {
+				setOption(option);
 			}
 		}
 		if (setInstituteId) {
 			if (instituteId === 0) {
 				error = 1;
+			} else {
+				setInstituteId(instituteId);
 			}
 		}
 		if (setBranchId) {
 			if (branchId === 0) {
 				error = 1;
+			} else {
+				setBranchId(branchId);
 			}
 		}
 		if (error !== 0) {
@@ -267,44 +288,14 @@ const FormDialog = ({
 				toastDuration
 			);
 		} else {
-			if (setInstituteType) {
-				setInstituteType(instituteType);
-			}
-			if (setCategory) {
-				setCategory(category);
-			}
-			if (setCutoff) {
-				setCutoff(cutoffVariation);
-			}
-			if (setSeatPool) {
-				setSeatPool(seatPool);
-			}
-			if (setQuota) {
-				setQuota(quota);
-			}
-			if (setRank) {
-				setRank(rank);
-			}
-			if (setYear) {
-				setYear(year);
-			}
-			if (setRound) {
-				setRound(round);
-			}
-			if (setOption) {
-				setOption(option);
-			}
-			if (setInstituteId) {
-				setInstituteId(instituteId);
-			}
-			if (setBranchId) {
-				setBranchId(branchId);
-			}
 			if (setChoice) {
 				setChoice(choice);
 			}
 			if (setdataSubmit) {
 				setdataSubmit(true);
+			}
+			if (setCutoff) {
+				setCutoff(cutoffVariation);
 			}
 			handleClose();
 		}
