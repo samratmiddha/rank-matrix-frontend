@@ -1,6 +1,9 @@
 .list-container {
 	.table-container {
-		margin: 2rem 5rem;
+		margin: 2rem 3.5rem;
+		@media (max-width: 800px) {
+			margin: 2rem;
+		}
 		position: relative;
 		.MuiTableCell-root {
 			font-family: "Poppins", sans-serif;
@@ -10,7 +13,7 @@
 			font-weight: 600;
 		}
 		.MuiTableCell-body {
-			&.nirf_column {
+			.nirf_column {
 				display: flex;
 				align-items: center;
 				.nirf_label {
@@ -47,6 +50,24 @@
 				}
 			}
 		}
+		.prediction-table-container {
+			position: relative;
+			max-height: 100vh;
+			// scrollbar-width: 0px;
+			scrollbar-color: #e8efff white;
+
+			.prediction-table-head {
+				position: sticky;
+				z-index: 2;
+				top: 0;
+			}
+			.branch-cell {
+				position: sticky;
+				left: 0;
+				z-index: 1;
+				background-color: white;
+			}
+		}
 		.prediction {
 			.rank {
 				font-size: 1rem;
@@ -68,5 +89,28 @@
 	}
 	.extra-container {
 		margin: 2rem 5rem;
+		@media (max-width: 800px) {
+			margin: 2rem;
+		}
+		@media (max-width: 600px) {
+			.MuiTabs-scrollButtons {
+				display: flex;
+			}
+		}
 	}
+}
+
+div::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: #ffffff;
+}
+div::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: #ffffff;
+	top: 0;
+}
+div::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #e8efff;
 }

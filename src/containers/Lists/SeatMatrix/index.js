@@ -26,10 +26,12 @@ import { makeSelectSeatMatrix } from "../../../store/selectors/list";
 import "../../list.scss";
 import { CustomPagination } from "../../../components/pagination";
 import { seatMatrixHeader } from "../../../constants/tableHeader";
+import { fetchInstituteType } from "../../../store/actions/form";
 
 const SeatMatrix = ({
 	seatMatrixComponent,
 	instituteTypeObj,
+	instituteTypeComponent,
 	seatMatrixObj,
 	yearObj,
 }) => {
@@ -40,6 +42,13 @@ const SeatMatrix = ({
 	const [order, setorder] = useState("asc");
 	const [tabValue, setTabValue] = useState(2021);
 	const [seatMatrixYear, setSeatMatrixYear] = useState([]);
+
+	useEffect(() => {
+		const payload = {
+			choice: "both",
+		};
+		instituteTypeComponent(payload);
+	}, []);
 
 	useEffect(() => {
 		let payload = {
@@ -219,6 +228,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		seatMatrixComponent: (payload) => dispatch(fetchSeatMatrix(payload)),
+		instituteTypeComponent: (payload) => dispatch(fetchInstituteType(payload)),
 	};
 };
 

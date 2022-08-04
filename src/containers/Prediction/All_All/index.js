@@ -137,11 +137,14 @@ const AllBranchAllCollegePrediction = ({
 					predictionObj.data.branches &&
 					predictionObj.data.branches.length !== 0 && (
 						<>
-							<TableContainer component={Paper}>
+							<TableContainer
+								component={Paper}
+								className='prediction-table-container'
+							>
 								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
-									<TableHead>
+									<TableHead className='prediction-table-head'>
 										<TableRow>
-											<TableCell />
+											<TableCell className='insitute_head' />
 											{predictionObj.data.institutes.map((institute) => (
 												<TableCell key={institute.id} className='insitute_head'>
 													{institute.display_code}
@@ -152,7 +155,9 @@ const AllBranchAllCollegePrediction = ({
 									<TableBody>
 										{predictionObj.data.branches.map((branch) => (
 											<TableRow key={branch.id} className='prediction'>
-												<TableCell>{branch.branch_code}</TableCell>
+												<TableCell className='branch-cell'>
+													{branch.branch_code}
+												</TableCell>
 												{predictionObj.data.institutes.map((institute) => (
 													<TableCell
 														align='center'

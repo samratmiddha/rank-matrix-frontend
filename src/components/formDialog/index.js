@@ -132,7 +132,7 @@ const FormDialog = ({
 			const payload = {
 				year,
 			};
-			setRound(localStorage.getItem("round") || "");
+			setround(localStorage.getItem("round") || "");
 			roundListComponent(payload);
 		}
 	}, [year]);

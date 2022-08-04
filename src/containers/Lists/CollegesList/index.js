@@ -11,7 +11,6 @@ import {
 	Link,
 	TableSortLabel,
 	Box,
-	Chip,
 	IconButton,
 } from "@mui/material";
 import { connect } from "react-redux";
@@ -25,10 +24,12 @@ import { visuallyHidden } from "@mui/utils";
 import { instituteListHeader } from "../../../constants/tableHeader";
 import "../../list.scss";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { fetchInstituteType } from "../../../store/actions/form";
 
 const CollegeList = ({
 	instituteListComponent,
 	instituteTypeObj,
+	instituteTypeComponent,
 	instituteListObj,
 }) => {
 	const [institute, setInstitute] = useState("IIT");
@@ -41,11 +42,19 @@ const CollegeList = ({
 
 	useEffect(() => {
 		const payload = {
+			choice: "both",
+		};
+		instituteTypeComponent(payload);
+	}, []);
+
+	useEffect(() => {
+		const payload = {
 			instituteType: institute,
 			page,
 			search: searchWord,
 			orderField: orderBy,
 			orderType: order,
+			typeList: "IIT,NIT,IIIT",
 		};
 		instituteListComponent(payload);
 	}, [institute, page, searchWord, orderBy, order]);
@@ -147,44 +156,46 @@ const CollegeList = ({
 												<TableCell align='left'>{row.name}</TableCell>
 												<TableCell align='left'>{row.state}</TableCell>
 												<TableCell align='center' className='nirf_column'>
-													{nirfRankNumber > 0 && (
-														<IconButton onClick={previous_nirf}>
-															<ArrowBackIos />
-														</IconButton>
-													)}
-													<>
-														<div className='nirf_label'>
-															{nirfRankNumber == 0
-																? row.nirf_1 == 10000
+													<div className='nirf_column'>
+														{nirfRankNumber > 0 && (
+															<IconButton onClick={previous_nirf}>
+																<ArrowBackIos />
+															</IconButton>
+														)}
+														<div className='nirf_column'>
+															<div className='nirf_label'>
+																{nirfRankNumber == 0
+																	? row.nirf_1 == 10000
+																		? "-"
+																		: row.nirf_1 > 250
+																		? String(row.nirf_1) +
+																		  "-" +
+																		  String(row.nirf_1 + 49)
+																		: row.nirf_1
+																	: nirfRankNumber == 1
+																	? row.nirf_2 == 10000
+																		? "-"
+																		: row.nirf_2 > 250
+																		? String(row.nirf_2) +
+																		  "-" +
+																		  String(row.nirf_2 + 49)
+																		: row.nirf_2
+																	: row.nirf_3 == 10000
 																	? "-"
-																	: row.nirf_1 > 250
-																	? String(row.nirf_1) +
+																	: row.nirf_3 > 250
+																	? String(row.nirf_3) +
 																	  "-" +
-																	  String(row.nirf_1 + 49)
-																	: row.nirf_1
-																: nirfRankNumber == 1
-																? row.nirf_2 == 10000
-																	? "-"
-																	: row.nirf_2 > 250
-																	? String(row.nirf_2) +
-																	  "-" +
-																	  String(row.nirf_2 + 49)
-																	: row.nirf_2
-																: row.nirf_3 == 10000
-																? "-"
-																: row.nirf_3 > 250
-																? String(row.nirf_3) +
-																  "-" +
-																  String(row.nirf_3 + 49)
-																: row.nirf_3}
+																	  String(row.nirf_3 + 49)
+																	: row.nirf_3}
+															</div>
+															in {nirfLatestYear - nirfRankNumber}
 														</div>
-														in {nirfLatestYear - nirfRankNumber}
-													</>
-													{nirfRankNumber < 2 && (
-														<IconButton onClick={next_nirf}>
-															<ArrowForwardIos />
-														</IconButton>
-													)}
+														{nirfRankNumber < 2 && (
+															<IconButton onClick={next_nirf}>
+																<ArrowForwardIos />
+															</IconButton>
+														)}
+													</div>
 												</TableCell>
 												<TableCell align='left'>
 													<Link href={row.website} target='_blank'>
@@ -221,6 +232,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		instituteListComponent: (payload) => dispatch(fetchInstituteList(payload)),
+		instituteTypeComponent: (payload) => dispatch(fetchInstituteType(payload)),
 	};
 };
 

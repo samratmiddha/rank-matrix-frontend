@@ -25,11 +25,12 @@ import { CustomPagination } from "../../../components/pagination";
 import { makeSelectRankList } from "../../../store/selectors/list";
 import { fetchRankList } from "../../../store/actions/list";
 import { YearRoundSelect } from "../../../components/selectDialog";
-import { fetchRound } from "../../../store/actions/form";
+import { fetchInstituteType, fetchRound } from "../../../store/actions/form";
 import { LightTooltip } from "../../../constants/general";
 
 const Ranks = ({
 	instituteTypeObj,
+	instituteTypeComponent,
 	rankListObj,
 	rankListComponent,
 	yearObj,
@@ -46,6 +47,13 @@ const Ranks = ({
 	const [changeData, setchangeData] = useState(false);
 	const [year, setyear] = useState();
 	const [round, setround] = useState(6);
+
+	useEffect(() => {
+		const payload = {
+			choice: "both",
+		};
+		instituteTypeComponent(payload);
+	}, []);
 
 	useEffect(() => {
 		if (yearObj.length > 0) {
@@ -232,6 +240,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		rankListComponent: (payload) => dispatch(fetchRankList(payload)),
 		roundListComponent: (payload) => dispatch(fetchRound(payload)),
+		instituteTypeComponent: (payload) => dispatch(fetchInstituteType(payload)),
 	};
 };
 
