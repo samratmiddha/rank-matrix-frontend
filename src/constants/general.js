@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
-
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
 export const websiteName = "GoSOCE";
 export const fileName = `${websiteName}_your_choices`;
 
@@ -31,6 +32,17 @@ export const customtheme = createTheme({
 		},
 	},
 });
+
+export const LightTooltip = styled(({ className, ...props }) => (
+	<Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+	[`& .${tooltipClasses.tooltip}`]: {
+		backgroundColor: "#ffffff",
+		color: "#6096fc",
+		boxShadow: theme.shadows[1],
+		fontSize: 15,
+	},
+}));
 
 export const apiURL = "http://localhost:8000";
 

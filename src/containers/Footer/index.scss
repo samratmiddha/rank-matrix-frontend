@@ -1,0 +1,70 @@
+.footer-container {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #6096fc;
+	font-family: "Poppins";
+	font-size: 0.8rem;
+	color: white;
+	.made-by-img,
+	.copyright {
+		display: flex;
+		align-items: center;
+		margin: 0.3rem 4rem;
+		svg {
+			width: 1.2rem;
+			margin-right: 0.2rem;
+		}
+
+		img {
+			margin: 0 0.2rem;
+		}
+
+		a {
+			margin: 0 0.2rem;
+			text-decoration: none;
+			color: white;
+		}
+	}
+	&.center {
+		justify-content: center;
+	}
+
+	.meet-the-team {
+		margin: 0.3rem 4rem;
+		.team-members {
+			display: flex;
+			align-items: center;
+			.member {
+				display: flex;
+				border-radius: 8px;
+				color: #ffffff;
+				margin: auto 0.5rem;
+				text-decoration: none;
+				&.orange {
+					border-color: #f2711c;
+					background-color: #f2711c;
+				}
+				&.green {
+					border-color: #21ba45;
+					background-color: #21ba45;
+				}
+				.name {
+					padding: 0.3rem;
+					font-family: "Poppins";
+				}
+				.detail {
+					font-family: "Poppins";
+					padding: 0.3rem;
+					background-color: rgba($color: #000000, $alpha: 0.1);
+					border-bottom-right-radius: 8px;
+					border-top-right-radius: 8px;
+				}
+			}
+		}
+	}
+}
