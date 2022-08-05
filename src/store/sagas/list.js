@@ -22,7 +22,7 @@ import {
 
 export function* fetchInstituteList(action) {
 	let requestURL = "";
-	requestURL = `/soce/api/v1/institute/list/?&page=${action.payload.page}${
+	requestURL = `/soce/api/v1/institute/list/?page=${action.payload.page}${
 		action.payload.search.length === 0 ? "" : "&search=" + action.payload.search
 	}${action.payload.typeList ? "&type_list=" + action.payload.typeList : ""}${
 		action.payload.instituteType
@@ -51,10 +51,12 @@ export function* fetchInstituteList(action) {
 
 export function* fetchSeatMatrix(action) {
 	let requestURL = "";
-	requestURL = `/soce/api/v1/seat/list/?institute_type=${
-		action.payload.instituteType
-	}&page=${action.payload.page}${
+	requestURL = `/soce/api/v1/seat/list/?page=${action.payload.page}${
 		action.payload.search.length === 0 ? "" : "&search=" + action.payload.search
+	}${action.payload.typeList ? "&type_list=" + action.payload.typeList : ""}${
+		action.payload.instituteType
+			? "&institute_type=" + action.payload.instituteType
+			: ""
 	}`;
 
 	if (action.payload.orderField) {
@@ -84,10 +86,12 @@ export function* fetchSeatMatrix(action) {
 
 export function* fetchRankList(action) {
 	let requestURL = "";
-	requestURL = `/soce/api/v1/ranks/list/?institute_type=${
-		action.payload.instituteType
-	}&page=${action.payload.page}${
+	requestURL = `/soce/api/v1/ranks/list/?page=${action.payload.page}${
 		action.payload.search.length === 0 ? "" : "&search=" + action.payload.search
+	}${action.payload.typeList ? "&type_list=" + action.payload.typeList : ""}${
+		action.payload.instituteType
+			? "&institute_type=" + action.payload.instituteType
+			: ""
 	}`;
 
 	if (action.payload.orderField) {

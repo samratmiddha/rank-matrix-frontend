@@ -34,6 +34,7 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
+			margin: 0.5rem auto;
 			&.between {
 				justify-content: space-between;
 			}
@@ -92,6 +93,10 @@
 	}
 	.extra-container {
 		margin: 2rem 5rem;
+		.tabs-container {
+			display: flex;
+			justify-content: space-between;
+		}
 		@media (max-width: 800px) {
 			margin: 2rem;
 		}
@@ -99,6 +104,37 @@
 			.MuiTabs-scrollButtons {
 				display: flex;
 			}
+		}
+		.tab {
+			font-family: "Poppins";
+			font-weight: 500;
+			font-size: 0.9rem;
+			color: #8e9cb6;
+			&.increase {
+				position: absolute;
+				right: 0;
+			}
+		}
+		.increase-tab {
+			font-family: "Poppins";
+			font-weight: 500;
+			font-size: 0.9rem;
+			color: #8e9cb6;
+			&:hover {
+				background-color: transparent;
+			}
+			&.selected {
+				color: #002942;
+				border-bottom: 2px solid #002942;
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+		}
+		.Mui-selected {
+			color: #002942;
+		}
+		.MuiTabs-indicator {
+			background-color: #002942;
 		}
 	}
 }

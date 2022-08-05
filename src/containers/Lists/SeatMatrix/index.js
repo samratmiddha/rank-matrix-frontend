@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { visuallyHidden } from "@mui/utils";
 import {
 	Box,
+	Button,
 	CircularProgress,
 	Paper,
 	Tab,
@@ -27,6 +28,7 @@ import "../../list.scss";
 import { CustomPagination } from "../../../components/pagination";
 import { seatMatrixHeader } from "../../../constants/tableHeader";
 import { fetchInstituteType } from "../../../store/actions/form";
+import { ClickableChips } from "../../../components/chips";
 
 const SeatMatrix = ({
 	seatMatrixComponent,
@@ -52,11 +54,11 @@ const SeatMatrix = ({
 
 	useEffect(() => {
 		let payload = {
-			instituteType,
 			page,
 			search: searchWord,
 			orderField: orderBy,
 			orderType: order,
+			typeList: instituteType,
 		};
 		if (tabValue !== "increase") {
 			payload["year"] = tabValue;
@@ -78,12 +80,12 @@ const SeatMatrix = ({
 				}
 			});
 			data.reverse();
-			data.push({
-				id: "increase",
-				label: `Change in seats from year ${yearObj[yearObj.length - 2]} to ${
-					yearObj[yearObj.length - 1]
-				}`,
-			});
+			// data.push({
+			// 	id: "increase",
+			// 	label: `Seats change from ${yearObj[yearObj.length - 2]}-${
+			// 		yearObj[yearObj.length - 1]
+			// 	}`,
+			// });
 			setSeatMatrixYear(data);
 		}
 	}, [yearObj]);
@@ -102,45 +104,70 @@ const SeatMatrix = ({
 		setTabValue(newValue);
 	};
 
+	const handleSeatChange = () => {
+		setTabValue("increase");
+	};
+
 	return (
 		<div className='list-container'>
-			<Header
-				heading={"Seat Matrix"}
-				dropDownList={instituteTypeObj}
-				setValue={setInstituteType}
-			/>
+			<Header heading={"Seat Matrix"} />
 			<div className='extra-container'>
-				<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+				<Box
+					sx={{ borderBottom: 1, borderColor: "divider" }}
+					className='tabs-container'
+				>
 					<Tabs
 						value={tabValue}
 						onChange={handleChange}
-						textColor='black'
-						indicatorColor='secondary'
-						aria-label='basic tabs example'
+						className='tabs'
 						variant='scrollable'
 						scrollButtons='auto'
 					>
 						{seatMatrixYear.map((year) => (
-							<Tab label={year.label} key={year.id} value={year.id} />
+							<Tab
+								label={year.label}
+								className='tab'
+								key={year.id}
+								value={year.id}
+							/>
 						))}
 					</Tabs>
+					<Button
+						className={`increase-tab ${
+							tabValue == "increase" ? "selected" : ""
+						}`}
+						onClick={handleSeatChange}
+					>
+						Seats change from {yearObj[yearObj.length - 2]}-
+						{yearObj[yearObj.length - 1]}
+					</Button>
 				</Box>
 			</div>
 			<div className='table-container'>
-				{seatMatrixObj.search && (
-					<div className='filters'>
+				<div className='filters between'>
+					{!instituteTypeObj.loading && !instituteTypeObj.error ? (
+						<ClickableChips
+							chipList={instituteTypeObj.data}
+							defaultSelected={"IIT"}
+							setChipList={setInstituteType}
+						/>
+					) : (
+						<CircularProgress />
+					)}
+					{seatMatrixObj.search && (
 						<SearchBar
 							labelText={"Search by any keyword"}
 							defaultWord={searchWord}
 							setSearchKey={setSearchWord}
 						/>
-					</div>
-				)}
+					)}
+				</div>
 				{seatMatrixObj.loading ? (
 					<CircularProgress />
 				) : (
 					!seatMatrixObj.error &&
-					seatMatrixObj.data.length !== 0 && (
+					seatMatrixObj.data.length !== 0 &&
+					instituteType != "" && (
 						<>
 							<TableContainer component={Paper}>
 								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
