@@ -26,7 +26,7 @@ import { makeSelectRankList } from "../../../store/selectors/list";
 import { fetchRankList } from "../../../store/actions/list";
 import { YearRoundSelect } from "../../../components/selectDialog";
 import { fetchInstituteType, fetchRound } from "../../../store/actions/form";
-import { LightTooltip } from "../../../constants/general";
+import { ClickableChips } from "../../../components/chips";
 
 const Ranks = ({
 	instituteTypeObj,
@@ -63,7 +63,7 @@ const Ranks = ({
 
 	useEffect(() => {
 		const payload = {
-			instituteType,
+			typeList: instituteType,
 			page,
 			search: searchWord,
 			orderField: orderBy,
@@ -75,7 +75,7 @@ const Ranks = ({
 	useEffect(() => {
 		if (changeData) {
 			const payload = {
-				instituteType,
+				typeList: instituteType,
 				page,
 				search: searchWord,
 				orderField: orderBy,
@@ -112,106 +112,107 @@ const Ranks = ({
 
 	return (
 		<div className='list-container'>
-			<Header
-				heading={"Opening and Closing Rank"}
-				dropDownList={instituteTypeObj}
-				setValue={setInstituteType}
-			/>
+			<Header heading={"Opening and Closing Rank"} />
 			<div className='table-container'>
-				{rankListObj.search && (
-					<div className='filters between'>
-						<YearRoundSelect
-							buttonText='Change Year and Round'
-							formTitle='Select Year and Round'
-							firstSelectLabel='Year'
-							secondSelectLabel='Round'
-							firstSelectList={yearObj}
-							firstSelectOnChange={setchangeYear}
-							firstSelectValue={changeYear}
-							secondSelectList={roundObj}
-							secondSelectOnChange={setchangeRound}
-							secondSelectValue={changeRound}
-							okClick={setchangeData}
-						/>
+				<div className='filters between'>
+					<div className='chips-and-button'>
+						{!instituteTypeObj.loading && !instituteTypeObj.error ? (
+							<ClickableChips
+								chipList={instituteTypeObj.data}
+								defaultSelected={"IIT"}
+								setChipList={setInstituteType}
+							/>
+						) : (
+							<CircularProgress />
+						)}
+						{rankListObj.search && (
+							<YearRoundSelect
+								buttonText='Change Year and Round'
+								formTitle='Select Year and Round'
+								firstSelectLabel='Year'
+								secondSelectLabel='Round'
+								firstSelectList={yearObj}
+								firstSelectOnChange={setchangeYear}
+								firstSelectValue={changeYear}
+								secondSelectList={roundObj}
+								secondSelectOnChange={setchangeRound}
+								secondSelectValue={changeRound}
+								okClick={setchangeData}
+							/>
+						)}
+					</div>
+					{rankListObj.search && (
 						<SearchBar
 							labelText={"Search by any keyword"}
 							defaultWord={searchWord}
 							setSearchKey={setSearchWord}
 						/>
-					</div>
-				)}
+					)}
+				</div>
 				{rankListObj.loading ? (
 					<CircularProgress />
 				) : (
 					!rankListObj.error &&
-					rankListObj.data.length !== 0 && (
+					rankListObj.data.length !== 0 &&
+					instituteType != "" && (
 						<>
-							<LightTooltip
-								title={`JoSAA ${year} Round ${round}`}
-								color='primary'
-							>
-								<TableContainer component={Paper}>
-									<Table sx={{ minWidth: 650 }} aria-label='simple table'>
-										<TableHead>
-											<TableRow>
-												{rankHeader.map((header, index) => (
-													<TableCell
-														sortDirection={
-															header.order
-																? orderBy === header.id
-																	? order
-																	: false
+							<TableContainer component={Paper}>
+								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
+									<TableHead>
+										<TableRow>
+											{rankHeader.map((header, index) => (
+												<TableCell
+													sortDirection={
+														header.order
+															? orderBy === header.id
+																? order
 																: false
-														}
-														key={index}
-													>
-														{header.order ? (
-															<TableSortLabel
-																active={orderBy === header.id}
-																direction={
-																	orderBy === header.id ? order : "asc"
-																}
-																onClick={createSortHandler(header.id)}
-															>
-																{header.label}
-																{orderBy === header.id ? (
-																	<Box component='span' sx={visuallyHidden}>
-																		{order === "desc"
-																			? "sorted descending"
-																			: "sorted ascending"}
-																	</Box>
-																) : null}
-															</TableSortLabel>
-														) : (
-															header.label
-														)}
-													</TableCell>
-												))}
-											</TableRow>
-										</TableHead>
-										<TableBody>
-											{rankListObj.data.map((row) => (
-												<TableRow
-													sx={{
-														"&:last-child td, &:last-child th": { border: 0 },
-													}}
-													key={row.id}
+															: false
+													}
+													key={index}
 												>
-													<TableCell>
-														{row.institute_detail.full_name}
-													</TableCell>
-													<TableCell>{row.branch_detail.full_name}</TableCell>
-													<TableCell>{row.category}</TableCell>
-													<TableCell>{row.quota}</TableCell>
-													<TableCell>{row.seat_pool}</TableCell>
-													<TableCell>{row.opening_rank}</TableCell>
-													<TableCell>{row.closing_rank}</TableCell>
-												</TableRow>
+													{header.order ? (
+														<TableSortLabel
+															active={orderBy === header.id}
+															direction={orderBy === header.id ? order : "asc"}
+															onClick={createSortHandler(header.id)}
+														>
+															{header.label}
+															{orderBy === header.id ? (
+																<Box component='span' sx={visuallyHidden}>
+																	{order === "desc"
+																		? "sorted descending"
+																		: "sorted ascending"}
+																</Box>
+															) : null}
+														</TableSortLabel>
+													) : (
+														header.label
+													)}
+												</TableCell>
 											))}
-										</TableBody>
-									</Table>
-								</TableContainer>
-							</LightTooltip>
+										</TableRow>
+									</TableHead>
+									<TableBody>
+										{rankListObj.data.map((row) => (
+											<TableRow
+												sx={{
+													"&:last-child td, &:last-child th": { border: 0 },
+												}}
+												key={row.id}
+											>
+												<TableCell>{row.institute_detail.full_name}</TableCell>
+												<TableCell>{row.branch_detail.full_name}</TableCell>
+												<TableCell>{row.category}</TableCell>
+												<TableCell>{row.quota}</TableCell>
+												<TableCell>{row.seat_pool}</TableCell>
+												<TableCell>{row.opening_rank}</TableCell>
+												<TableCell>{row.closing_rank}</TableCell>
+											</TableRow>
+										))}
+									</TableBody>
+								</Table>
+							</TableContainer>
 							{rankListObj.total_pages > 1 && (
 								<CustomPagination
 									totalPage={rankListObj.total_pages}

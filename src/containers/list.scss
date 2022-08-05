@@ -50,6 +50,10 @@
 					border-radius: 8px;
 				}
 			}
+			.chips-and-button {
+				display: flex;
+				flex-direction: column;
+			}
 		}
 		.prediction-table-container {
 			position: relative;
