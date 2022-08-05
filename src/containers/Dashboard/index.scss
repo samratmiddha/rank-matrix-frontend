@@ -1,136 +1,77 @@
 .dashboard-container {
-	background-image: url("../../images/dashboard-background.png");
-	padding-bottom: 1rem;
-	background-size: cover;
-	background-repeat: no-repeat;
-	.css-1oqqzyl-MuiContainer-root {
-		.css-96vknt-MuiGrid-root {
-			margin-top: 1.5rem;
-			margin-bottom: 2.7rem;
-			.MuiGrid-item {
-				max-width: 28%;
-				.css-bhp9pd-MuiPaper-root-MuiCard-root {
-					padding: 0.5rem;
-					.css-46bh2p-MuiCardContent-root {
-						padding: 0.5rem;
-						.MuiTypography-root {
-							font-family: "Poppins", sans-serif;
-							font-weight: 600;
-							color: #002942;
-							font-size: 1.2rem;
-							@media (max-width: 900px) {
-								font-size: 1rem;
-							}
-							@media (max-width: 510px) {
-								font-size: 0.8rem;
-							}
-						}
-					}
-					img {
-						border-radius: 12px;
-						width: 100%;
-						max-height: 160px;
-						object-fit: cover;
-					}
-					.MuiCardActionArea-root:hover {
-						color: #f8faff;
-						opacity: 0.7;
-					}
-				}
-			}
-		}
-		@media (max-width: 900px) and (min-width: 600px) {
-			padding: 0.8rem;
-			.css-96vknt-MuiGrid-root {
-				.MuiGrid-item {
-					max-width: 33%;
-					padding-left: 0.5rem;
-				}
-			}
-		}
-	}
-}
-.new-update {
-	position: sticky;
-	top: 0;
-	background: #f8faff;
+	display: flex;
 	align-items: center;
-	box-shadow: inset 4px 0px 19px rgba(0, 60, 173, 0.15);
-	width: 100%;
-	margin: 0;
-	.MuiGrid-item {
-		padding: 0 !important;
-	}
-	.title {
-		z-index: 1;
-		background-color: #2f51a7;
-		color: #ffffff;
-		padding: 1rem 1rem;
-		text-align: center;
-	}
-	.description {
-		z-index: 0;
-		padding: 1rem 0;
-		padding-bottom: 0.5rem;
-	}
-	.progress {
-		text-align: center;
-		padding: 0.5rem;
-	}
-}
-.how-to-use {
-	margin: 3rem;
-	.MuiBox-root {
-		background: #ffffff;
-		box-shadow: 0px 0px 30px 4px rgba(0, 25, 71, 0.05);
+	margin: 2rem 3rem;
+	.updates {
+		max-width: 300px;
+		margin: 0 3rem;
+		background: #f4f6fd;
+		box-shadow: 0px 0px 15px -6px rgba(0, 25, 71, 0.05);
 		border-radius: 12px;
-		padding: 1.5rem;
-		.content {
-			max-height: 655px;
+		padding: 1rem;
+		.MuiTypography-root {
+			font-family: "Poppins", sans-serif;
+			font-size: 1rem;
+			font-weight: 500;
+		}
+		li.MuiTypography-root {
+			font-size: 0.9rem;
+			font-weight: 400;
+		}
+		.recent-updates {
+			max-height: 350px;
 			overflow-y: scroll;
-			-ms-overflow-style: none;
-			scrollbar-width: none;
 			&::-webkit-scrollbar {
 				display: none;
 			}
-			.MuiBox-root {
-				background: #fbfcff;
-				box-shadow: inset 0px 0px 12px rgba(74, 96, 138, 0.12);
-				border-radius: 12px;
-				padding: 0.5rem 1rem;
-				li {
-					margin: 0.5rem 0;
-					font-size: 1rem;
-				}
-			}
 		}
 	}
-	@media (max-width: 1000px) {
-		margin: 1.5rem;
-	}
-	@media (max-width: 800px) {
-		margin: 0.8rem;
-		.MuiContainer-root {
-			padding-left: 0.5rem;
-			padding-right: 0.5rem;
-			.MuiBox-root {
-				padding: 1.5rem 1rem;
-				.content {
-					.MuiBox-root {
-						padding: 0.5rem;
-						ul {
-							padding-left: 1.5rem;
+	.MuiGrid-root {
+		margin-top: 0;
+		margin-bottom: 0;
+		.MuiGrid-item {
+			max-width: 300px;
+			max-height: 300px;
+			.MuiCard-root {
+				padding: 0.5rem;
+				background: #ffffff;
+				box-shadow: 0px 0px 30px 4px rgba(0, 25, 71, 0.05);
+				border-radius: 12px;
+				.MuiCardContent-root {
+					padding: 0.5rem;
+					.MuiTypography-root {
+						font-family: "Poppins", sans-serif;
+						font-weight: 500;
+						color: #002942;
+						font-size: 1rem;
+						@media (max-width: 900px) {
+							font-size: 1rem;
+						}
+						@media (max-width: 510px) {
+							font-size: 0.8rem;
 						}
 					}
 				}
+				img {
+					border-radius: 12px;
+					width: 100%;
+					max-height: 160px;
+					object-fit: cover;
+				}
+				.MuiCardActionArea-root:hover {
+					color: #f8faff;
+					opacity: 0.7;
+				}
 			}
 		}
 	}
-	@media (max-width: 600px) {
-		.MuiGrid-item {
-			padding-top: 1rem;
-			padding-bottom: 1rem;
+	@media (max-width: 900px) and (min-width: 600px) {
+		padding: 0.8rem;
+		.css-96vknt-MuiGrid-root {
+			.MuiGrid-item {
+				max-width: 33%;
+				padding-left: 0.5rem;
+			}
 		}
 	}
-	margin-bottom: 1rem;
 }

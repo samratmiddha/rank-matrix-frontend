@@ -74,16 +74,19 @@
 				font-weight: 500;
 			}
 			.green {
-				background-color: #07d507;
+				background-color: #4bcf6f;
 			}
 			.yellow {
-				background-color: yellow;
+				background-color: #fbbc05;
 			}
 			.orange {
-				background-color: orange;
+				background-color: #f27844;
 			}
 			.red {
-				background-color: red;
+				background-color: #f95656;
+			}
+			.MuiTableCell-root:not(.branch-cell) {
+				border: 1px solid #e1e5f0;
 			}
 		}
 	}

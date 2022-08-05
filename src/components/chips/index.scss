@@ -1,0 +1,13 @@
+.clickable-chip-container {
+	.MuiChip-root {
+		color: #6096fc;
+		border: 1px solid #6096fc;
+		padding: 1rem 0.5rem;
+		border-radius: 135px;
+		background: #d4e3ff;
+
+		&.MuiChip-outlined {
+			background: #ffffff;
+		}
+	}
+}

@@ -1,28 +1,35 @@
 .header-container {
-    background-color: #6096fc;
-    .header-content {
-        display: flex;
-        align-items: center;
-        .MuiTypography-root {
-            width: fit-content;
-            padding: 3rem 0;
-            color: #ffffff;
-            margin-right: 1rem;
-        }
-        .MuiInputBase-root {
-            .MuiSelect-select {
-                height: fit-content;
-                font-family: "Poppins", sans-serif;
-                font-size: 1.2rem;
-            }
+	background-color: #6096fc;
+	.header-content {
+		display: flex;
+		flex-direction: column;
+		.MuiTypography-root {
+			width: fit-content;
+			padding-top: 3rem;
+			color: #ffffff;
+			margin-right: 1rem;
+		}
+		.MuiInputBase-root {
+			.MuiSelect-select {
+				height: fit-content;
+				font-family: "Poppins", sans-serif;
+				font-size: 1.2rem;
+			}
 
-            fieldset{
-                border: none;   
-            }
-        }
-        .MuiCircularProgress-root{
-            width: 10px !important;
-            height: 10px !important;
-        }
-    }
+			fieldset {
+				border: none;
+			}
+		}
+		.label {
+			color: #e2e2e2;
+			font-weight: 500;
+			font-size: 1rem;
+			padding-top: 1rem;
+			padding-bottom: 3rem;
+		}
+		.MuiCircularProgress-root {
+			width: 10px !important;
+			height: 10px !important;
+		}
+	}
 }

@@ -25,6 +25,7 @@ import { instituteListHeader } from "../../../constants/tableHeader";
 import "../../list.scss";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { fetchInstituteType } from "../../../store/actions/form";
+import { ClickableChips } from "../../../components/chips";
 
 const CollegeList = ({
 	instituteListComponent,
@@ -49,12 +50,11 @@ const CollegeList = ({
 
 	useEffect(() => {
 		const payload = {
-			instituteType: institute,
 			page,
 			search: searchWord,
 			orderField: orderBy,
 			orderType: order,
-			typeList: "IIT,NIT,IIIT",
+			typeList: institute,
 		};
 		instituteListComponent(payload);
 	}, [institute, page, searchWord, orderBy, order]);
@@ -85,26 +85,32 @@ const CollegeList = ({
 
 	return (
 		<div className='list-container'>
-			<Header
-				heading={"List of Colleges"}
-				dropDownList={instituteTypeObj}
-				setValue={setInstitute}
-			/>
+			<Header heading={"List of Colleges"} />
 			<div className='table-container'>
-				{instituteListObj.search && (
-					<div className='filters'>
+				<div className='filters between'>
+					{!instituteTypeObj.loading && !instituteTypeObj.error ? (
+						<ClickableChips
+							chipList={instituteTypeObj.data}
+							defaultSelected={"IIT"}
+							setChipList={setInstitute}
+						/>
+					) : (
+						<CircularProgress />
+					)}
+					{instituteListObj.search && (
 						<SearchBar
 							labelText={"Search by any keyword"}
 							defaultWord={searchWord}
 							setSearchKey={setSearchWord}
 						/>
-					</div>
-				)}
+					)}
+				</div>
 				{instituteListObj.loading ? (
 					<CircularProgress />
 				) : (
 					!instituteListObj.error &&
-					instituteListObj.data.length !== 0 && (
+					instituteListObj.data.length !== 0 &&
+					institute != "" && (
 						<>
 							<TableContainer component={Paper}>
 								<Table sx={{ minWidth: 650 }} aria-label='simple table'>

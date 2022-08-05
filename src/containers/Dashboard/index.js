@@ -22,7 +22,6 @@ import {
 	makeSelectNewUpdate,
 	makeSelectRecentUpdate,
 } from "../../store/selectors/dashboard";
-import useOnScreen from "../../constants/hooks";
 import { Link } from "react-router-dom";
 
 const Dashboard = ({
@@ -33,81 +32,95 @@ const Dashboard = ({
 	howToUseClick,
 	setHowToUseClick,
 }) => {
-	const howToUseRef = useRef(null);
-	const featuresRef = useRef(null);
-	const howToUseVisible = useOnScreen(howToUseRef);
-	const featuresVisible = useOnScreen(featuresRef);
-
 	useEffect(() => {
 		newUpdateComponent();
 		recentUpdateComponent();
 	}, []);
 
-	useEffect(() => {
-		if (howToUseVisible || howToUseClick) {
-			window.scrollTo(0, howToUseRef.current.offsetTop);
-			setHowToUseClick(false);
-		}
-	}, [howToUseVisible, howToUseClick]);
-
-	useEffect(() => {
-		if (featuresVisible) {
-			window.scrollTo(0, 0);
-		}
-	}, [featuresVisible]);
-
 	return (
 		<div>
-			<div className='dashboard-container' ref={featuresRef}>
-				<Container>
-					<Box>
-						<Grid
-							container
-							direction='row'
-							justifyContent='center'
-							alignItems='center'
-							spacing={{ xs: 2, md: 3 }}
-							columns={{ xs: 4, sm: 8, md: 12 }}
-						>
-							{featuresCard.map((card, index) => (
-								<Grid item xs={2} sm={4} md={4} key={index}>
-									<Card>
-										<CardContent>
-											<Typography gutterBottom variant='h5' component='div'>
-												{card.title}
+			<Box className='dashboard-container'>
+				<Box className='updates'>
+					{newUpdateObject.loading && recentUpdateObject.loading ? (
+						<CircularProgress />
+					) : (
+						<>
+							{!newUpdateObject.loading && !newUpdateObject.error ? (
+								<>
+									<Typography gutterBottom variant='h5' component='div'>
+										Important Updates
+									</Typography>
+									<ul>
+										{newUpdateObject.data.map((update, index) => (
+											<Typography
+												gutterBottom
+												variant='p'
+												key={index}
+												component='li'
+											>
+												{update.text}
 											</Typography>
-										</CardContent>
-										<CardActionArea>
-											<Link to={card.link}>
-												<CardMedia
-													component='img'
-													alt={card.title}
-													image={card.image}
-												/>
-											</Link>
-										</CardActionArea>
-									</Card>
-								</Grid>
-							))}
-						</Grid>
-					</Box>
-				</Container>
-			</div>
-			<Grid container spacing={2} className='new-update'>
-				<Grid item xs={4} md={3} lg={2}>
-					<div className='title'>New Updates!</div>
-				</Grid>
-				<Grid item xs={8} md={9} lg={10}>
-					{!newUpdateObject.loading && (
-						<div className='description'>
-							{!newUpdateObject.error && newUpdateObject.data.length > 0 && (
-								<marquee>{newUpdateObject.data[0].text}</marquee>
+										))}
+									</ul>
+								</>
+							) : (
+								!newUpdateObject.error && <CircularProgress />
 							)}
-						</div>
+							{!recentUpdateObject.loading && !recentUpdateObject.error ? (
+								<>
+									<Typography gutterBottom variant='h5' component='div'>
+										Recent Updates
+									</Typography>
+									<ul className='recent-updates'>
+										{recentUpdateObject.data.map((update, index) => (
+											<Typography
+												gutterBottom
+												variant='p'
+												key={index}
+												component='li'
+											>
+												{update.text}
+											</Typography>
+										))}
+									</ul>
+								</>
+							) : (
+								!recentUpdateObject.error && <CircularProgress />
+							)}
+						</>
 					)}
+				</Box>
+				<Grid
+					container
+					direction='row'
+					justifyContent='left'
+					spacing={{ xs: 2, md: 3 }}
+					columns={{ xs: 4, sm: 8, md: 12 }}
+				>
+					{featuresCard.map((card, index) => (
+						<Grid item xs={2} sm={4} md={4} key={index}>
+							<Card>
+								<CardContent>
+									<Typography gutterBottom variant='h5' component='div'>
+										{card.title}
+									</Typography>
+								</CardContent>
+								<CardActionArea>
+									<Link to={card.link}>
+										<CardMedia
+											component='img'
+											alt={card.title}
+											image={card.image}
+										/>
+									</Link>
+								</CardActionArea>
+							</Card>
+						</Grid>
+					))}
 				</Grid>
-			</Grid>
-			<div className='how-to-use' ref={howToUseRef}>
+			</Box>
+
+			{/* <div className='how-to-use' ref={howToUseRef}>
 				<Container>
 					<Grid
 						container
@@ -165,7 +178,7 @@ const Dashboard = ({
 						</Grid>
 					</Grid>
 				</Container>
-			</div>
+			</div> */}
 		</div>
 	);
 };

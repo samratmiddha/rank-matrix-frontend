@@ -26,6 +26,11 @@ export const customtheme = createTheme({
 			contrastText: "#000000",
 			light: "#ffffff",
 		},
+		chips: {
+			main: "#D4E3FF",
+			contrastText: "#6096FC",
+			light: "#6096FC",
+		},
 	},
 });
 

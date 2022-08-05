@@ -124,7 +124,7 @@ const FormDialog = ({
 
 	useEffect(() => {
 		setOpen(openForm);
-		console.log(isEditing, "abcd");
+		// console.log(isEditing, "abcd");
 	}, [openForm]);
 
 	useEffect(() => {

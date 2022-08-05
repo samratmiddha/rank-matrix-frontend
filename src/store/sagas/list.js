@@ -22,12 +22,13 @@ import {
 
 export function* fetchInstituteList(action) {
 	let requestURL = "";
-	console.log(action.payload);
-	requestURL = `/soce/api/v1/institute/list/?institute_type=${
-		action.payload.instituteType
-	}&page=${action.payload.page}${
+	requestURL = `/soce/api/v1/institute/list/?&page=${action.payload.page}${
 		action.payload.search.length === 0 ? "" : "&search=" + action.payload.search
-	}${action.payload.typeList ? "&type_list=" + action.payload.typeList : ""}`;
+	}${action.payload.typeList ? "&type_list=" + action.payload.typeList : ""}${
+		action.payload.instituteType
+			? "&institute_type=" + action.payload.instituteType
+			: ""
+	}`;
 
 	if (action.payload.orderField) {
 		requestURL += `&ordering=${action.payload.orderType === "asc" ? "" : "-"}${
