@@ -102,10 +102,11 @@ const AllBranchAllCollegePrediction = ({
 		<div className='list-container'>
 			<Header
 				heading='Prediction'
-				setValue={setpredictionType}
-				normalList={PredictionList}
-				label='Select Prediction Type'
-				defaultValue={predictionType}
+				label={
+					PredictionList.find(
+						(prediction) => prediction.value === predictionType
+					).title
+				}
 			/>
 			<FormDialog
 				openForm={openForm}
@@ -113,6 +114,8 @@ const AllBranchAllCollegePrediction = ({
 				predictionData={PredictionList.find(
 					(prediction) => prediction.value === predictionType
 				)}
+				predictionList={PredictionList}
+				setPredictionType={setpredictionType}
 				setInstituteType={setinstituteType}
 				setCategory={setcategory}
 				setCutoff={setcutoff}
@@ -141,7 +144,7 @@ const AllBranchAllCollegePrediction = ({
 								component={Paper}
 								className='prediction-table-container'
 							>
-								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
+								<Table sx={{ minWidth: 650 }}>
 									<TableHead className='prediction-table-head'>
 										<TableRow>
 											<TableCell className='insitute_head' />

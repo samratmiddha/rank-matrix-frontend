@@ -1,4 +1,5 @@
 import {
+	Button,
 	CircularProgress,
 	Paper,
 	Table,
@@ -66,10 +67,11 @@ const AllBranchOneCollegePrediction = ({
 		<div className='list-container'>
 			<Header
 				heading='Prediction'
-				setValue={setpredictionType}
-				normalList={PredictionList}
-				label='Select Prediction Type'
-				defaultValue={predictionType}
+				label={
+					PredictionList.find(
+						(prediction) => prediction.value === predictionType
+					).title
+				}
 			/>
 			<FormDialog
 				openForm={openForm}
@@ -77,6 +79,8 @@ const AllBranchOneCollegePrediction = ({
 				predictionData={PredictionList.find(
 					(prediction) => prediction.value === predictionType
 				)}
+				predictionList={PredictionList}
+				setPredictionType={setpredictionType}
 				setInstituteType={setinstituteType}
 				setInstituteId={setinstituteId}
 				setCategory={setcategory}
@@ -87,6 +91,11 @@ const AllBranchOneCollegePrediction = ({
 				setdataSubmit={setdataSubmit}
 			/>
 			<div className='table-container'>
+				<div className='filters between'>
+					<Button className='choice-button' onClick={editDetailButtonClick}>
+						Edit Details
+					</Button>
+				</div>
 				{predictionObj.loading ? (
 					<CircularProgress />
 				) : (
@@ -94,11 +103,14 @@ const AllBranchOneCollegePrediction = ({
 					predictionObj.data.branch &&
 					predictionObj.data.branch.length !== 0 && (
 						<>
-							<TableContainer component={Paper}>
-								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
-									<TableHead>
+							<TableContainer
+								component={Paper}
+								className='prediction-table-container'
+							>
+								<Table sx={{ minWidth: 650 }}>
+									<TableHead className='prediction-table-head'>
 										<TableRow>
-											<TableCell />
+											<TableCell className='insitute_head' />
 											{predictionObj.data.keys.map((obj, index) => (
 												<TableCell key={index} className='insitute_head'>
 													{`JoSAA ${obj.split("_")[1]}: ${obj.split("_")[0]}`}
@@ -109,7 +121,9 @@ const AllBranchOneCollegePrediction = ({
 									<TableBody>
 										{predictionObj.data.branch.map((branch) => (
 											<TableRow key={branch.id} className='prediction'>
-												<TableCell>{branch.branch_code}</TableCell>
+												<TableCell className='branch-cell'>
+													{branch.branch_code}
+												</TableCell>
 												{predictionObj.data.round_data.map((obj, index) => (
 													<TableCell
 														align='center'

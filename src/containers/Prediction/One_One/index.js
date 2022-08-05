@@ -70,10 +70,11 @@ const OneBranchOneInstitutesPrediction = ({
 		<div className='list-container'>
 			<Header
 				heading='Prediction'
-				setValue={setpredictionType}
-				normalList={PredictionList}
-				label='Select Prediction Type'
-				defaultValue={predictionType}
+				label={
+					PredictionList.find(
+						(prediction) => prediction.value === predictionType
+					).title
+				}
 			/>
 			<FormDialog
 				openForm={openForm}
@@ -81,6 +82,8 @@ const OneBranchOneInstitutesPrediction = ({
 				predictionData={PredictionList.find(
 					(prediction) => prediction.value === predictionType
 				)}
+				predictionList={PredictionList}
+				setPredictionType={setpredictionType}
 				setInstituteType={setinstituteType}
 				setBranchId={setbranchId}
 				setInstituteId={setinstituteId}
@@ -104,11 +107,14 @@ const OneBranchOneInstitutesPrediction = ({
 					predictionObj.data.keys &&
 					predictionObj.data.keys.length !== 0 && (
 						<>
-							<TableContainer component={Paper}>
-								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
-									<TableHead>
+							<TableContainer
+								component={Paper}
+								className='prediction-table-container'
+							>
+								<Table sx={{ minWidth: 650 }}>
+									<TableHead className='prediction-table-head'>
 										<TableRow>
-											<TableCell />
+											<TableCell className='insitute_head' />
 											{predictionObj.data.keys.map((obj, index) => (
 												<TableCell key={index} className='insitute_head'>
 													{obj}
@@ -119,7 +125,9 @@ const OneBranchOneInstitutesPrediction = ({
 									<TableBody>
 										{predictionObj.data.round_data.map((obj, index) => (
 											<TableRow key={index} className='prediction'>
-												<TableCell>{predictionObj.data.years[index]}</TableCell>
+												<TableCell className='branch-cell'>
+													{predictionObj.data.years[index]}
+												</TableCell>
 												{obj.map((data, dataIndex) => (
 													<TableCell
 														align='center'

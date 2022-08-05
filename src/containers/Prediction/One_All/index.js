@@ -68,10 +68,11 @@ const OneBranchAllInstitutesPrediction = ({
 		<div className='list-container'>
 			<Header
 				heading='Prediction'
-				setValue={setpredictionType}
-				normalList={PredictionList}
-				label='Select Prediction Type'
-				defaultValue={predictionType}
+				label={
+					PredictionList.find(
+						(prediction) => prediction.value === predictionType
+					).title
+				}
 			/>
 			<FormDialog
 				openForm={openForm}
@@ -79,6 +80,8 @@ const OneBranchAllInstitutesPrediction = ({
 				predictionData={PredictionList.find(
 					(prediction) => prediction.value === predictionType
 				)}
+				predictionList={PredictionList}
+				setPredictionType={setpredictionType}
 				setInstituteType={setinstituteType}
 				setBranchId={setbranchId}
 				setCategory={setcategory}
@@ -101,11 +104,14 @@ const OneBranchAllInstitutesPrediction = ({
 					predictionObj.data.institutes &&
 					predictionObj.data.institutes.length !== 0 && (
 						<>
-							<TableContainer component={Paper}>
-								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
-									<TableHead>
+							<TableContainer
+								component={Paper}
+								className='prediction-table-container'
+							>
+								<Table sx={{ minWidth: 650 }}>
+									<TableHead className='prediction-table-head'>
 										<TableRow>
-											<TableCell />
+											<TableCell className='insitute_head' />
 											{predictionObj.data.keys.map((obj, index) => (
 												<TableCell key={index} className='insitute_head'>
 													{`JoSAA ${obj.split("_")[1]}: ${obj.split("_")[0]}`}
@@ -116,7 +122,9 @@ const OneBranchAllInstitutesPrediction = ({
 									<TableBody>
 										{predictionObj.data.institutes.map((institute) => (
 											<TableRow key={institute.id} className='prediction'>
-												<TableCell>{institute.name}</TableCell>
+												<TableCell className='branch-cell'>
+													{institute.name}
+												</TableCell>
 												{predictionObj.data.round_data.map((obj, index) => (
 													<TableCell
 														align='center'

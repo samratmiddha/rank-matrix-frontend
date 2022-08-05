@@ -8,6 +8,7 @@ import {
 	TextField,
 	Slide,
 	MenuItem,
+	Select,
 } from "@mui/material";
 import "./index.scss";
 import {
@@ -53,6 +54,8 @@ const FormDialog = ({
 	instituteTypeComponent,
 	instituteListComponent,
 	instituteList,
+	predictionList,
+	setPredictionType,
 	branchListComponent,
 	branchList,
 	branchOneOneListComponent,
@@ -124,7 +127,6 @@ const FormDialog = ({
 
 	useEffect(() => {
 		setOpen(openForm);
-		// console.log(isEditing, "abcd");
 	}, [openForm]);
 
 	useEffect(() => {
@@ -301,16 +303,40 @@ const FormDialog = ({
 		}
 	};
 
+	const handlePredictionType = (event) => {
+		setPredictionType(event.target.value);
+	};
+
 	return (
-		<div className='form-dialog-container'>
+		<div>
 			<Dialog
 				open={open}
 				onClose={handleClose}
 				TransitionComponent={Transition}
 				fullWidth
 				maxWidth='lg'
+				className='form-dialog-container'
 			>
-				<DialogTitle>{predictionData.formTitle}</DialogTitle>
+				<DialogTitle className='form-title'>
+					{predictionList ? (
+						<>
+							Details for{" "}
+							<Select
+								value={predictionData.value}
+								onChange={handlePredictionType}
+								className='prediction-type'
+							>
+								{predictionList.map((item, index) => (
+									<MenuItem value={item.value} key={index}>
+										{item.title}
+									</MenuItem>
+								))}
+							</Select>
+						</>
+					) : (
+						predictionData.formTitle
+					)}
+				</DialogTitle>
 				<DialogContent className='form-container'>
 					{predictionData.formData.map((form) => {
 						if (form.type !== "select") {

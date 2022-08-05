@@ -170,7 +170,7 @@ const SeatMatrix = ({
 					instituteType != "" && (
 						<>
 							<TableContainer component={Paper}>
-								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
+								<Table sx={{ minWidth: 650 }}>
 									<TableHead>
 										<TableRow>
 											{seatMatrixHeader.map((header, index) => (

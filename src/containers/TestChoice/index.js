@@ -218,7 +218,7 @@ const TestChoices = ({
 						<Button
 							disabled={disableAdd}
 							onClick={choiceButtonClick}
-							className='choice-button'
+							className='choice-button add-choice'
 						>
 							Add Your Choice
 						</Button>
@@ -239,7 +239,7 @@ const TestChoices = ({
 					testChoices.length !== 0 && (
 						<>
 							<TableContainer component={Paper}>
-								<Table sx={{ minWidth: 650 }} aria-label='simple table'>
+								<Table sx={{ minWidth: 650 }}>
 									<TableHead>
 										<TableRow>
 											{choicesHeader.map((header, index) => (

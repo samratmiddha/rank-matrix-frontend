@@ -3,7 +3,7 @@
 	.header-content {
 		display: flex;
 		flex-direction: column;
-		margin: auto 3.5rem;
+		margin: auto 4rem;
 		@media (max-width: 800px) {
 			margin: 2rem;
 		}
@@ -12,6 +12,7 @@
 			padding-top: 3rem;
 			color: #ffffff;
 			margin-right: 1rem;
+			font-family: "Poppins", sans-serif;
 		}
 		.MuiInputBase-root {
 			.MuiSelect-select {

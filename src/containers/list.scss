@@ -1,6 +1,7 @@
 .list-container {
+	margin-bottom: 4rem;
 	.table-container {
-		margin: 2rem 3.5rem;
+		margin: 2rem 4rem;
 		@media (max-width: 800px) {
 			margin: 2rem;
 		}
@@ -39,7 +40,13 @@
 				justify-content: space-between;
 			}
 			.choice-button {
-				background-color: #ffffff;
+				background: #f0f4fb;
+				border-radius: 8px;
+				padding: 0.5rem 1rem;
+				color: #6096fc;
+				width: fit-content;
+				font-family: "Poppins";
+				font-weight: 400;
 				margin: 1rem 0rem;
 				margin-right: 1rem;
 				&:hover {
@@ -48,6 +55,12 @@
 				&.icon {
 					padding: 0.2rem 0.5rem;
 					border-radius: 8px;
+					font-size: 2.2rem;
+					background-color: transparent;
+				}
+				&.add-choice {
+					background: #6096fc;
+					color: white;
 				}
 			}
 			.chips-and-button {
@@ -57,10 +70,8 @@
 		}
 		.prediction-table-container {
 			position: relative;
-			max-height: 100vh;
-			// scrollbar-width: 0px;
+			max-height: 90vh;
 			scrollbar-color: #e8efff white;
-
 			.prediction-table-head {
 				position: sticky;
 				z-index: 2;
