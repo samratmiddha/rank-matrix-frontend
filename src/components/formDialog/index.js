@@ -9,6 +9,7 @@ import {
 	Slide,
 	MenuItem,
 	Select,
+	Divider,
 } from "@mui/material";
 import "./index.scss";
 import {
@@ -337,6 +338,7 @@ const FormDialog = ({
 						predictionData.formTitle
 					)}
 				</DialogTitle>
+				<Divider />
 				<DialogContent className='form-container'>
 					{predictionData.formData.map((form) => {
 						if (form.type !== "select") {

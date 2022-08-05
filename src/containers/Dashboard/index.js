@@ -119,66 +119,6 @@ const Dashboard = ({
 					))}
 				</Grid>
 			</Box>
-
-			{/* <div className='how-to-use' ref={howToUseRef}>
-				<Container>
-					<Grid
-						container
-						columnSpacing={{ xs: 4, md: 8 }}
-						columns={{ xs: 4, sm: 12, md: 12 }}
-					>
-						<Grid item xs={4} sm={7} md={7}>
-							<Box>
-								<Typography gutterBottom variant='h5' component='div'>
-									How to Use
-								</Typography>
-								<div className='content'>
-									<Box>
-										<ul>
-											{howToUse.map((step, index) => (
-												<>
-													<li key={index}>{step.rule}</li>
-													{step.ruleDescription.length > 0 && (
-														<ul>
-															{step.ruleDescription.map((substep, subindex) => (
-																<li key={subindex}>{substep.rule}</li>
-															))}
-														</ul>
-													)}
-												</>
-											))}
-										</ul>
-									</Box>
-								</div>
-							</Box>
-						</Grid>
-						<Grid item xs={4} sm={5} md={5}>
-							<Box>
-								<Typography gutterBottom variant='h5' component='div'>
-									Recent Updates
-								</Typography>
-								<div className='content'>
-									<Box>
-										{recentUpdateObject.loading ? (
-											<CircularProgress />
-										) : !recentUpdateObject.error ? (
-											recentUpdateObject.data.length > 0 && (
-												<ul>
-													{recentUpdateObject.data.map((update, index) => (
-														<li key={index}>{update.text}</li>
-													))}
-												</ul>
-											)
-										) : (
-											<></>
-										)}
-									</Box>
-								</div>
-							</Box>
-						</Grid>
-					</Grid>
-				</Container>
-			</div> */}
 		</div>
 	);
 };

@@ -10,6 +10,8 @@
 	font-family: "Poppins";
 	font-size: 0.8rem;
 	color: white;
+	margin-top: 2rem;
+	z-index: 3;
 	.made-by-img,
 	.copyright {
 		display: flex;
@@ -64,6 +66,35 @@
 					border-bottom-right-radius: 8px;
 					border-top-right-radius: 8px;
 				}
+			}
+		}
+	}
+}
+
+@media (max-width: 660px) {
+	.footer-container {
+		.copyright,
+		.made-by-img {
+			margin: 0.3rem 2rem;
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.footer-container {
+		justify-content: center;
+		.meet-the-team {
+			display: none;
+		}
+		.made-by-img {
+			display: none;
+		}
+		.copyright {
+			svg {
+				display: none;
+			}
+			.year {
+				display: none;
 			}
 		}
 	}

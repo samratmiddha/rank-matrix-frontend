@@ -19,16 +19,41 @@
 				border: none;
 			}
 		}
+		@media (max-width: 500px) {
+			padding: 1rem;
+			font-size: 1rem;
+			flex-direction: column;
+			align-items: flex-start;
+			padding-bottom: 0.5rem;
+			.prediction-type {
+				margin-left: 0;
+				width: 100%;
+				.MuiSelect-select {
+					font-size: 1rem;
+				}
+			}
+		}
+	}
+}
+hr {
+	display: none;
+	@media (max-width: 500px) {
+		display: block;
 	}
 }
 .form-container {
 	display: flex;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
-	margin: auto 1rem;
+	margin: 1rem;
+	padding: 0 0.5rem !important;
 	.form-dialog {
 		flex-basis: 100%;
-		margin: 0.3rem 0;
+		margin: 0.3rem 0.2rem;
+		min-width: 12rem;
+		@media (max-width: 520px) {
+			min-width: 90%;
+		}
 		.MuiInputBase-root {
 			max-height: 3.2rem;
 		}
@@ -61,5 +86,4 @@
 
 .MuiDialogTitle-root {
 	font-family: "Poppins", sans-serif !important;
-	// font-weight: 500 !important;
 }

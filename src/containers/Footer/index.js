@@ -29,8 +29,8 @@ export const Footer = () => {
 		>
 			{!meetTeamVisible && (
 				<div className='copyright'>
-					<Copyright />
-					2022
+					<Copyright className='icon' />
+					<div className='year'>2022</div>
 					<a href='https://channeli.in/maintainer_site/'>
 						Information Management Group
 					</a>

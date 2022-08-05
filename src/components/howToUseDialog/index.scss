@@ -1,0 +1,22 @@
+.how-to-use {
+	.MuiDialogTitle-root {
+		// font-family: "Poppins";
+		color: #002942;
+		font-size: 1.5rem;
+	}
+	.MuiDialogContent-root {
+		background: #fbfcff;
+		border-radius: 12px;
+		padding: 0;
+		margin: 1rem 2rem;
+		ul {
+			margin: 0;
+		}
+		li {
+			font-weight: 400;
+			font-size: 1rem;
+			line-height: 2rem;
+			color: #002942;
+		}
+	}
+}

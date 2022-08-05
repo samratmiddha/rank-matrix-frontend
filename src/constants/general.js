@@ -4,6 +4,35 @@ import { styled } from "@mui/material/styles";
 export const websiteName = "GoSOCE";
 export const fileName = `${websiteName}_your_choices`;
 
+export const howToUse = [
+	{
+		rule: "For prediction based on previous years' opening as well as closing rank click 'SOCE Prediction' and then 'Default Prediction'.",
+	},
+	{
+		rule: "Fill all the desired details and click 'Submit'",
+	},
+	{
+		rule: "Click 'Click to Get Prediction' on next page",
+	},
+	{
+		rule: "Now it will highlight all previous years' cutoff in different colour. Your prediction based on colour coding is as follows:",
+		ruleDescription: [
+			{
+				rule: "Very High probability for getting the branch/ college highlighted in GREEN colour even in case cut-off of current year is decreases from the previous year's cut-off by % figure filled by you under 'Variation in CutOff Percentage(%)'",
+			},
+			{
+				rule: "Very Low probability for getting the branch/ college highlighted in RED colour as your rank is higher than the cut-off of previous year by % figure filled by you under 'Variation in CutOff Percentage(%)'",
+			},
+			{
+				rule: "Probable to get the branch/ college highlighted in ORANGE colour in case cut-off of current year increases from the previous year's cut-off by % figure filled by you under 'Variation in CutOff Percentage(%)'",
+			},
+			{
+				rule: "Probable to get the branch/ college highlighted in YELLOW colour even in case cut-off of current year decreases from the previous year's cut-off by % figure filled by you under 'Variation in CutOff Percentage(%)'",
+			},
+		],
+	},
+];
+
 export const customtheme = createTheme({
 	palette: {
 		primary: {
@@ -29,6 +58,15 @@ export const customtheme = createTheme({
 			main: "#D4E3FF",
 			contrastText: "#6096FC",
 			light: "#6096FC",
+		},
+	},
+	breakpoints: {
+		values: {
+			xs: 450,
+			sm: 600,
+			md: 1000,
+			lg: 1200,
+			xl: 1536,
 		},
 	},
 });

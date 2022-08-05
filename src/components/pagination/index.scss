@@ -1,16 +1,19 @@
-.custom-pagination-container{
-    .MuiPagination-ul{
-        justify-content: flex-end;
-        padding: 1.1rem;
-        .MuiPaginationItem-root, .MuiPaginationItem-icon{
-            font-size: 1.2rem;
-            font-family: "Poppins", sans-serif;            
-        }    
-        
-    }
-    .css-17zad2a-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
-        border: 1px solid rgba(96, 150, 252, 0.5);
-        background-color: rgba(96, 150, 252, 1);
-        color: white;
-    }
+.custom-pagination-container {
+	.MuiPagination-ul {
+		justify-content: flex-end;
+		padding: 1.1rem;
+		@media (max-width: 600px) {
+			justify-content: center;
+		}
+		.MuiPaginationItem-root,
+		.MuiPaginationItem-icon {
+			font-size: 1.2rem;
+			font-family: "Poppins", sans-serif;
+		}
+	}
+	.css-17zad2a-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+		border: 1px solid rgba(96, 150, 252, 0.5);
+		background-color: rgba(96, 150, 252, 1);
+		color: white;
+	}
 }

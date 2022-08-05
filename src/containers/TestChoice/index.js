@@ -210,7 +210,7 @@ const TestChoices = ({
 				fetchinstituteTypeDetail={choiceFormOpen}
 			/>
 			<div className='table-container'>
-				<div className='filters between'>
+				<div className='filters between choices'>
 					<div>
 						<Button className='choice-button' onClick={editDetailButtonClick}>
 							Edit Details

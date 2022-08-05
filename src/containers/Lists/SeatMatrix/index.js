@@ -80,12 +80,12 @@ const SeatMatrix = ({
 				}
 			});
 			data.reverse();
-			// data.push({
-			// 	id: "increase",
-			// 	label: `Seats change from ${yearObj[yearObj.length - 2]}-${
-			// 		yearObj[yearObj.length - 1]
-			// 	}`,
-			// });
+			data.push({
+				id: "increase",
+				label: `Seats change from ${yearObj[yearObj.length - 2]}-${
+					yearObj[yearObj.length - 1]
+				}`,
+			});
 			setSeatMatrixYear(data);
 		}
 	}, [yearObj]);
@@ -126,14 +126,14 @@ const SeatMatrix = ({
 						{seatMatrixYear.map((year) => (
 							<Tab
 								label={year.label}
-								className='tab'
+								className={`tab ${year.id == "increase" && "increase-tab"}`}
 								key={year.id}
 								value={year.id}
 							/>
 						))}
 					</Tabs>
 					<Button
-						className={`increase-tab ${
+						className={`increase-tab-button ${
 							tabValue == "increase" ? "selected" : ""
 						}`}
 						onClick={handleSeatChange}
