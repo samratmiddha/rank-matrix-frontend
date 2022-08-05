@@ -116,15 +116,6 @@ const Ranks = ({
 			<div className='table-container'>
 				<div className='filters between'>
 					<div className='chips-and-button'>
-						{!instituteTypeObj.loading && !instituteTypeObj.error ? (
-							<ClickableChips
-								chipList={instituteTypeObj.data}
-								defaultSelected={"IIT"}
-								setChipList={setInstituteType}
-							/>
-						) : (
-							<CircularProgress />
-						)}
 						{rankListObj.search && (
 							<YearRoundSelect
 								buttonText='Change Year and Round'
@@ -139,6 +130,15 @@ const Ranks = ({
 								secondSelectValue={changeRound}
 								okClick={setchangeData}
 							/>
+						)}
+						{!instituteTypeObj.loading && !instituteTypeObj.error ? (
+							<ClickableChips
+								chipList={instituteTypeObj.data}
+								defaultSelected={"IIT"}
+								setChipList={setInstituteType}
+							/>
+						) : (
+							<CircularProgress />
 						)}
 					</div>
 					{rankListObj.search && (

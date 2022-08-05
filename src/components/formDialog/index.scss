@@ -4,6 +4,7 @@
 		align-items: center;
 		color: #002942;
 		font-weight: 600;
+		margin: 0.5rem;
 		.prediction-type {
 			background: #fbfcff;
 			border: 2px solid #eff2fa;
@@ -43,9 +44,9 @@ hr {
 }
 .form-container {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: flex-start;
 	flex-wrap: wrap;
-	margin: 1rem;
+	margin: 0.5rem 1rem;
 	padding: 0 0.5rem !important;
 	.form-dialog {
 		flex-basis: 100%;

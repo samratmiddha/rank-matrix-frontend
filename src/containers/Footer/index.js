@@ -52,7 +52,11 @@ export const Footer = () => {
 								<div className='name'>Divyansh Agarwal</div>
 								<div className='detail'>Developer</div>
 							</Link>
-							<Link href='#' className='member green' target='_blank'>
+							<Link
+								href='https://stellar-leaf-e68.notion.site/Hey-I-m-Nikhil-Nagar-ac040ddcee684e049f305054ce759ce2'
+								className='member green'
+								target='_blank'
+							>
 								<div className='name'>Nikhil Nagar</div>
 								<div className='detail'>Designer</div>
 							</Link>
