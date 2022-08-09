@@ -45,12 +45,15 @@ const Dashboard = ({
 						<CircularProgress />
 					) : (
 						<>
-							{!newUpdateObject.loading && !newUpdateObject.error ? (
+							{!recentUpdateObject.loading &&
+							!recentUpdateObject.error &&
+							!newUpdateObject.loading &&
+							!newUpdateObject.error ? (
 								<>
 									<Typography gutterBottom variant='h5' component='div'>
-										Important Updates
+										Recent Updates
 									</Typography>
-									<ul>
+									<ul className='recent-updates'>
 										{newUpdateObject.data.map((update, index) => (
 											<Typography
 												gutterBottom
@@ -61,17 +64,6 @@ const Dashboard = ({
 												{update.text}
 											</Typography>
 										))}
-									</ul>
-								</>
-							) : (
-								!newUpdateObject.error && <CircularProgress />
-							)}
-							{!recentUpdateObject.loading && !recentUpdateObject.error ? (
-								<>
-									<Typography gutterBottom variant='h5' component='div'>
-										Recent Updates
-									</Typography>
-									<ul className='recent-updates'>
 										{recentUpdateObject.data.map((update, index) => (
 											<Typography
 												gutterBottom

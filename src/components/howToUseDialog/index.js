@@ -28,11 +28,30 @@ export const HowToUse = ({ openDialog, setOpenDialog }) => {
 					<ul>
 						{howToUse.map((item, i) => (
 							<li key={i}>
-								{item.rule}
+								<>
+									Select <strong>{item.option}</strong> {item.rule}
+								</>
 								{item.ruleDescription && (
 									<ul>
 										{item.ruleDescription.map((rule, j) => (
-											<li key={j}>{rule.rule}</li>
+											<li key={j}>
+												{!rule.color ? (
+													<>
+														Select <strong>{rule.option}</strong> {rule.rule}
+													</>
+												) : (
+													<>
+														{rule.rule}{" "}
+														<span
+															className='color-code'
+															style={{ backgroundColor: rule.code }}
+														>
+															{rule.color}
+														</span>{" "}
+														{rule.explanation}
+													</>
+												)}
+											</li>
 										))}
 									</ul>
 								)}

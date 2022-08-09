@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import FormDialog from "../../../components/formDialog";
 import { Header } from "../../../components/header";
+import { TableInfo } from "../../../components/tableHeader";
 import { PredictionList } from "../../../constants/general";
 import { fetchOneOnePrediction } from "../../../store/actions/prediction";
 import { makeSelectOneOnePrediction } from "../../../store/selectors/prediction";
@@ -99,6 +100,14 @@ const OneBranchOneInstitutesPrediction = ({
 					<Button className='choice-button' onClick={editDetailButtonClick}>
 						Edit Details
 					</Button>
+					{!predictionObj.error &&
+						predictionObj.data.keys &&
+						predictionObj.data.keys.length !== 0 && (
+							<div className='heading'>
+								<TableInfo heading={predictionObj.data.institute.name} />
+								<TableInfo heading={predictionObj.data.branch.branch_code} />
+							</div>
+						)}
 				</div>
 				{predictionObj.loading ? (
 					<CircularProgress />
@@ -111,6 +120,7 @@ const OneBranchOneInstitutesPrediction = ({
 								component={Paper}
 								className='prediction-table-container'
 							>
+								{console.log(predictionObj)}
 								<Table sx={{ minWidth: 650 }}>
 									<TableHead className='prediction-table-head'>
 										<TableRow>

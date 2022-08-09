@@ -6,19 +6,9 @@ import testChoices from "../../images/testChoices.svg";
 
 export const featuresCard = [
 	{
-		title: "Test Your JoSAA Choices",
-		image: testChoices,
-		link: "/choices",
-	},
-	{
-		title: "Prediction",
-		image: prediction,
-		link: "/prediction",
-	},
-	{
-		title: "Opening and Closing Ranks",
-		image: rank,
-		link: "/rank",
+		title: "Participating Colleges",
+		image: colleges,
+		link: "/colleges_list",
 	},
 	{
 		title: "Seat Matrix",
@@ -26,8 +16,18 @@ export const featuresCard = [
 		link: "/seat_matrix",
 	},
 	{
-		title: "List of Colleges",
-		image: colleges,
-		link: "/colleges_list",
+		title: "Opening and Closing Ranks",
+		image: rank,
+		link: "/rank",
+	},
+	{
+		title: "Prediction",
+		image: prediction,
+		link: "/prediction",
+	},
+	{
+		title: "Test Your JoSAA Choices",
+		image: testChoices,
+		link: "/choices",
 	},
 ];

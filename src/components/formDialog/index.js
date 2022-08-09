@@ -71,6 +71,7 @@ const FormDialog = ({
 	setSeatPool,
 	setQuota,
 	setRank,
+	setRankMain,
 	setYear,
 	setRound,
 	setOption,
@@ -97,7 +98,12 @@ const FormDialog = ({
 		localStorage.getItem("seatPool") || ""
 	);
 	const [quota, setquota] = useState(localStorage.getItem("quota") || "");
-	const [rank, setrank] = useState(parseInt(localStorage.getItem("rank")) || 0);
+	const [rank, setrank] = useState(
+		parseInt(localStorage.getItem("rank")) || ""
+	);
+	const [rankMain, setrankMain] = useState(
+		parseInt(localStorage.getItem("rankMain")) || ""
+	);
 	const [option, setoption] = useState(localStorage.getItem("option") || "");
 	const [round, setround] = useState(localStorage.getItem("round") || "");
 	const [choice, setchoice] = useState(localStorage.getItem("choice") || "");
@@ -146,6 +152,10 @@ const FormDialog = ({
 				instituteId,
 			};
 			branchOneOneListComponent(payload);
+			const quotaPayload = {
+				institute_code: instituteId,
+			};
+			quotaListComponent(quotaPayload);
 		}
 	}, [instituteId]);
 
@@ -154,7 +164,9 @@ const FormDialog = ({
 			const payload = {
 				institute_type: instituteType,
 			};
-			quotaListComponent(payload);
+			if (!setInstituteId) {
+				quotaListComponent(payload);
+			}
 			if (setInstituteId) {
 				instituteListComponent(payload);
 			}
@@ -168,6 +180,24 @@ const FormDialog = ({
 			}
 		}
 	}, [instituteType]);
+
+	useEffect(() => {
+		if (choice == "mains") {
+			setrankLabel("JEE Mains Rank");
+		} else {
+			setrankLabel("JEE Advance Rank");
+		}
+	}, [choice]);
+
+	useEffect(() => {
+		// setquota("");
+		// console.log(quotaList);
+	}, [quotaList]);
+
+	useEffect(() => {
+		// console.log(roundList);
+		// setround("a");
+	}, [roundList]);
 
 	const handleChange = (event) => {
 		const selectdata = event.target;
@@ -183,6 +213,8 @@ const FormDialog = ({
 			setquota(selectdata.value);
 		} else if (selectdata.name === "rank") {
 			setrank(selectdata.value);
+		} else if (selectdata.name === "rankMain") {
+			setrankMain(selectdata.value);
 		} else if (selectdata.name === "option") {
 			setoption(selectdata.value);
 		} else if (selectdata.name === "year") {
@@ -215,70 +247,77 @@ const FormDialog = ({
 	const handleSubmit = () => {
 		let error = 0;
 		if (setInstituteType) {
-			if (instituteType === "") {
+			if (instituteType.length === 0) {
 				error = 1;
 			} else {
 				setInstituteType(instituteType);
 			}
 		}
 		if (setCategory) {
-			if (category === "") {
+			if (category.length === 0) {
 				error = 1;
 			} else {
 				setCategory(category);
 			}
 		}
 		if (setSeatPool) {
-			if (seatPool === "") {
+			if (seatPool.length === 0) {
 				error = 1;
 			} else {
 				setSeatPool(seatPool);
 			}
 		}
 		if (setQuota) {
-			if (quota === "") {
+			if (quota.length === 0) {
 				error = 1;
 			} else {
 				setQuota(quota);
 			}
 		}
 		if (setRank) {
-			if (rank === 0) {
+			if (rank === 0 || rank.length === 0) {
 				error = 1;
 			} else {
 				setRank(rank);
 			}
 		}
+		if (setRankMain) {
+			if (rankMain === 0 || rankMain.length === 0) {
+				error = 1;
+			} else {
+				setRankMain(rankMain);
+			}
+		}
 		if (setYear) {
-			if (year === 0) {
+			if (year === 0 || year.length === 0) {
 				error = 1;
 			} else {
 				setYear(year);
 			}
 		}
 		if (setRound) {
-			if (round === "") {
+			if (round.length === 0) {
 				error = 1;
 			} else {
 				setRound(round);
 			}
 		}
 		if (setOption) {
-			if (option === "") {
+			if (option.length === 0) {
 				error = 1;
 			} else {
 				setOption(option);
 			}
 		}
 		if (setInstituteId) {
-			if (instituteId === 0) {
+			if (instituteId === 0 || instituteId.length === 0) {
 				error = 1;
 			} else {
 				setInstituteId(instituteId);
 			}
 		}
 		if (setBranchId) {
-			if (branchId === 0) {
+			if (branchId === 0 || branchId.length === 0) {
 				error = 1;
 			} else {
 				setBranchId(branchId);
@@ -343,16 +382,37 @@ const FormDialog = ({
 					{predictionData.formData.map((form) => {
 						if (form.type !== "select") {
 							return (
-								<TextField
-									sx={{ maxWidth: "30%" }}
-									className='form-dialog'
-									label={form.title === "Rank" ? rankLabel : form.title}
-									variant='filled'
-									type={form.type}
-									name={form.name}
-									onChange={handleChange}
-									defaultValue={form.name === "cutoff" ? cutoffVariation : rank}
-								/>
+								<>
+									{form.optional ? (
+										choice == "both" && (
+											<TextField
+												sx={{ maxWidth: "30%" }}
+												className='form-dialog'
+												label={"JEE Mains Rank"}
+												variant='filled'
+												type={form.type}
+												name={form.name}
+												onChange={handleChange}
+												defaultValue={
+													form.name === "cutoff" ? cutoffVariation : rankMain
+												}
+											/>
+										)
+									) : (
+										<TextField
+											sx={{ maxWidth: "30%" }}
+											className='form-dialog'
+											label={form.title === "Rank" ? rankLabel : form.title}
+											variant='filled'
+											type={form.type}
+											name={form.name}
+											onChange={handleChange}
+											defaultValue={
+												form.name === "cutoff" ? cutoffVariation : rank
+											}
+										/>
+									)}
+								</>
 							);
 						} else {
 							if (form.list === "option") {
@@ -545,8 +605,35 @@ const FormDialog = ({
 															<MenuItem
 																key={option.branch_detail.id}
 																value={option.branch_detail.id}
+																className='branch-list-form'
 															>
-																{option.branch_detail.name}
+																<>
+																	<span>{option.branch_detail.name}</span>
+																	{instituteType == "IIT" &&
+																		option.branch_detail.IIT != "Y" && (
+																			<span className='not-offered-branch'>
+																				&nbsp;&nbsp;*Branch discontinued
+																			</span>
+																		)}
+																	{instituteType == "NIT" &&
+																		option.branch_detail.NIT != "Y" && (
+																			<span className='not-offered-branch'>
+																				&nbsp;&nbsp;*Branch discontinued
+																			</span>
+																		)}
+																	{instituteType == "IIIT" &&
+																		option.branch_detail.IIIT != "Y" && (
+																			<span className='not-offered-branch'>
+																				&nbsp;&nbsp;*Branch discontinued
+																			</span>
+																		)}
+																	{instituteType == "GFTI" &&
+																		option.branch_detail.GFTI != "Y" && (
+																			<span className='not-offered-branch'>
+																				&nbsp;&nbsp;*Branch discontinued
+																			</span>
+																		)}
+																</>
 															</MenuItem>
 														)
 											  )

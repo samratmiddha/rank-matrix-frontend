@@ -3,9 +3,15 @@ import { InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 import "./index.scss";
 
-export const SearchBar = ({ labelText, setSearchKey, defaultWord }) => {
+export const SearchBar = ({
+	labelText,
+	setSearchKey,
+	defaultWord,
+	setPage,
+}) => {
 	const handleChange = (event) => {
 		setSearchKey(event.target.value.trim());
+		setPage(1);
 	};
 
 	return (

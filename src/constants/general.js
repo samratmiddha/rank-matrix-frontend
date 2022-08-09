@@ -6,28 +6,71 @@ export const fileName = `${websiteName}_your_choices`;
 
 export const howToUse = [
 	{
-		rule: "For prediction based on previous years' opening as well as closing rank click 'SOCE Prediction' and then 'Default Prediction'.",
+		option: "Participating Colleges",
+		rule: "to view list of all colleges particiapting in JoSAA Counselling.",
 	},
 	{
-		rule: "Fill all the desired details and click 'Submit'",
+		option: "Seat Matrix",
+		rule: "to view the seat matrix of JoSAA from year 2019 onwards.",
 	},
 	{
-		rule: "Click 'Click to Get Prediction' on next page",
+		option: "Opening and Closing Rank",
+		rule: "to view the opening/closing rank from year 2015 onwards.",
 	},
 	{
-		rule: "Now it will highlight all previous years' cutoff in different colour. Your prediction based on colour coding is as follows:",
+		option: "Prediction",
+		rule: "to view prediction of specific college and branch on the basis of past opening/closing ranks.",
 		ruleDescription: [
 			{
-				rule: "Very High probability for getting the branch/ college highlighted in GREEN colour even in case cut-off of current year is decreases from the previous year's cut-off by % figure filled by you under 'Variation in CutOff Percentage(%)'",
+				option: "All Available Choices",
+				rule: "to view prediction for all colleges and all the branches.",
 			},
 			{
-				rule: "Very Low probability for getting the branch/ college highlighted in RED colour as your rank is higher than the cut-off of previous year by % figure filled by you under 'Variation in CutOff Percentage(%)'",
+				option: "Specific College",
+				rule: "to view prediction for all the branches offered by a specific college.",
 			},
 			{
-				rule: "Probable to get the branch/ college highlighted in ORANGE colour in case cut-off of current year increases from the previous year's cut-off by % figure filled by you under 'Variation in CutOff Percentage(%)'",
+				option: "Specific Branch",
+				rule: "to view prediction for a specific branches offered by all the colleges.",
 			},
 			{
-				rule: "Probable to get the branch/ college highlighted in YELLOW colour even in case cut-off of current year decreases from the previous year's cut-off by % figure filled by you under 'Variation in CutOff Percentage(%)'",
+				option: "Specific Branch and College",
+				rule: "to view prediction for a specifc branch offered by the specific college.",
+			},
+		],
+	},
+	{
+		option: "Test Your JoSAA Choices",
+		rule: "to view prediction for a combination of choices you want to fill in JoSAA Counselling.",
+	},
+	{
+		rule: "On submitting various forms, prediciton will be shown in a table, based on past opening/closing ranks, highlighted in following color codes:",
+		ruleDescription: [
+			{
+				color: "Green",
+				rule: "Very High probability for getting the branch/college highlighted in",
+				explanation: ".",
+				code: "#4bcf6f",
+			},
+			{
+				color: "Yellow",
+				rule: "Probable to get the branch/college highlighted in",
+				explanation:
+					"even in case cut-off of current year decreases from the previous year's cut-off by 10% or the figure filled by you under 'Variation in CutOff(%)'",
+				code: "#fbbc05",
+			},
+			{
+				color: "Orange",
+				rule: "Probable to get the branch/college highlighted in",
+				explanation:
+					"only if cut-off of current year increases from the previous year's cut-off by 10% or the figure filled by you under 'Variation in CutOff(%)'",
+				code: "#f27844",
+			},
+			{
+				color: "Red",
+				rule: "Very Low probability for getting the branch/college highlighted in",
+				explanation: ".",
+				code: "#f95656",
 			},
 		],
 	},
@@ -106,8 +149,7 @@ export const choicesList = [
 export const PredictionList = [
 	{
 		value: "all_all",
-		title: "All Branches in All Colleges",
-		formTitle: "Details for all branches from all colleges",
+		title: "All Avaliable Choices",
 		formData: [
 			{
 				title: "Institute Type",
@@ -120,11 +162,6 @@ export const PredictionList = [
 				type: "select",
 				list: "category",
 				name: "category",
-			},
-			{
-				title: "Variation in Cutoff(%)",
-				type: "number",
-				name: "cutoff",
 			},
 			{
 				title: "Seat Pool",
@@ -144,7 +181,12 @@ export const PredictionList = [
 				name: "rank",
 			},
 			{
-				title: "Opening or Closing Ranks",
+				title: "Variation in Cutoff(%)",
+				type: "number",
+				name: "cutoff",
+			},
+			{
+				title: "Prediction Rank Boundary",
 				type: "select",
 				list: "option",
 				name: "option",
@@ -165,8 +207,7 @@ export const PredictionList = [
 	},
 	{
 		value: "all_one",
-		title: "All Branches in One College",
-		formTitle: "Details for all branches in a particluar college",
+		title: "Specific College",
 		formData: [
 			{
 				title: "Institute Type",
@@ -175,15 +216,16 @@ export const PredictionList = [
 				name: "institute_type",
 			},
 			{
+				title: "Institute Name",
+				type: "select",
+				list: "institute_list",
+				name: "institute_list",
+			},
+			{
 				title: "Category",
 				type: "select",
 				list: "category",
 				name: "category",
-			},
-			{
-				title: "Variation in Cutoff(%)",
-				type: "number",
-				name: "cutoff",
 			},
 			{
 				title: "Seat Pool",
@@ -203,51 +245,21 @@ export const PredictionList = [
 				name: "rank",
 			},
 			{
-				title: "Institute Name",
-				type: "select",
-				list: "institute_list",
-				name: "institute_list",
+				title: "Variation in Cutoff(%)",
+				type: "number",
+				name: "cutoff",
 			},
 		],
 	},
 	{
 		value: "one_all",
-		title: "One Branch in All Colleges",
-		formTitle: "Details for one branch in all colleges",
+		title: "Specific Branch",
 		formData: [
 			{
 				title: "Institute Type",
 				type: "select",
 				list: "institute_type",
 				name: "institute_type",
-			},
-			{
-				title: "Category",
-				type: "select",
-				list: "category",
-				name: "category",
-			},
-			{
-				title: "Variation in Cutoff(%)",
-				type: "number",
-				name: "cutoff",
-			},
-			{
-				title: "Seat Pool",
-				type: "select",
-				list: "seatPool",
-				name: "seatPool",
-			},
-			{
-				title: "Quota",
-				type: "select",
-				list: "quota",
-				name: "quota",
-			},
-			{
-				title: "Rank",
-				type: "number",
-				name: "rank",
 			},
 			{
 				title: "Branch Name",
@@ -255,29 +267,11 @@ export const PredictionList = [
 				list: "branch_list",
 				name: "branch_list",
 			},
-		],
-	},
-	{
-		value: "one_one",
-		title: "One Branch in One College",
-		formTitle: "Details for one branch from a particular college",
-		formData: [
-			{
-				title: "Institute Type",
-				type: "select",
-				list: "institute_type",
-				name: "institute_type",
-			},
 			{
 				title: "Category",
 				type: "select",
 				list: "category",
 				name: "category",
-			},
-			{
-				title: "Variation in Cutoff(%)",
-				type: "number",
-				name: "cutoff",
 			},
 			{
 				title: "Seat Pool",
@@ -295,6 +289,23 @@ export const PredictionList = [
 				title: "Rank",
 				type: "number",
 				name: "rank",
+			},
+			{
+				title: "Variation in Cutoff(%)",
+				type: "number",
+				name: "cutoff",
+			},
+		],
+	},
+	{
+		value: "one_one",
+		title: "Specific Branch and College",
+		formData: [
+			{
+				title: "Institute Type",
+				type: "select",
+				list: "institute_type",
+				name: "institute_type",
 			},
 			{
 				title: "Institute Name",
@@ -307,6 +318,34 @@ export const PredictionList = [
 				type: "select",
 				list: "branch_list",
 				name: "branch_list",
+			},
+			{
+				title: "Category",
+				type: "select",
+				list: "category",
+				name: "category",
+			},
+			{
+				title: "Seat Pool",
+				type: "select",
+				list: "seatPool",
+				name: "seatPool",
+			},
+			{
+				title: "Quota",
+				type: "select",
+				list: "quota",
+				name: "quota",
+			},
+			{
+				title: "Rank",
+				type: "number",
+				name: "rank",
+			},
+			{
+				title: "Variation in Cutoff(%)",
+				type: "number",
+				name: "cutoff",
 			},
 		],
 	},
@@ -317,20 +356,10 @@ export const TestYourChoice = {
 	formTitle: "Details for testing your choices",
 	formData: [
 		{
-			title: "Choices option",
+			title: "Choices based on",
 			type: "select",
 			list: "choice_option",
 			name: "choice_option",
-		},
-		{
-			title: "Variation in Cutoff(%)",
-			type: "number",
-			name: "cutoff",
-		},
-		{
-			title: "Rank",
-			type: "number",
-			name: "rank",
 		},
 		{
 			title: "Year",
@@ -344,6 +373,22 @@ export const TestYourChoice = {
 			list: "round",
 			name: "round",
 		},
+		{
+			title: "Rank",
+			type: "number",
+			name: "rank",
+		},
+		{
+			title: "Rank",
+			type: "number",
+			name: "rankMain",
+			optional: true,
+		},
+		{
+			title: "Variation in Cutoff(%)",
+			type: "number",
+			name: "cutoff",
+		},
 	],
 };
 
@@ -356,6 +401,18 @@ export const AddChoice = {
 			type: "select",
 			list: "institute_type",
 			name: "institute_type",
+		},
+		{
+			title: "Institute Name",
+			type: "select",
+			list: "institute_list",
+			name: "institute_list",
+		},
+		{
+			title: "Branch Name",
+			type: "select",
+			list: "branch_list",
+			name: "branch_list",
 		},
 		{
 			title: "Category",
@@ -374,18 +431,6 @@ export const AddChoice = {
 			type: "select",
 			list: "quota",
 			name: "quota",
-		},
-		{
-			title: "Institute Name",
-			type: "select",
-			list: "institute_list",
-			name: "institute_list",
-		},
-		{
-			title: "Branch Name",
-			type: "select",
-			list: "branch_list",
-			name: "branch_list",
 		},
 	],
 };

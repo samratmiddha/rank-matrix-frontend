@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import FormDialog from "../../../components/formDialog/index";
 import { Header } from "../../../components/header";
+import { TableInfo } from "../../../components/tableHeader";
 import { PredictionList } from "../../../constants/general";
 import { fetchAllAllPrediction } from "../../../store/actions/prediction";
 import { makeSelectAllAllPrediction } from "../../../store/selectors/prediction";
@@ -132,13 +133,15 @@ const AllBranchAllCollegePrediction = ({
 					<Button className='choice-button' onClick={editDetailButtonClick}>
 						Edit Details
 					</Button>
+					{year != 0 && <TableInfo heading={`JoSAA ${year} Round ${round}`} />}
 				</div>
 				{predictionObj.loading ? (
 					<CircularProgress />
 				) : (
 					!predictionObj.error &&
 					predictionObj.data.branches &&
-					predictionObj.data.branches.length !== 0 && (
+					predictionObj.data.branches.length !== 0 &&
+					year !== 0 && (
 						<>
 							<TableContainer
 								component={Paper}
@@ -147,7 +150,9 @@ const AllBranchAllCollegePrediction = ({
 								<Table sx={{ minWidth: 650 }}>
 									<TableHead className='prediction-table-head'>
 										<TableRow>
-											<TableCell className='insitute_head' />
+											<TableCell className='insitute_head' align='center'>
+												{instituteType}
+											</TableCell>
 											{predictionObj.data.institutes.map((institute) => (
 												<TableCell key={institute.id} className='insitute_head'>
 													{institute.display_code}

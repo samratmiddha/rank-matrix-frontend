@@ -91,7 +91,17 @@ export function* fetchOneOnePrediction(action) {
 }
 
 export function* fetchTestChoice(action) {
-	const requestURL = `/soce/api/v1/choice/rank_list/?branch_id=${action.payload.branchId}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}&institute_id=${action.payload.instituteId}&year=${action.payload.year}&round=${action.payload.round}`;
+	const requestURL = `/soce/api/v1/choice/rank_list/?branch_id=${
+		action.payload.branchId
+	}&category=${action.payload.category}&seat_pool=${
+		action.payload.seatPool
+	}&quota=${action.payload.quota}&rank=${action.payload.rank}&cutoff=${
+		action.payload.cutoff
+	}&institute_id=${action.payload.instituteId}&year=${
+		action.payload.year
+	}&round=${action.payload.round}${
+		action.payload.choice == "both" && "&mains_rank=" + action.payload.rankMain
+	}`;
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchTestChoiceSuccess(response));

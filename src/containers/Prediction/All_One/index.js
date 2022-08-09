@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import FormDialog from "../../../components/formDialog";
 import { Header } from "../../../components/header";
+import { TableInfo } from "../../../components/tableHeader";
 import { PredictionList } from "../../../constants/general";
 import { fetchAllOnePrediction } from "../../../store/actions/prediction";
 import { makeSelectAllOnePrediction } from "../../../store/selectors/prediction";
@@ -95,6 +96,11 @@ const AllBranchOneCollegePrediction = ({
 					<Button className='choice-button' onClick={editDetailButtonClick}>
 						Edit Details
 					</Button>
+					{!predictionObj.error &&
+						predictionObj.data.branch &&
+						predictionObj.data.branch.length !== 0 && (
+							<TableInfo heading={predictionObj.data.institutes.name} />
+						)}
 				</div>
 				{predictionObj.loading ? (
 					<CircularProgress />
@@ -113,7 +119,11 @@ const AllBranchOneCollegePrediction = ({
 											<TableCell className='insitute_head' />
 											{predictionObj.data.keys.map((obj, index) => (
 												<TableCell key={index} className='insitute_head'>
-													{`JoSAA ${obj.split("_")[1]}: ${obj.split("_")[0]}`}
+													{`JoSAA ${obj.split("_")[1]}: ${
+														obj.split("_")[0].slice(0, -1) +
+														" " +
+														obj.split("_")[0].slice(-1)
+													}`}
 												</TableCell>
 											))}
 										</TableRow>

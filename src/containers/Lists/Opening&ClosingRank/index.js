@@ -27,6 +27,7 @@ import { fetchRankList } from "../../../store/actions/list";
 import { YearRoundSelect } from "../../../components/selectDialog";
 import { fetchInstituteType, fetchRound } from "../../../store/actions/form";
 import { ClickableChips } from "../../../components/chips";
+import { TableInfo } from "../../../components/tableHeader";
 
 const Ranks = ({
 	instituteTypeObj,
@@ -57,7 +58,7 @@ const Ranks = ({
 
 	useEffect(() => {
 		if (yearObj.length > 0) {
-			setyear(yearObj[yearObj.length - 1]);
+			setyear(yearObj[0]);
 		}
 	}, [yearObj]);
 
@@ -108,6 +109,7 @@ const Ranks = ({
 		const isAsc = orderBy === property && order === "asc";
 		setorder(isAsc ? "desc" : "asc");
 		setorderBy(property);
+		setPage(1);
 	};
 
 	return (
@@ -129,6 +131,7 @@ const Ranks = ({
 								secondSelectOnChange={setchangeRound}
 								secondSelectValue={changeRound}
 								okClick={setchangeData}
+								setPage={setPage}
 							/>
 						)}
 						{!instituteTypeObj.loading && !instituteTypeObj.error ? (
@@ -136,17 +139,22 @@ const Ranks = ({
 								chipList={instituteTypeObj.data}
 								defaultSelected={"IIT"}
 								setChipList={setInstituteType}
+								setPage={setPage}
 							/>
 						) : (
 							<CircularProgress />
 						)}
 					</div>
 					{rankListObj.search && (
-						<SearchBar
-							labelText={"Search by any keyword"}
-							defaultWord={searchWord}
-							setSearchKey={setSearchWord}
-						/>
+						<>
+							<TableInfo heading={`JoSAA ${year} Round ${round}`} />
+							<SearchBar
+								labelText={"Search by any keyword"}
+								defaultWord={searchWord}
+								setSearchKey={setSearchWord}
+								setPage={setPage}
+							/>
+						</>
 					)}
 				</div>
 				{rankListObj.loading ? (

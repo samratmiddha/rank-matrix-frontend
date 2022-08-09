@@ -88,3 +88,14 @@ hr {
 .MuiDialogTitle-root {
 	font-family: "Poppins", sans-serif !important;
 }
+
+.branch-list-form {
+	display: flex !important;
+	// justify-content: space-between !important;
+	align-items: center !important;
+	flex-wrap: wrap;
+	.not-offered-branch {
+		align-self: flex-end;
+		font-size: 0.7rem;
+	}
+}

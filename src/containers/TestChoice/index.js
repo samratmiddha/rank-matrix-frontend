@@ -27,6 +27,7 @@ import { showToast } from "../../store/actions/toast";
 import { makeSelectTestChoice } from "../../store/selectors/prediction";
 import { CSVLink } from "react-csv";
 import "../list.scss";
+import { TableInfo } from "../../components/tableHeader";
 
 const TestChoices = ({
 	testChoiceObj,
@@ -35,6 +36,7 @@ const TestChoices = ({
 }) => {
 	const [cutoff, setcutoff] = useState(10);
 	const [rank, setrank] = useState(0);
+	const [rankMain, setrankMain] = useState(0);
 	const [year, setyear] = useState(0);
 	const [round, setround] = useState(0);
 	const [choice, setchoice] = useState("");
@@ -61,20 +63,6 @@ const TestChoices = ({
 		if (dataSubmit) {
 			settestChoices([]);
 			if (choice === localStorage.getItem("choice")) {
-				// saveTestChoices.map((obj) => {
-				//   const payload = {
-				//     instituteId: obj.institute_id,
-				//     branchId: obj.branch_id,
-				//     quota: obj.quota,
-				//     category: obj.category,
-				//     seatPool: obj.seat_pool,
-				//     rank,
-				//     cutoff,
-				//     round,
-				//     year,
-				//   };
-				//   testChoiceComponent(payload);
-				// });
 				saveTestChoices.forEach((element) => {
 					const payload = {
 						instituteId: element.institute_id,
@@ -83,15 +71,18 @@ const TestChoices = ({
 						category: element.category,
 						seatPool: element.seat_pool,
 						rank,
+						rankMain,
 						cutoff,
 						round,
 						year,
+						choice,
 					};
 					testChoiceComponent(payload);
 				});
 			}
 			localStorage.setItem("cutoff", cutoff);
 			localStorage.setItem("rank", rank);
+			localStorage.setItem("rankMain", rankMain);
 			localStorage.setItem("year", year);
 			localStorage.setItem("round", round);
 			localStorage.setItem("choice", choice);
@@ -109,9 +100,11 @@ const TestChoices = ({
 				category,
 				seatPool,
 				rank,
+				rankMain,
 				cutoff,
 				round,
 				year,
+				choice,
 			};
 			testChoiceComponent(payload);
 			localStorage.setItem("instituteType", instituteType);
@@ -190,6 +183,7 @@ const TestChoices = ({
 				predictionData={TestYourChoice}
 				setCutoff={setcutoff}
 				setRank={setrank}
+				setRankMain={setrankMain}
 				setYear={setyear}
 				setRound={setround}
 				setChoice={setchoice}
@@ -223,15 +217,20 @@ const TestChoices = ({
 							Add Your Choice
 						</Button>
 					</div>
-					<CSVLink
-						data={testChoices}
-						headers={download_headers}
-						filename={fileName}
-						target='_blank'
-						onClick={downloadClick}
-					>
-						<DownloadIcon color='primary' className='choice-button icon' />
-					</CSVLink>
+					<div style={{ marginRight: "10rem" }}>
+						<TableInfo heading={`JoSAA ${year} Round ${round}`} />
+					</div>
+					{testChoices.length !== 0 && (
+						<CSVLink
+							data={testChoices}
+							headers={download_headers}
+							filename={fileName}
+							target='_blank'
+							onClick={downloadClick}
+						>
+							<DownloadIcon color='primary' className='choice-button icon' />
+						</CSVLink>
+					)}
 				</div>
 				{testChoiceObj.loading ? (
 					<CircularProgress />

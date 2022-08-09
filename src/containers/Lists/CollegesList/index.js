@@ -73,6 +73,7 @@ const CollegeList = ({
 		const isAsc = orderBy === property && order === "asc";
 		setorder(isAsc ? "desc" : "asc");
 		setorderBy(property);
+		setPage(1);
 	};
 
 	const previous_nirf = () => {
@@ -85,7 +86,7 @@ const CollegeList = ({
 
 	return (
 		<div className='list-container'>
-			<Header heading={"List of Colleges"} />
+			<Header heading={"Admitting Institutes"} />
 			<div className='table-container'>
 				<div className='filters between'>
 					{!instituteTypeObj.loading && !instituteTypeObj.error ? (
@@ -93,6 +94,7 @@ const CollegeList = ({
 							chipList={instituteTypeObj.data}
 							defaultSelected={"IIT"}
 							setChipList={setInstitute}
+							setPage={setPage}
 						/>
 					) : (
 						<CircularProgress />
@@ -102,6 +104,7 @@ const CollegeList = ({
 							labelText={"Search by any keyword"}
 							defaultWord={searchWord}
 							setSearchKey={setSearchWord}
+							setPage={setPage}
 						/>
 					)}
 				</div>

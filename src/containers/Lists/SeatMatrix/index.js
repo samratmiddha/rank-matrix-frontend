@@ -98,14 +98,17 @@ const SeatMatrix = ({
 		const isAsc = orderBy === property && order === "asc";
 		setorder(isAsc ? "desc" : "asc");
 		setorderBy(property);
+		setPage(1);
 	};
 
 	const handleChange = (event, newValue) => {
 		setTabValue(newValue);
+		setPage(1);
 	};
 
 	const handleSeatChange = () => {
 		setTabValue("increase");
+		setPage(1);
 	};
 
 	return (
@@ -150,6 +153,7 @@ const SeatMatrix = ({
 							chipList={instituteTypeObj.data}
 							defaultSelected={"IIT"}
 							setChipList={setInstituteType}
+							setPage={setPage}
 						/>
 					) : (
 						<CircularProgress />
@@ -159,6 +163,7 @@ const SeatMatrix = ({
 							labelText={"Search by any keyword"}
 							defaultWord={searchWord}
 							setSearchKey={setSearchWord}
+							setPage={setPage}
 						/>
 					)}
 				</div>

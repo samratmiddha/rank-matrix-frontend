@@ -17,96 +17,99 @@ import { showToast } from "../../store/actions/toast";
 import { toastDuration } from "../../constants/general";
 
 export const YearRoundSelect = ({
-  buttonText,
-  formTitle,
-  firstSelectLabel,
-  secondSelectLabel,
-  firstSelectList,
-  secondSelectList,
-  firstSelectOnChange,
-  firstSelectValue,
-  secondSelectOnChange,
-  secondSelectValue,
-  okClick,
+	buttonText,
+	formTitle,
+	firstSelectLabel,
+	secondSelectLabel,
+	firstSelectList,
+	secondSelectList,
+	firstSelectOnChange,
+	firstSelectValue,
+	secondSelectOnChange,
+	secondSelectValue,
+	okClick,
+	setPage,
 }) => {
-  const [open, setOpen] = useState(false);
-  const [okAllowed, setokAllowed] = useState(false)
-  const dispatch = useDispatch()
+	const [open, setOpen] = useState(false);
+	const [okAllowed, setokAllowed] = useState(false);
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    okClick(false)
-  }, [])
-  
+	useEffect(() => {
+		okClick(false);
+	}, []);
 
-  const handleChange = (event) => {
-    setokAllowed(true)
-    const value = event.target.value
-    secondSelectOnChange(value.charAt(value.length -1))
-  };
+	const handleChange = (event) => {
+		setokAllowed(true);
+		const value = event.target.value;
+		secondSelectOnChange(value.charAt(value.length - 1));
+	};
 
-  const handleChangeFirst = (event) => [
-    firstSelectOnChange(event.target.value),
-  ];
+	const handleChangeFirst = (event) => [
+		firstSelectOnChange(event.target.value),
+	];
 
-  const handleClickOpen = () => {
-    setokAllowed(false)
-    setOpen(true);
-  };
+	const handleClickOpen = () => {
+		setokAllowed(false);
+		setOpen(true);
+	};
 
-  const handleClose = (event) => {
-    setOpen(false);
-  };
+	const handleClose = (event) => {
+		setOpen(false);
+	};
 
-  const handleOk = (event) => {
-    if(okAllowed){
-        okClick(true);
-        setOpen(false);
-    }else{
-        dispatch(showToast('Select both institute and round', 'warning', toastDuration))
-    }
-  };
+	const handleOk = (event) => {
+		if (okAllowed) {
+			okClick(true);
+			setOpen(false);
+			setPage(1);
+		} else {
+			dispatch(
+				showToast("Select both year and round", "warning", toastDuration)
+			);
+		}
+	};
 
-  return (
-    <div className="dialog-container">
-      <Button onClick={handleClickOpen}>{buttonText}</Button>
-      <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle>{formTitle}</DialogTitle>
-        <DialogContent>
-          <Box component="form" sx={{ display: "flex", flexWrap: "wrap" }}>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel>{firstSelectLabel}</InputLabel>
-              <Select
-                value={firstSelectValue}
-                onChange={handleChangeFirst}
-                input={<OutlinedInput label={firstSelectLabel} />}
-              >
-                {firstSelectList.map((item) => (
-                  <MenuItem value={item}>JoSAA {item}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel>{secondSelectLabel}</InputLabel>
-              <Select
-              onChange={handleChange}
-                input={<OutlinedInput label={secondSelectLabel} />}
-              >
-                {secondSelectList.loading ? (
-                  <CircularProgress />
-                ) : (
-                  secondSelectList.data.map((item) => (
-                    <MenuItem value={item}>{item}</MenuItem>
-                  ))
-                )}
-              </Select>
-            </FormControl>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleOk}>Ok</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+	return (
+		<div className='dialog-container'>
+			<Button onClick={handleClickOpen}>{buttonText}</Button>
+			<Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
+				<DialogTitle>{formTitle}</DialogTitle>
+				<DialogContent>
+					<Box component='form' sx={{ display: "flex", flexWrap: "wrap" }}>
+						<FormControl sx={{ m: 1, minWidth: 120 }}>
+							<InputLabel>{firstSelectLabel}</InputLabel>
+							<Select
+								value={firstSelectValue}
+								onChange={handleChangeFirst}
+								input={<OutlinedInput label={firstSelectLabel} />}
+							>
+								{firstSelectList.map((item) => (
+									<MenuItem value={item}>JoSAA {item}</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+						<FormControl sx={{ m: 1, minWidth: 120 }}>
+							<InputLabel>{secondSelectLabel}</InputLabel>
+							<Select
+								onChange={handleChange}
+								input={<OutlinedInput label={secondSelectLabel} />}
+							>
+								{secondSelectList.loading ? (
+									<CircularProgress />
+								) : (
+									secondSelectList.data.map((item) => (
+										<MenuItem value={item}>{item}</MenuItem>
+									))
+								)}
+							</Select>
+						</FormControl>
+					</Box>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose}>Cancel</Button>
+					<Button onClick={handleOk}>Ok</Button>
+				</DialogActions>
+			</Dialog>
+		</div>
+	);
 };
