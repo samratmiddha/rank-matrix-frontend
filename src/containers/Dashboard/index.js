@@ -7,33 +7,21 @@ import {
 	CardContent,
 	CardMedia,
 	CircularProgress,
-	Container,
 	Grid,
 	Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { featuresCard, howToUse } from "./constants";
+import { featuresCard } from "./constants";
 import {
 	fetchNewUpdates,
 	fetchRecentUpdates,
 } from "../../store/actions/dashboard";
 import { connect } from "react-redux";
-import {
-	makeSelectNewUpdate,
-	makeSelectRecentUpdate,
-} from "../../store/selectors/dashboard";
+import { makeSelectRecentUpdate } from "../../store/selectors/dashboard";
 import { Link } from "react-router-dom";
 
-const Dashboard = ({
-	newUpdateComponent,
-	recentUpdateComponent,
-	newUpdateObject,
-	recentUpdateObject,
-	howToUseClick,
-	setHowToUseClick,
-}) => {
+const Dashboard = ({ recentUpdateComponent, recentUpdateObject }) => {
 	useEffect(() => {
-		newUpdateComponent();
 		recentUpdateComponent();
 	}, []);
 
@@ -41,45 +29,27 @@ const Dashboard = ({
 		<div>
 			<Box className='dashboard-container'>
 				<Box className='updates'>
-					{newUpdateObject.loading && recentUpdateObject.loading ? (
-						<CircularProgress />
-					) : (
+					{!recentUpdateObject.loading && !recentUpdateObject.error ? (
 						<>
-							{!recentUpdateObject.loading &&
-							!recentUpdateObject.error &&
-							!newUpdateObject.loading &&
-							!newUpdateObject.error ? (
-								<>
-									<Typography gutterBottom variant='h5' component='div'>
-										Recent Updates
+							<Typography gutterBottom variant='h5' component='div'>
+								Updates
+							</Typography>
+							<ul className='recent-updates'>
+								{recentUpdateObject.data.map((update, index) => (
+									<Typography
+										gutterBottom
+										variant='p'
+										key={index}
+										component='li'
+										className='noto-sans'
+									>
+										{update.text}
 									</Typography>
-									<ul className='recent-updates'>
-										{newUpdateObject.data.map((update, index) => (
-											<Typography
-												gutterBottom
-												variant='p'
-												key={index}
-												component='li'
-											>
-												{update.text}
-											</Typography>
-										))}
-										{recentUpdateObject.data.map((update, index) => (
-											<Typography
-												gutterBottom
-												variant='p'
-												key={index}
-												component='li'
-											>
-												{update.text}
-											</Typography>
-										))}
-									</ul>
-								</>
-							) : (
-								!recentUpdateObject.error && <CircularProgress />
-							)}
+								))}
+							</ul>
 						</>
+					) : (
+						!recentUpdateObject.error && <CircularProgress />
 					)}
 				</Box>
 				<Grid
@@ -118,7 +88,6 @@ const Dashboard = ({
 Dashboard.propTypes = {
 	newUpdateComponent: PropTypes.func,
 	recentUpdateComponent: PropTypes.func,
-	newUpdateObject: PropTypes.object,
 	recentUpdateObject: PropTypes.object,
 	howToUseClick: PropTypes.bool,
 	setHowToUseClick: PropTypes.func,
@@ -126,14 +95,12 @@ Dashboard.propTypes = {
 
 function mapStateToProps(state) {
 	return {
-		newUpdateObject: makeSelectNewUpdate(state),
 		recentUpdateObject: makeSelectRecentUpdate(state),
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		newUpdateComponent: () => dispatch(fetchNewUpdates()),
 		recentUpdateComponent: () => dispatch(fetchRecentUpdates()),
 	};
 }

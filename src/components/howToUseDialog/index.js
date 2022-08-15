@@ -27,9 +27,14 @@ export const HowToUse = ({ openDialog, setOpenDialog }) => {
 				<DialogContent>
 					<ul>
 						{howToUse.map((item, i) => (
-							<li key={i}>
+							<li key={i} className='noto-sans'>
 								<>
-									Select <strong>{item.option}</strong> {item.rule}
+									{item.option && (
+										<>
+											Select <strong>{item.option}</strong>{" "}
+										</>
+									)}
+									{item.rule}
 								</>
 								{item.ruleDescription && (
 									<ul>
@@ -37,18 +42,23 @@ export const HowToUse = ({ openDialog, setOpenDialog }) => {
 											<li key={j}>
 												{!rule.color ? (
 													<>
-														Select <strong>{rule.option}</strong> {rule.rule}
+														{rule.option && (
+															<>
+																Select <strong>{rule.option}</strong>{" "}
+															</>
+														)}
+														{rule.rule}
 													</>
 												) : (
 													<>
-														{rule.rule}{" "}
 														<span
 															className='color-code'
 															style={{ backgroundColor: rule.code }}
 														>
 															{rule.color}
-														</span>{" "}
-														{rule.explanation}
+														</span>
+														{" - "}
+														{rule.rule}
 													</>
 												)}
 											</li>

@@ -141,8 +141,7 @@ const SeatMatrix = ({
 						}`}
 						onClick={handleSeatChange}
 					>
-						Seats change from {yearObj[yearObj.length - 2]}-
-						{yearObj[yearObj.length - 1]}
+						Seats change from {yearObj[1]}-{yearObj[0]}
 					</Button>
 				</Box>
 			</div>
@@ -219,16 +218,26 @@ const SeatMatrix = ({
 												}}
 												key={row.id}
 											>
-												<TableCell>{row.institute_detail.full_name}</TableCell>
-												<TableCell>
+												<TableCell className='noto-sans'>
+													{row.institute_detail.full_name}
+												</TableCell>
+												<TableCell className='noto-sans'>
 													{row.branch_full_detail.full_name}
 												</TableCell>
-												<TableCell>{row.branch_full_detail.duration}</TableCell>
-												<TableCell>{row.branch_full_detail.degree}</TableCell>
-												<TableCell>{row.seat_pool}</TableCell>
-												<TableCell>{row.category}</TableCell>
-												<TableCell>{row.quota}</TableCell>
-												<TableCell>{row.seats}</TableCell>
+												<TableCell className='noto-sans'>
+													{row.branch_full_detail.duration}
+												</TableCell>
+												<TableCell className='noto-sans'>
+													{row.branch_full_detail.degree}
+												</TableCell>
+												<TableCell className='noto-sans'>
+													{row.seat_pool}
+												</TableCell>
+												<TableCell className='noto-sans'>
+													{row.category}
+												</TableCell>
+												<TableCell className='noto-sans'>{row.quota}</TableCell>
+												<TableCell className='noto-sans'>{row.seats}</TableCell>
 											</TableRow>
 										))}
 									</TableBody>

@@ -209,13 +209,25 @@ const Ranks = ({
 												}}
 												key={row.id}
 											>
-												<TableCell>{row.institute_detail.full_name}</TableCell>
-												<TableCell>{row.branch_detail.full_name}</TableCell>
-												<TableCell>{row.category}</TableCell>
-												<TableCell>{row.quota}</TableCell>
-												<TableCell>{row.seat_pool}</TableCell>
-												<TableCell>{row.opening_rank}</TableCell>
-												<TableCell>{row.closing_rank}</TableCell>
+												<TableCell className='noto-sans'>
+													{row.institute_detail.full_name}
+												</TableCell>
+												<TableCell className='noto-sans'>
+													{row.branch_detail.full_name}
+												</TableCell>
+												<TableCell className='noto-sans'>
+													{row.category}
+												</TableCell>
+												<TableCell className='noto-sans'>{row.quota}</TableCell>
+												<TableCell className='noto-sans'>
+													{row.seat_pool}
+												</TableCell>
+												<TableCell className='noto-sans'>
+													{row.opening_rank}
+												</TableCell>
+												<TableCell className='noto-sans'>
+													{row.closing_rank}
+												</TableCell>
 											</TableRow>
 										))}
 									</TableBody>

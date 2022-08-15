@@ -86,7 +86,7 @@ const CollegeList = ({
 
 	return (
 		<div className='list-container'>
-			<Header heading={"Admitting Institutes"} />
+			<Header heading={"Participating Colleges"} />
 			<div className='table-container'>
 				<div className='filters between'>
 					{!instituteTypeObj.loading && !instituteTypeObj.error ? (
@@ -161,10 +161,19 @@ const CollegeList = ({
 												}}
 												key={row.id}
 											>
-												<TableCell align='left'>{row.code}</TableCell>
-												<TableCell align='left'>{row.name}</TableCell>
-												<TableCell align='left'>{row.state}</TableCell>
-												<TableCell align='center' className='nirf_column'>
+												<TableCell className='noto-sans' align='left'>
+													{row.code}
+												</TableCell>
+												<TableCell className='noto-sans' align='left'>
+													{row.name}
+												</TableCell>
+												<TableCell className='noto-sans' align='left'>
+													{row.state}
+												</TableCell>
+												<TableCell
+													align='center'
+													className='nirf_column noto-sans'
+												>
 													<div className='nirf_column'>
 														{nirfRankNumber > 0 && (
 															<IconButton onClick={previous_nirf}>
@@ -206,7 +215,7 @@ const CollegeList = ({
 														)}
 													</div>
 												</TableCell>
-												<TableCell align='left'>
+												<TableCell className='noto-sans' align='left'>
 													<Link href={row.website} target='_blank'>
 														{row.website}
 													</Link>

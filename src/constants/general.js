@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";
-export const websiteName = "GoSOCE";
+export const websiteName = "Rank Matrix";
 export const fileName = `${websiteName}_your_choices`;
 
 export const howToUse = [
@@ -14,7 +14,7 @@ export const howToUse = [
 		rule: "to view the seat matrix of JoSAA from year 2019 onwards.",
 	},
 	{
-		option: "Opening and Closing Rank",
+		option: "Opening and Closing Ranks",
 		rule: "to view the opening/closing rank from year 2015 onwards.",
 	},
 	{
@@ -48,28 +48,22 @@ export const howToUse = [
 		ruleDescription: [
 			{
 				color: "Green",
-				rule: "Very High probability for getting the branch/college highlighted in",
-				explanation: ".",
+				rule: "Very High probability for getting the branch/college.",
 				code: "#4bcf6f",
 			},
 			{
 				color: "Yellow",
-				rule: "Probable to get the branch/college highlighted in",
-				explanation:
-					"even in case cut-off of current year decreases from the previous year's cut-off by 10% or the figure filled by you under 'Variation in CutOff(%)'",
+				rule: "Probable to get the branch/college even in case cut-off of current year decreases.",
 				code: "#fbbc05",
 			},
 			{
 				color: "Orange",
-				rule: "Probable to get the branch/college highlighted in",
-				explanation:
-					"only if cut-off of current year increases from the previous year's cut-off by 10% or the figure filled by you under 'Variation in CutOff(%)'",
+				rule: "Probable to get the branch/college only if cut-off of current year increases.",
 				code: "#f27844",
 			},
 			{
 				color: "Red",
-				rule: "Very Low probability for getting the branch/college highlighted in",
-				explanation: ".",
+				rule: "Very Low probability for getting the branch/college.",
 				code: "#f95656",
 			},
 		],
