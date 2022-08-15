@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import FormDialog from "../../../components/formDialog";
 import { Header } from "../../../components/header";
 import { TableInfo } from "../../../components/tableHeader";
-import { PredictionList } from "../../../constants/general";
+import { LightRankTooltip, PredictionList } from "../../../constants/general";
 import { fetchOneOnePrediction } from "../../../store/actions/prediction";
 import { makeSelectOneOnePrediction } from "../../../store/selectors/prediction";
 
@@ -23,6 +23,7 @@ const OneBranchOneInstitutesPrediction = ({
 	predictionType,
 	predictionComponent,
 	predictionObj,
+	toolTip,
 }) => {
 	const [instituteType, setinstituteType] = useState("");
 	const [category, setcategory] = useState("");
@@ -139,21 +140,23 @@ const OneBranchOneInstitutesPrediction = ({
 													{predictionObj.data.years[index]}
 												</TableCell>
 												{obj.map((data, dataIndex) => (
-													<TableCell
-														align='center'
-														key={dataIndex}
-														className={`${data.color} rank`}
-													>
-														{data.opening_rank ? (
-															<>
-																{data.opening_rank}
-																<br /> to <br />
-																{data.closing_rank}
-															</>
-														) : (
-															"-"
-														)}
-													</TableCell>
+													<LightRankTooltip title={toolTip(data.color)}>
+														<TableCell
+															align='center'
+															key={dataIndex}
+															className={`${data.color} rank`}
+														>
+															{data.opening_rank ? (
+																<>
+																	{data.opening_rank}
+																	<br /> to <br />
+																	{data.closing_rank}
+																</>
+															) : (
+																"-"
+															)}
+														</TableCell>
+													</LightRankTooltip>
 												))}
 											</TableRow>
 										))}

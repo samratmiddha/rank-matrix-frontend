@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) =>
 			case RECENT_UPDATE_FETCH_SUCCESS:
 				draft.recentUpdate.loading = false;
 				draft.recentUpdate.error = false;
-				draft.recentUpdate.data = action.response.data;
+				draft.recentUpdate.data = action.response.data.reverse();
 				break;
 			case RECENT_UPDATE_FETCH_ERROR:
 				draft.recentUpdate.loading = false;

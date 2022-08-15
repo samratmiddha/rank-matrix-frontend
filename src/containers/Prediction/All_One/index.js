@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import FormDialog from "../../../components/formDialog";
 import { Header } from "../../../components/header";
 import { TableInfo } from "../../../components/tableHeader";
-import { PredictionList } from "../../../constants/general";
+import { LightRankTooltip, PredictionList } from "../../../constants/general";
 import { fetchAllOnePrediction } from "../../../store/actions/prediction";
 import { makeSelectAllOnePrediction } from "../../../store/selectors/prediction";
 
@@ -23,6 +23,7 @@ const AllBranchOneCollegePrediction = ({
 	predictionType,
 	predictionComponent,
 	predictionObj,
+	toolTip,
 }) => {
 	const [instituteType, setinstituteType] = useState("");
 	const [category, setcategory] = useState("");
@@ -135,36 +136,43 @@ const AllBranchOneCollegePrediction = ({
 													{branch.branch_code}
 												</TableCell>
 												{predictionObj.data.round_data.map((obj, index) => (
-													<TableCell
-														align='center'
-														key={index}
-														className={`${
+													<LightRankTooltip
+														title={toolTip(
 															obj.find((obj) => obj.branch_code === branch.id)
 																?.color
-														} rank`}
-													>
-														{obj.find(
-															(obj) => obj.branch_code === branch.id
-														) ? (
-															<>
-																{
-																	obj.find(
-																		(obj) => obj.branch_code === branch.id
-																	).opening_rank
-																}
-																<br />
-																to
-																<br />
-																{
-																	obj.find(
-																		(obj) => obj.branch_code === branch.id
-																	).closing_rank
-																}
-															</>
-														) : (
-															"-"
 														)}
-													</TableCell>
+													>
+														<TableCell
+															align='center'
+															key={index}
+															className={`${
+																obj.find((obj) => obj.branch_code === branch.id)
+																	?.color
+															} rank`}
+														>
+															{obj.find(
+																(obj) => obj.branch_code === branch.id
+															) ? (
+																<>
+																	{
+																		obj.find(
+																			(obj) => obj.branch_code === branch.id
+																		).opening_rank
+																	}
+																	<br />
+																	to
+																	<br />
+																	{
+																		obj.find(
+																			(obj) => obj.branch_code === branch.id
+																		).closing_rank
+																	}
+																</>
+															) : (
+																"-"
+															)}
+														</TableCell>
+													</LightRankTooltip>
 												))}
 											</TableRow>
 										))}

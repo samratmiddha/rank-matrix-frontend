@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import FormDialog from "../../../components/formDialog";
 import { Header } from "../../../components/header";
 import { TableInfo } from "../../../components/tableHeader";
-import { PredictionList } from "../../../constants/general";
+import { LightRankTooltip, PredictionList } from "../../../constants/general";
 import { fetchOneAllPrediction } from "../../../store/actions/prediction";
 import { makeSelectOneAllPrediction } from "../../../store/selectors/prediction";
 
@@ -23,6 +23,7 @@ const OneBranchAllInstitutesPrediction = ({
 	predictionType,
 	predictionComponent,
 	predictionObj,
+	toolTip,
 }) => {
 	const [instituteType, setinstituteType] = useState("");
 	const [category, setcategory] = useState("");
@@ -136,36 +137,46 @@ const OneBranchAllInstitutesPrediction = ({
 													{institute.name}
 												</TableCell>
 												{predictionObj.data.round_data.map((obj, index) => (
-													<TableCell
-														align='center'
-														key={index}
-														className={`${
+													<LightRankTooltip
+														title={toolTip(
 															obj.find(
 																(obj) => obj.institute_code === institute.id
 															)?.color
-														} rank`}
-													>
-														{obj.find(
-															(obj) => obj.institute_code === institute.id
-														) ? (
-															<>
-																{
-																	obj.find(
-																		(obj) => obj.institute_code === institute.id
-																	).opening_rank
-																}
-																<br /> to
-																<br />
-																{
-																	obj.find(
-																		(obj) => obj.institute_code === institute.id
-																	).closing_rank
-																}
-															</>
-														) : (
-															"-"
 														)}
-													</TableCell>
+													>
+														<TableCell
+															align='center'
+															key={index}
+															className={`${
+																obj.find(
+																	(obj) => obj.institute_code === institute.id
+																)?.color
+															} rank`}
+														>
+															{obj.find(
+																(obj) => obj.institute_code === institute.id
+															) ? (
+																<>
+																	{
+																		obj.find(
+																			(obj) =>
+																				obj.institute_code === institute.id
+																		).opening_rank
+																	}
+																	<br /> to
+																	<br />
+																	{
+																		obj.find(
+																			(obj) =>
+																				obj.institute_code === institute.id
+																		).closing_rank
+																	}
+																</>
+															) : (
+																"-"
+															)}
+														</TableCell>
+													</LightRankTooltip>
 												))}
 											</TableRow>
 										))}

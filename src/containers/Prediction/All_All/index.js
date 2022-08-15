@@ -14,7 +14,11 @@ import { connect } from "react-redux";
 import FormDialog from "../../../components/formDialog/index";
 import { Header } from "../../../components/header";
 import { TableInfo } from "../../../components/tableHeader";
-import { PredictionList } from "../../../constants/general";
+import {
+	colorCode,
+	LightRankTooltip,
+	PredictionList,
+} from "../../../constants/general";
 import { fetchAllAllPrediction } from "../../../store/actions/prediction";
 import { makeSelectAllAllPrediction } from "../../../store/selectors/prediction";
 import "../../list.scss";
@@ -74,11 +78,25 @@ const AllBranchAllCollegePrediction = ({
 		setopenForm(true);
 	};
 
+	const toolTip = (color) => {
+		if (color == "green") {
+			return colorCode.green;
+		} else if (color == "yellow") {
+			return colorCode.yellow;
+		} else if (color == "orange") {
+			return colorCode.orange;
+		} else if (color == "red") {
+			return colorCode.red;
+		}
+		return "";
+	};
+
 	if (predictionType === "all_one") {
 		return (
 			<AllBranchOneCollegePrediction
 				setpredictionType={setpredictionType}
 				predictionType={predictionType}
+				toolTip={toolTip}
 			/>
 		);
 	}
@@ -87,6 +105,7 @@ const AllBranchAllCollegePrediction = ({
 			<OneBranchAllInstitutesPrediction
 				setpredictionType={setpredictionType}
 				predictionType={predictionType}
+				toolTip={toolTip}
 			/>
 		);
 	}
@@ -95,6 +114,7 @@ const AllBranchAllCollegePrediction = ({
 			<OneBranchOneInstitutesPrediction
 				setpredictionType={setpredictionType}
 				predictionType={predictionType}
+				toolTip={toolTip}
 			/>
 		);
 	}
@@ -167,28 +187,38 @@ const AllBranchAllCollegePrediction = ({
 													{branch.branch_code}
 												</TableCell>
 												{predictionObj.data.institutes.map((institute) => (
-													<TableCell
-														align='center'
-														className={`${
+													<LightRankTooltip
+														title={toolTip(
 															predictionObj.data.round_data.find(
 																(obj) =>
 																	obj.branch_code === branch.id &&
 																	obj.institute_code === institute.id
 															)?.color
-														} rank`}
+														)}
 													>
-														{predictionObj.data.round_data.find(
-															(obj) =>
-																obj.branch_code === branch.id &&
-																obj.institute_code === institute.id
-														)
-															? predictionObj.data.round_data.find(
+														<TableCell
+															align='center'
+															className={`${
+																predictionObj.data.round_data.find(
 																	(obj) =>
 																		obj.branch_code === branch.id &&
 																		obj.institute_code === institute.id
-															  ).rank
-															: "-"}
-													</TableCell>
+																)?.color
+															} rank`}
+														>
+															{predictionObj.data.round_data.find(
+																(obj) =>
+																	obj.branch_code === branch.id &&
+																	obj.institute_code === institute.id
+															)
+																? predictionObj.data.round_data.find(
+																		(obj) =>
+																			obj.branch_code === branch.id &&
+																			obj.institute_code === institute.id
+																  ).rank
+																: "-"}
+														</TableCell>
+													</LightRankTooltip>
 												))}
 											</TableRow>
 										))}

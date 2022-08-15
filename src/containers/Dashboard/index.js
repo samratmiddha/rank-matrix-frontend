@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import "./index.scss";
 import {
@@ -12,10 +12,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { featuresCard } from "./constants";
-import {
-	fetchNewUpdates,
-	fetchRecentUpdates,
-} from "../../store/actions/dashboard";
+import { fetchRecentUpdates } from "../../store/actions/dashboard";
 import { connect } from "react-redux";
 import { makeSelectRecentUpdate } from "../../store/selectors/dashboard";
 import { Link } from "react-router-dom";

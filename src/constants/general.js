@@ -4,6 +4,15 @@ import { styled } from "@mui/material/styles";
 export const websiteName = "Rank Matrix";
 export const fileName = `${websiteName}_your_choices`;
 
+export const colorCode = {
+	green: "Very High probability for getting the branch/college.",
+	yellow:
+		"Probable to get the branch/college even in case cut-off of current year decreases.",
+	orange:
+		"Probable to get the branch/college only if cut-off of current year increases.",
+	red: "Very Low probability for getting the branch/college.",
+};
+
 export const howToUse = [
 	{
 		option: "Participating Colleges",
@@ -48,22 +57,22 @@ export const howToUse = [
 		ruleDescription: [
 			{
 				color: "Green",
-				rule: "Very High probability for getting the branch/college.",
+				rule: colorCode.green,
 				code: "#4bcf6f",
 			},
 			{
 				color: "Yellow",
-				rule: "Probable to get the branch/college even in case cut-off of current year decreases.",
+				rule: colorCode.yellow,
 				code: "#fbbc05",
 			},
 			{
 				color: "Orange",
-				rule: "Probable to get the branch/college only if cut-off of current year increases.",
+				rule: colorCode.orange,
 				code: "#f27844",
 			},
 			{
 				color: "Red",
-				rule: "Very Low probability for getting the branch/college.",
+				rule: colorCode.red,
 				code: "#f95656",
 			},
 		],
@@ -116,6 +125,18 @@ export const LightTooltip = styled(({ className, ...props }) => (
 		color: "#6096fc",
 		boxShadow: theme.shadows[1],
 		fontSize: 15,
+	},
+}));
+
+export const LightRankTooltip = styled(({ className, ...props }) => (
+	<Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+	[`& .${tooltipClasses.tooltip}`]: {
+		backgroundColor: "#ffffff",
+		color: "#6096fc",
+		boxShadow: theme.shadows[1],
+		fontSize: 12,
+		textAlign: "center",
 	},
 }));
 
