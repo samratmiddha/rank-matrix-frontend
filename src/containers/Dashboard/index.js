@@ -29,7 +29,7 @@ const Dashboard = ({ recentUpdateComponent, recentUpdateObject }) => {
 					{!recentUpdateObject.loading && !recentUpdateObject.error ? (
 						<>
 							<Typography gutterBottom variant='h5' component='div'>
-								Updates HI
+								Updates
 							</Typography>
 							<ul className='recent-updates'>
 								{recentUpdateObject.data.map((update, index) => (

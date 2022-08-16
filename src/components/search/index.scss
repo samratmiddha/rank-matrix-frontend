@@ -11,4 +11,8 @@
 	.MuiInputBase-root {
 		background-color: #ffffff;
 	}
+
+	@media (max-width: 600px) {
+		margin: 0.5rem 0;
+	}
 }
