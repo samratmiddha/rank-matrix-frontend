@@ -31,13 +31,13 @@ export const ClickableChips = ({
 	useEffect(() => {
 		let text = "";
 		selected.map((item, index) => {
-			if (selected.length == index + 1) {
+			if (selected.length === index + 1) {
 				text += item;
 			} else {
 				text += item + ",";
 			}
 		});
-		if (text == "") {
+		if (text === "") {
 			dispatch(
 				showToast("Select atleast one Institute Type", "warning", toastDuration)
 			);

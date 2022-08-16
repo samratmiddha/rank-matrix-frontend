@@ -79,13 +79,13 @@ const AllBranchAllCollegePrediction = ({
 	};
 
 	const toolTip = (color) => {
-		if (color == "green") {
+		if (color === "green") {
 			return colorCode.green;
-		} else if (color == "yellow") {
+		} else if (color === "yellow") {
 			return colorCode.yellow;
-		} else if (color == "orange") {
+		} else if (color === "orange") {
 			return colorCode.orange;
-		} else if (color == "red") {
+		} else if (color === "red") {
 			return colorCode.red;
 		}
 		return "";
@@ -153,7 +153,7 @@ const AllBranchAllCollegePrediction = ({
 					<Button className='choice-button' onClick={editDetailButtonClick}>
 						Edit Details
 					</Button>
-					{year != 0 && <TableInfo heading={`JoSAA ${year} Round ${round}`} />}
+					{year !== 0 && <TableInfo heading={`JoSAA ${year} Round ${round}`} />}
 				</div>
 				{predictionObj.loading ? (
 					<CircularProgress />

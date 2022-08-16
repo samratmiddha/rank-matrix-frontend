@@ -2,7 +2,7 @@ import { Copyright } from "@mui/icons-material";
 import Love_IMG from "../../images/love_img.svg";
 import React, { useState } from "react";
 import "./index.scss";
-import { Link, Tooltip } from "@mui/material";
+import { Link } from "@mui/material";
 import { LightTooltip } from "../../constants/general";
 
 export const Footer = () => {
@@ -11,7 +11,7 @@ export const Footer = () => {
 	const [meetTheTeam, setmeetTheTeam] = useState(false);
 
 	const handleClick = () => {
-		if (footerClick != 1) {
+		if (footerClick !== 1) {
 			setfooterClick(footerClick + 1);
 		} else {
 			setmeetTeamVisible(true);
@@ -40,7 +40,11 @@ export const Footer = () => {
 				<div className='meet-the-team'>
 					{!meetTheTeam ? (
 						<LightTooltip title='Meet the team'>
-							<img src={Love_IMG} onClick={handleTeamClick} />
+							<img
+								src={Love_IMG}
+								alt='Meet the team'
+								onClick={handleTeamClick}
+							/>
 						</LightTooltip>
 					) : (
 						<div className='team-members'>
@@ -67,7 +71,7 @@ export const Footer = () => {
 			{!meetTeamVisible && (
 				<div className='made-by-img'>
 					Made with
-					<img src={Love_IMG} />
+					<img src={Love_IMG} alt='Made by IMG' />
 					by IMG
 				</div>
 			)}

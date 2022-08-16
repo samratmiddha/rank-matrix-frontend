@@ -2,7 +2,7 @@ import "./index.scss";
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { websiteName } from "../../constants/general";
-import logo from "../../images/icon.svg";
+import logo from "../../images/icon.png";
 import { Link } from "react-router-dom";
 import { HowToUse } from "../../components/howToUseDialog";
 
@@ -11,7 +11,7 @@ export const Navbar = () => {
 	const [howToUseClick, setHowToUseClick] = useState(false);
 	useEffect(() => {
 		const handleScroll = () => {
-			if (window.pageYOffset == 0) {
+			if (window.pageYOffset === 0) {
 				setshowShadow(false);
 			} else {
 				setshowShadow(true);

@@ -182,7 +182,7 @@ const FormDialog = ({
 	}, [instituteType]);
 
 	useEffect(() => {
-		if (choice == "mains") {
+		if (choice === "mains") {
 			setrankLabel("JEE Mains Rank");
 		} else {
 			setrankLabel("JEE Advance Rank");
@@ -384,7 +384,7 @@ const FormDialog = ({
 							return (
 								<>
 									{form.optional ? (
-										choice == "both" && (
+										choice === "both" && (
 											<TextField
 												sx={{ maxWidth: "30%" }}
 												className='form-dialog'
@@ -609,26 +609,26 @@ const FormDialog = ({
 															>
 																<>
 																	<span>{option.branch_detail.name}</span>
-																	{instituteType == "IIT" &&
-																		option.branch_detail.IIT != "Y" && (
+																	{instituteType === "IIT" &&
+																		option.branch_detail.IIT !== "Y" && (
 																			<span className='not-offered-branch'>
 																				&nbsp;&nbsp;*Branch discontinued
 																			</span>
 																		)}
-																	{instituteType == "NIT" &&
-																		option.branch_detail.NIT != "Y" && (
+																	{instituteType === "NIT" &&
+																		option.branch_detail.NIT !== "Y" && (
 																			<span className='not-offered-branch'>
 																				&nbsp;&nbsp;*Branch discontinued
 																			</span>
 																		)}
-																	{instituteType == "IIIT" &&
-																		option.branch_detail.IIIT != "Y" && (
+																	{instituteType === "IIIT" &&
+																		option.branch_detail.IIIT !== "Y" && (
 																			<span className='not-offered-branch'>
 																				&nbsp;&nbsp;*Branch discontinued
 																			</span>
 																		)}
-																	{instituteType == "GFTI" &&
-																		option.branch_detail.GFTI != "Y" && (
+																	{instituteType === "GFTI" &&
+																		option.branch_detail.GFTI !== "Y" && (
 																			<span className='not-offered-branch'>
 																				&nbsp;&nbsp;*Branch discontinued
 																			</span>

@@ -113,7 +113,7 @@ const CollegeList = ({
 				) : (
 					!instituteListObj.error &&
 					instituteListObj.data.length !== 0 &&
-					institute != "" && (
+					institute !== "" && (
 						<>
 							<TableContainer component={Paper}>
 								<Table sx={{ minWidth: 650 }}>
@@ -182,23 +182,23 @@ const CollegeList = ({
 														)}
 														<div className='nirf_column'>
 															<div className='nirf_label'>
-																{nirfRankNumber == 0
-																	? row.nirf_1 == 10000
+																{nirfRankNumber === 0
+																	? row.nirf_1 === 10000
 																		? "-"
 																		: row.nirf_1 > 250
 																		? String(row.nirf_1) +
 																		  "-" +
 																		  String(row.nirf_1 + 49)
 																		: row.nirf_1
-																	: nirfRankNumber == 1
-																	? row.nirf_2 == 10000
+																	: nirfRankNumber === 1
+																	? row.nirf_2 === 10000
 																		? "-"
 																		: row.nirf_2 > 250
 																		? String(row.nirf_2) +
 																		  "-" +
 																		  String(row.nirf_2 + 49)
 																		: row.nirf_2
-																	: row.nirf_3 == 10000
+																	: row.nirf_3 === 10000
 																	? "-"
 																	: row.nirf_3 > 250
 																	? String(row.nirf_3) +

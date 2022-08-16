@@ -129,7 +129,7 @@ const SeatMatrix = ({
 						{seatMatrixYear.map((year) => (
 							<Tab
 								label={year.label}
-								className={`tab ${year.id == "increase" && "increase-tab"}`}
+								className={`tab ${year.id === "increase" && "increase-tab"}`}
 								key={year.id}
 								value={year.id}
 							/>
@@ -137,7 +137,7 @@ const SeatMatrix = ({
 					</Tabs>
 					<Button
 						className={`increase-tab-button ${
-							tabValue == "increase" ? "selected" : ""
+							tabValue === "increase" ? "selected" : ""
 						}`}
 						onClick={handleSeatChange}
 					>
@@ -171,7 +171,7 @@ const SeatMatrix = ({
 				) : (
 					!seatMatrixObj.error &&
 					seatMatrixObj.data.length !== 0 &&
-					instituteType != "" && (
+					instituteType !== "" && (
 						<>
 							<TableContainer component={Paper}>
 								<Table sx={{ minWidth: 650 }}>

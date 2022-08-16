@@ -162,7 +162,7 @@ const Ranks = ({
 				) : (
 					!rankListObj.error &&
 					rankListObj.data.length !== 0 &&
-					instituteType != "" && (
+					instituteType !== "" && (
 						<>
 							<TableContainer component={Paper}>
 								<Table sx={{ minWidth: 650 }}>
