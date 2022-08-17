@@ -39,7 +39,7 @@ import {
 } from "../actionTypes";
 
 export function* fetchInstituteType(action) {
-	const requestURL = `/soce/api/v1/available_type/?choice=${action.payload.choice}`;
+	const requestURL = `/rankmatrix/api/available_type/?choice=${action.payload.choice}`;
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchInstituteTypeSuccess(response));
@@ -51,7 +51,7 @@ export function* fetchInstituteType(action) {
 }
 
 export function* fetchYear() {
-	const requestURL = "/soce/api/v1/latest_year/";
+	const requestURL = "/rankmatrix/api/latest_year/";
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchYearSuccess(response));
@@ -63,7 +63,7 @@ export function* fetchYear() {
 }
 
 export function* fetchRound(action) {
-	const requestURL = `/soce/api/v1/total_rounds/?year=${action.payload.year}`;
+	const requestURL = `/rankmatrix/api/total_rounds/?year=${action.payload.year}`;
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchRoundSuccess(response));
@@ -75,7 +75,7 @@ export function* fetchRound(action) {
 }
 
 export function* fetchGender() {
-	const requestURL = "/soce/api/v1/gender/";
+	const requestURL = "/rankmatrix/api/gender/";
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchGenderSuccess(response));
@@ -87,7 +87,7 @@ export function* fetchGender() {
 }
 
 export function* fetchCategory() {
-	const requestURL = "/soce/api/v1/category/";
+	const requestURL = "/rankmatrix/api/category/";
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchCategorySuccess(response));
@@ -99,7 +99,7 @@ export function* fetchCategory() {
 }
 
 export function* fetchQuota(action) {
-	const requestURL = `/soce/api/v1/quota/?${
+	const requestURL = `/rankmatrix/api/quota/?${
 		action.payload.institute_type
 			? "institute_type=" + action.payload.institute_type
 			: ""
@@ -119,7 +119,7 @@ export function* fetchQuota(action) {
 }
 
 export function* fetchInstituteList(action) {
-	const requestURL = `/soce/api/v1/institute_list/?institute_type=${action.payload.institute_type}`;
+	const requestURL = `/rankmatrix/api/institute_list/?institute_type=${action.payload.institute_type}`;
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchInstituteListSuccess(response));
@@ -131,7 +131,7 @@ export function* fetchInstituteList(action) {
 }
 
 export function* fetchBranchList(action) {
-	const requestURL = `/soce/api/v1/one_all/branch_list/?institute_type=${action.payload.institute_type}`;
+	const requestURL = `/rankmatrix/api/one_all/branch_list/?institute_type=${action.payload.institute_type}`;
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchBranchListSuccess(response));
@@ -143,7 +143,7 @@ export function* fetchBranchList(action) {
 }
 
 export function* fetchBranchOneOneList(action) {
-	const requestURL = `/soce/api/v1/one_one/branch_list/?institute_id=${action.payload.instituteId}`;
+	const requestURL = `/rankmatrix/api/one_one/branch_list/?institute_id=${action.payload.instituteId}`;
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchBranchOneOneListSuccess(response));

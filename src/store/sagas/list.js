@@ -22,7 +22,7 @@ import {
 
 export function* fetchInstituteList(action) {
 	let requestURL = "";
-	requestURL = `/soce/api/v1/institute/list/?page=${action.payload.page}${
+	requestURL = `/rankmatrix/api/institute/list/?page=${action.payload.page}${
 		action.payload.search.length === 0 ? "" : "&search=" + action.payload.search
 	}${action.payload.typeList ? "&type_list=" + action.payload.typeList : ""}${
 		action.payload.instituteType
@@ -51,7 +51,7 @@ export function* fetchInstituteList(action) {
 
 export function* fetchSeatMatrix(action) {
 	let requestURL = "";
-	requestURL = `/soce/api/v1/seat/list/?page=${action.payload.page}${
+	requestURL = `/rankmatrix/api/seat/list/?page=${action.payload.page}${
 		action.payload.search.length === 0 ? "" : "&search=" + action.payload.search
 	}${action.payload.typeList ? "&type_list=" + action.payload.typeList : ""}${
 		action.payload.instituteType
@@ -86,7 +86,7 @@ export function* fetchSeatMatrix(action) {
 
 export function* fetchRankList(action) {
 	let requestURL = "";
-	requestURL = `/soce/api/v1/ranks/list/?page=${action.payload.page}${
+	requestURL = `/rankmatrix/api/ranks/list/?page=${action.payload.page}${
 		action.payload.search.length === 0 ? "" : "&search=" + action.payload.search
 	}${action.payload.typeList ? "&type_list=" + action.payload.typeList : ""}${
 		action.payload.instituteType

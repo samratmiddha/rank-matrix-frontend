@@ -13,7 +13,7 @@ import { showToast } from "../actions/toast";
 import { RECENT_UPDATE_FETCH } from "../actionTypes";
 
 export function* fetchRecentUpdates() {
-	const requestURL = "/soce/api/v1/recent_updates/";
+	const requestURL = "/rankmatrix/api/recent_updates/";
 	try {
 		const response = yield getRequest(requestURL);
 		yield put(fetchRecentUpdatesSuccess(response));

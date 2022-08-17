@@ -27,7 +27,7 @@ import {
 } from "../actionTypes";
 
 export function* fetchAllAllPrediction(action) {
-	const requestURL = `/soce/api/v1/all_all/rank_list/?institute_type=${action.payload.instituteType}&year=${action.payload.year}&round=${action.payload.round}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&option=${action.payload.option}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}`;
+	const requestURL = `/rankmatrix/api/all_all/rank_list/?institute_type=${action.payload.instituteType}&year=${action.payload.year}&round=${action.payload.round}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&option=${action.payload.option}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}`;
 
 	try {
 		const response = yield getRequest(requestURL);
@@ -43,7 +43,7 @@ export function* fetchAllAllPrediction(action) {
 }
 
 export function* fetchAllOnePrediction(action) {
-	const requestURL = `/soce/api/v1/all_one/rank_list/?institute_id=${action.payload.instituteId}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}`;
+	const requestURL = `/rankmatrix/api/all_one/rank_list/?institute_id=${action.payload.instituteId}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}`;
 
 	try {
 		const response = yield getRequest(requestURL);
@@ -59,7 +59,7 @@ export function* fetchAllOnePrediction(action) {
 }
 
 export function* fetchOneAllPrediction(action) {
-	const requestURL = `/soce/api/v1/one_all/rank_list/?branch_id=${action.payload.branchId}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}&institute_type=${action.payload.instituteType}`;
+	const requestURL = `/rankmatrix/api/one_all/rank_list/?branch_id=${action.payload.branchId}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}&institute_type=${action.payload.instituteType}`;
 
 	try {
 		const response = yield getRequest(requestURL);
@@ -75,7 +75,7 @@ export function* fetchOneAllPrediction(action) {
 }
 
 export function* fetchOneOnePrediction(action) {
-	const requestURL = `/soce/api/v1/one_one/rank_list/?branch_id=${action.payload.branchId}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}&institute_id=${action.payload.instituteId}`;
+	const requestURL = `/rankmatrix/api/one_one/rank_list/?branch_id=${action.payload.branchId}&category=${action.payload.category}&seat_pool=${action.payload.seatPool}&quota=${action.payload.quota}&rank=${action.payload.rank}&cutoff=${action.payload.cutoff}&institute_id=${action.payload.instituteId}`;
 
 	try {
 		const response = yield getRequest(requestURL);
@@ -91,7 +91,7 @@ export function* fetchOneOnePrediction(action) {
 }
 
 export function* fetchTestChoice(action) {
-	const requestURL = `/soce/api/v1/choice/rank_list/?branch_id=${
+	const requestURL = `/rankmatrix/api/choice/rank_list/?branch_id=${
 		action.payload.branchId
 	}&category=${action.payload.category}&seat_pool=${
 		action.payload.seatPool
