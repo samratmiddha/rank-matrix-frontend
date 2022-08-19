@@ -140,7 +140,7 @@ export const LightRankTooltip = styled(({ className, ...props }) => (
 	},
 }));
 
-export const apiURL = "/";
+export const apiURL = "rankmatrix.channeli.in/";
 
 export const toastDuration = 2000;
 
