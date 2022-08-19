@@ -140,7 +140,7 @@ export const LightRankTooltip = styled(({ className, ...props }) => (
 	},
 }));
 
-export const apiURL = "http://localhost:8000";
+export const apiURL = "/";
 
 export const toastDuration = 2000;
 
