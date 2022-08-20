@@ -1,9 +1,14 @@
 version: '3.8'
 services:
   frontend:
-    build: .
-    container_name: rank_matrix_frontend
-    ports:
-      - '3000:3000'
+    image: node:16
     stdin_open: true
     tty: true
+    working_dir: /rank-matrix-frontend
+    command: bash -c "npm install && npm run build"
+    volumes:
+      - type: bind
+        source: ./
+        target: /rank-matrix-frontend
+        read_only: false
+
