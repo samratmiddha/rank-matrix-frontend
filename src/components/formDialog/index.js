@@ -174,30 +174,20 @@ const FormDialog = ({
 				branchListComponent(payload);
 			}
 			if (instituteType === "IIT") {
-				setrankLabel("JEE Advance rank");
+				setrankLabel("JEE Advanced rank");
 			} else {
-				setrankLabel("JEE Mains rank");
+				setrankLabel("JEE Main rank");
 			}
 		}
 	}, [instituteType]);
 
 	useEffect(() => {
 		if (choice === "mains") {
-			setrankLabel("JEE Mains Rank");
+			setrankLabel("JEE Main Rank");
 		} else {
-			setrankLabel("JEE Advance Rank");
+			setrankLabel("JEE Advanced Rank");
 		}
 	}, [choice]);
-
-	useEffect(() => {
-		// setquota("");
-		// console.log(quotaList);
-	}, [quotaList]);
-
-	useEffect(() => {
-		// console.log(roundList);
-		// setround("a");
-	}, [roundList]);
 
 	const handleChange = (event) => {
 		const selectdata = event.target;
@@ -282,10 +272,12 @@ const FormDialog = ({
 			}
 		}
 		if (setRankMain) {
-			if (rankMain === 0 || rankMain.length === 0) {
-				error = 1;
-			} else {
-				setRankMain(rankMain);
+			if (choice === "both") {
+				if (rankMain === 0 || rankMain.length === 0) {
+					error = 1;
+				} else {
+					setRankMain(rankMain);
+				}
 			}
 		}
 		if (setYear) {
@@ -388,7 +380,7 @@ const FormDialog = ({
 											<TextField
 												sx={{ maxWidth: "30%" }}
 												className='form-dialog'
-												label={"JEE Mains Rank"}
+												label={"JEE Main Rank"}
 												variant='filled'
 												type={form.type}
 												name={form.name}

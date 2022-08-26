@@ -134,25 +134,32 @@ const Ranks = ({
 								setPage={setPage}
 							/>
 						)}
-						{!instituteTypeObj.loading && !instituteTypeObj.error ? (
-							<ClickableChips
-								chipList={instituteTypeObj.data}
-								defaultSelected={"IIT"}
-								setChipList={setInstituteType}
-								setPage={setPage}
-							/>
-						) : (
-							<CircularProgress />
-						)}
+						{!instituteTypeObj.loading &&
+							!instituteTypeObj.error &&
+							instituteTypeObj.data.length > 0 && (
+								<ClickableChips
+									chipList={instituteTypeObj.data}
+									defaultSelected={"IIT"}
+									setChipList={setInstituteType}
+									setPage={setPage}
+								/>
+							)}
 					</div>
 					{rankListObj.search && (
 						<>
-							<TableInfo heading={`JoSAA ${year} Round ${round}`} />
+							<TableInfo
+								heading={`JoSAA ${year} Round ${round}`}
+								className='non-mobile'
+							/>
 							<SearchBar
 								labelText={"Search by any keyword"}
 								defaultWord={searchWord}
 								setSearchKey={setSearchWord}
 								setPage={setPage}
+							/>
+							<TableInfo
+								heading={`JoSAA ${year} Round ${round}`}
+								className='mobile'
 							/>
 						</>
 					)}

@@ -25,30 +25,28 @@ const Dashboard = ({ recentUpdateComponent, recentUpdateObject }) => {
 	return (
 		<div>
 			<Box className='dashboard-container'>
-				<Box className='updates'>
-					{!recentUpdateObject.loading && !recentUpdateObject.error ? (
-						<>
-							<Typography gutterBottom variant='h5' component='div'>
-								Updates
-							</Typography>
-							<ul className='recent-updates'>
-								{recentUpdateObject.data.map((update, index) => (
-									<Typography
-										gutterBottom
-										variant='p'
-										key={index}
-										component='li'
-										className='noto-sans'
-									>
-										{update.text}
-									</Typography>
-								))}
-							</ul>
-						</>
-					) : (
-						!recentUpdateObject.error && <CircularProgress />
-					)}
-				</Box>
+				{!recentUpdateObject.loading && !recentUpdateObject.error
+					? recentUpdateObject.data.length !== 0 && (
+							<Box className='updates'>
+								<Typography gutterBottom variant='h5' component='div'>
+									Updates
+								</Typography>
+								<ul className='recent-updates'>
+									{recentUpdateObject.data.map((update, index) => (
+										<Typography
+											gutterBottom
+											variant='p'
+											key={index}
+											component='li'
+											className='noto-sans'
+										>
+											{update.text}
+										</Typography>
+									))}
+								</ul>
+							</Box>
+					  )
+					: !recentUpdateObject.error && <CircularProgress />}
 				<Grid
 					container
 					direction='row'

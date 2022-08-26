@@ -10,10 +10,20 @@
 			font-size: 1.2rem;
 			font-family: "Poppins", sans-serif;
 		}
+		li {
+			margin: 0 2px;
+		}
 	}
 	.css-17zad2a-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
 		border: 1px solid rgba(96, 150, 252, 0.5);
 		background-color: rgba(96, 150, 252, 1);
 		color: white;
+	}
+	.MuiPaginationItem-previousNext {
+		background-color: #bcbcbe29;
+		&:hover {
+			background-color: rgba(96, 150, 252, 1);
+			color: white;
+		}
 	}
 }

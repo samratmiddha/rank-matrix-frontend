@@ -91,13 +91,13 @@ export const customtheme = createTheme({
 			contrastText: "#ffffff",
 		},
 		black: {
-			main: "#000000",
+			main: "#002942",
 			contrastText: "#ffffff",
-			light: "#000000",
+			light: "#002942",
 		},
 		white: {
 			main: "#ffffff",
-			contrastText: "#000000",
+			contrastText: "#002942",
 			light: "#ffffff",
 		},
 		chips: {
@@ -149,15 +149,15 @@ export const optionsList = ["Opening Rank", "Closing Rank"];
 export const choicesList = [
 	{
 		value: "mains",
-		title: "Only JEE Mains",
+		title: "Only JEE Main",
 	},
 	{
 		value: "advance",
-		title: "Only JEE Advance",
+		title: "Only JEE Advanced",
 	},
 	{
 		value: "both",
-		title: "Both JEE Mains and JEE Advance",
+		title: "Both JEE Main and JEE Advanced",
 	},
 ];
 
