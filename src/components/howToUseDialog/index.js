@@ -1,4 +1,5 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { CloseOutlined } from "@mui/icons-material";
+import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { howToUse } from "../../constants/general";
 import "./index.scss";
@@ -23,7 +24,12 @@ export const HowToUse = ({ openDialog, setOpenDialog }) => {
 				onClose={handleClose}
 				className='how-to-use'
 			>
-				<DialogTitle>How to Use</DialogTitle>
+				<DialogTitle>
+					<div>How to Use</div>
+					<IconButton onClick={handleClose}>
+						<CloseOutlined color='black' />
+					</IconButton>
+				</DialogTitle>
 				<DialogContent>
 					<ul>
 						{howToUse.map((item, i) => (

@@ -175,11 +175,13 @@ const CollegeList = ({
 													className='nirf_column noto-sans'
 												>
 													<div className='nirf_column'>
-														{nirfRankNumber > 0 && (
-															<IconButton onClick={previous_nirf}>
-																<ArrowBackIos />
-															</IconButton>
-														)}
+														<div className='nirf-year-change'>
+															{nirfRankNumber > 0 && (
+																<IconButton onClick={previous_nirf}>
+																	<ArrowBackIos />
+																</IconButton>
+															)}
+														</div>
 														<div className='nirf_column'>
 															<div className='nirf_label'>
 																{nirfRankNumber === 0
@@ -208,11 +210,13 @@ const CollegeList = ({
 															</div>
 															in {nirfLatestYear - nirfRankNumber}
 														</div>
-														{nirfRankNumber < 2 && (
-															<IconButton onClick={next_nirf}>
-																<ArrowForwardIos />
-															</IconButton>
-														)}
+														<div className='nirf-year-change'>
+															{nirfRankNumber < 2 && (
+																<IconButton onClick={next_nirf}>
+																	<ArrowForwardIos />
+																</IconButton>
+															)}
+														</div>
 													</div>
 												</TableCell>
 												<TableCell className='noto-sans' align='left'>

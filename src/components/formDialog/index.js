@@ -104,7 +104,9 @@ const FormDialog = ({
 	const [rankMain, setrankMain] = useState(
 		parseInt(localStorage.getItem("rankMain")) || ""
 	);
-	const [option, setoption] = useState(localStorage.getItem("option") || "");
+	const [option, setoption] = useState(
+		localStorage.getItem("option") || "closing"
+	);
 	const [round, setround] = useState(localStorage.getItem("round") || "");
 	const [choice, setchoice] = useState(localStorage.getItem("choice") || "");
 	const [choiceEdit, setchoiceEdit] = useState(localStorage.getItem("choice"));

@@ -87,6 +87,7 @@ const TestChoices = ({
 			localStorage.setItem("round", round);
 			localStorage.setItem("choice", choice);
 			setdisableAdd(false);
+			setchoiceFormOpen(true);
 			setdataSubmit(false);
 		}
 	}, [dataSubmit]);
