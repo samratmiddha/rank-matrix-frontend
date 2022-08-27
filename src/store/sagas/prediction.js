@@ -100,7 +100,9 @@ export function* fetchTestChoice(action) {
 	}&institute_id=${action.payload.instituteId}&year=${
 		action.payload.year
 	}&round=${action.payload.round}${
-		action.payload.choice === "both" && "&mains_rank=" + action.payload.rankMain
+		action.payload.choice === "both"
+			? "&mains_rank=" + action.payload.rankMain
+			: ""
 	}`;
 	try {
 		const response = yield getRequest(requestURL);
