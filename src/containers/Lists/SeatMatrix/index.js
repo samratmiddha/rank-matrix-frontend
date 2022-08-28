@@ -141,7 +141,7 @@ const SeatMatrix = ({
 						}`}
 						onClick={handleSeatChange}
 					>
-						Seats change from {yearObj[1]}-{yearObj[0]}
+						Seat change from {yearObj[1]}-{yearObj[0]}
 					</Button>
 				</Box>
 			</div>
