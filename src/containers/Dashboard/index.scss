@@ -38,13 +38,11 @@
 		li.MuiTypography-root {
 			font-size: 0.9rem;
 			font-weight: 400;
+			padding-right: 0.2rem;
 		}
 		.recent-updates {
-			max-height: 350px;
-			overflow-y: scroll;
-			&::-webkit-scrollbar {
-				display: none;
-			}
+			max-height: 20rem;
+			overflow-y: auto;
 		}
 		@media (max-width: 1200px) and (min-width: 1000px) {
 			padding: 1rem 0.5rem;
@@ -54,11 +52,6 @@
 			}
 			li.MuiTypography-root {
 				font-size: 0.7rem;
-			}
-		}
-		@media (max-width: 1000px) {
-			.recent-updates {
-				max-height: 450px;
 			}
 		}
 		@media (max-width: 900px) {
@@ -151,9 +144,6 @@
 			}
 			li.MuiTypography-root {
 				font-size: 0.9rem;
-			}
-			.recent-updates {
-				max-height: 7rem;
 			}
 		}
 		.MuiGrid-root {

@@ -82,7 +82,7 @@ const SeatMatrix = ({
 			data.reverse();
 			data.push({
 				id: "increase",
-				label: `Seats change from ${yearObj[yearObj.length - 2]}-${
+				label: `Seat change from ${yearObj[yearObj.length - 2]}-${
 					yearObj[yearObj.length - 1]
 				}`,
 			});

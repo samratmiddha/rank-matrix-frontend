@@ -28,3 +28,18 @@ html::-webkit-scrollbar-thumb {
 .noto-sans {
 	font-family: "Noto Sans", sans-serif !important;
 }
+
+*::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: #ffffff;
+}
+*::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	background-color: #ffffff;
+	top: 0;
+}
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #e8efff;
+}

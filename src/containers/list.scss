@@ -26,6 +26,11 @@
 			.nirf_column {
 				display: flex;
 				align-items: center;
+				width: 14rem;
+				@media (max-width: 500px) {
+					width: 12rem;
+				}
+				justify-content: center;
 				.nirf_label {
 					padding: 1px 5px;
 					color: #6096fc;
