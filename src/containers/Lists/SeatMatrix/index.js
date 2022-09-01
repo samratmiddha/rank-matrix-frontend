@@ -42,7 +42,7 @@ const SeatMatrix = ({
 	const [searchWord, setSearchWord] = useState("");
 	const [orderBy, setorderBy] = useState("");
 	const [order, setorder] = useState("asc");
-	const [tabValue, setTabValue] = useState(2021);
+	const [tabValue, setTabValue] = useState(2022);
 	const [seatMatrixYear, setSeatMatrixYear] = useState([]);
 
 	useEffect(() => {
@@ -81,10 +81,15 @@ const SeatMatrix = ({
 			});
 			data.reverse();
 			data.push({
+				id: 2022,
+				label: `JoSAA 2022`,
+			});
+			data.push({
 				id: "increase",
-				label: `Seat change from ${yearObj[yearObj.length - 2]}-${
-					yearObj[yearObj.length - 1]
-				}`,
+				// label: `Seat change from ${yearObj[yearObj.length - 2]}-${
+				// 	yearObj[yearObj.length - 1]
+				// }`
+				label: `Seat change from 2021-2022`,
 			});
 			setSeatMatrixYear(data);
 		}
@@ -141,7 +146,8 @@ const SeatMatrix = ({
 						}`}
 						onClick={handleSeatChange}
 					>
-						Seat change from {yearObj[1]}-{yearObj[0]}
+						{/* Seat change from {yearObj[1]}-{yearObj[0]} */}
+						Seat change from 2021-2022
 					</Button>
 				</Box>
 			</div>
