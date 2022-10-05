@@ -46,8 +46,8 @@ const Ranks = ({
 	const [changeYear, setchangeYear] = useState("");
 	const [changeRound, setchangeRound] = useState("");
 	const [changeData, setchangeData] = useState(false);
-	const [year, setyear] = useState();
-	const [round, setround] = useState(6);
+	const [year, setyear] = useState(2022);
+	const [round, setround] = useState(1);
 
 	useEffect(() => {
 		const payload = {
@@ -69,9 +69,11 @@ const Ranks = ({
 			search: searchWord,
 			orderField: orderBy,
 			orderType: order,
+			year: year,
+			round: round,
 		};
 		rankListComponent(payload);
-	}, [instituteType, page, searchWord, orderBy, order]);
+	}, [instituteType, page, searchWord, orderBy, order, year]);
 
 	useEffect(() => {
 		if (changeData) {
