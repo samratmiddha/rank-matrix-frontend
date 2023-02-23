@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import "./index.scss";
-import { CircularProgress } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { showToast } from "../../store/actions/toast";
-import { toastDuration } from "../../constants/general";
+import React, { useEffect, useState } from "react"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import DialogTitle from "@mui/material/DialogTitle"
+import InputLabel from "@mui/material/InputLabel"
+import OutlinedInput from "@mui/material/OutlinedInput"
+import MenuItem from "@mui/material/MenuItem"
+import FormControl from "@mui/material/FormControl"
+import Select from "@mui/material/Select"
+import "./index.scss"
+import { CircularProgress } from "@mui/material"
+import { useDispatch } from "react-redux"
+import { showToast } from "../../store/actions/toast"
+import { toastDuration } from "../../constants/general"
 
 export const YearRoundSelect = ({
 	buttonText,
@@ -30,44 +30,42 @@ export const YearRoundSelect = ({
 	okClick,
 	setPage,
 }) => {
-	const [open, setOpen] = useState(false);
-	const [okAllowed, setokAllowed] = useState(false);
-	const dispatch = useDispatch();
+	const [open, setOpen] = useState(false)
+	const [okAllowed, setokAllowed] = useState(false)
+	const dispatch = useDispatch()
 
 	useEffect(() => {
-		okClick(false);
-	}, []);
+		okClick(false)
+	}, [])
 
 	const handleChange = (event) => {
-		setokAllowed(true);
-		const value = event.target.value;
-		secondSelectOnChange(value.charAt(value.length - 1));
-	};
+		setokAllowed(true)
+		const value = event.target.value
+		secondSelectOnChange(value.charAt(value.length - 1))
+	}
 
-	const handleChangeFirst = (event) => [
-		firstSelectOnChange(event.target.value),
-	];
+	const handleChangeFirst = (event) => [firstSelectOnChange(event.target.value)]
 
 	const handleClickOpen = () => {
-		setokAllowed(false);
-		setOpen(true);
-	};
+		setokAllowed(false)
+		setOpen(true)
+	}
 
 	const handleClose = (event) => {
-		setOpen(false);
-	};
+		setOpen(false)
+	}
 
 	const handleOk = (event) => {
 		if (okAllowed) {
-			okClick(true);
-			setOpen(false);
-			setPage(1);
+			okClick(true)
+			setOpen(false)
+			setPage(1)
 		} else {
 			dispatch(
 				showToast("Select both year and round", "warning", toastDuration)
-			);
+			)
 		}
-	};
+	}
 
 	return (
 		<div className='dialog-container'>
@@ -97,7 +95,8 @@ export const YearRoundSelect = ({
 								{secondSelectList.loading ? (
 									<CircularProgress />
 								) : (
-									secondSelectList.data.map((item) => (
+									secondSelectList.data.rounds &&
+									secondSelectList.data.rounds.map((item) => (
 										<MenuItem value={item}>{item}</MenuItem>
 									))
 								)}
@@ -111,5 +110,5 @@ export const YearRoundSelect = ({
 				</DialogActions>
 			</Dialog>
 		</div>
-	);
-};
+	)
+}

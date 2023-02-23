@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { visuallyHidden } from "@mui/utils";
+import React, { useEffect, useState } from "react"
+import { connect } from "react-redux"
+import { visuallyHidden } from "@mui/utils"
 import {
 	Box,
 	Button,
@@ -15,42 +15,38 @@ import {
 	TableRow,
 	TableSortLabel,
 	Tabs,
-} from "@mui/material";
-import { Header } from "../../../components/header";
-import { SearchBar } from "../../../components/search";
-import { fetchSeatMatrix } from "../../../store/actions/list";
-import {
-	makeSelectInstituteType,
-	makeSelectYear,
-} from "../../../store/selectors/form";
-import { makeSelectSeatMatrix } from "../../../store/selectors/list";
-import "../../list.scss";
-import { CustomPagination } from "../../../components/pagination";
-import { seatMatrixHeader } from "../../../constants/tableHeader";
-import { fetchInstituteType } from "../../../store/actions/form";
-import { ClickableChips } from "../../../components/chips";
+} from "@mui/material"
+import { Header } from "../../../components/header"
+import { SearchBar } from "../../../components/search"
+import { fetchSeatMatrix } from "../../../store/actions/list"
+import { makeSelectInstituteType } from "../../../store/selectors/form"
+import { makeSelectSeatMatrix } from "../../../store/selectors/list"
+import "../../list.scss"
+import { CustomPagination } from "../../../components/pagination"
+import { seatMatrixHeader } from "../../../constants/tableHeader"
+import { fetchInstituteType } from "../../../store/actions/form"
+import { ClickableChips } from "../../../components/chips"
 
 const SeatMatrix = ({
 	seatMatrixComponent,
 	instituteTypeObj,
 	instituteTypeComponent,
 	seatMatrixObj,
-	yearObj,
 }) => {
-	const [instituteType, setInstituteType] = useState("IIT");
-	const [page, setPage] = useState(1);
-	const [searchWord, setSearchWord] = useState("");
-	const [orderBy, setorderBy] = useState("");
-	const [order, setorder] = useState("asc");
-	const [tabValue, setTabValue] = useState(2022);
-	const [seatMatrixYear, setSeatMatrixYear] = useState([]);
+	const [instituteType, setInstituteType] = useState("IIT")
+	const [page, setPage] = useState(1)
+	const [searchWord, setSearchWord] = useState("")
+	const [orderBy, setorderBy] = useState("")
+	const [order, setorder] = useState("asc")
+	const [tabValue, setTabValue] = useState(2022)
+	const [seatMatrixYear, setSeatMatrixYear] = useState([])
 
 	useEffect(() => {
 		const payload = {
 			choice: "both",
-		};
-		instituteTypeComponent(payload);
-	}, []);
+		}
+		instituteTypeComponent(payload)
+	}, [])
 
 	useEffect(() => {
 		let payload = {
@@ -59,62 +55,56 @@ const SeatMatrix = ({
 			orderField: orderBy,
 			orderType: order,
 			typeList: instituteType,
-		};
-		if (tabValue !== "increase") {
-			payload["year"] = tabValue;
-		} else {
-			payload["increase"] = true;
 		}
-		seatMatrixComponent(payload);
-	}, [instituteType, page, searchWord, orderBy, order, tabValue]);
+		if (tabValue !== "increase") {
+			payload["year"] = tabValue
+		} else {
+			payload["increase"] = true
+		}
+		seatMatrixComponent(payload)
+	}, [instituteType, page, searchWord, orderBy, order, tabValue])
 
 	useEffect(() => {
-		if (yearObj.length > 0) {
-			let data = [];
-			yearObj.forEach((year) => {
-				if (year >= 2019) {
-					data.push({
-						id: year,
-						label: `JoSAA ${year}`,
-					});
-				}
-			});
-			data.reverse();
-			data.push({
-				id: 2022,
-				label: `JoSAA 2022`,
-			});
+		if (seatMatrixObj.data.length > 0 && seatMatrixYear.length == 0) {
+			let data = []
+			setTabValue(seatMatrixObj.data[0].latest_year)
+			for (let year = 2019; year <= seatMatrixObj.data[0].latest_year; year++) {
+				data.push({
+					id: year,
+					label: `JoSAA ${year}`,
+				})
+			}
+			data.reverse()
 			data.push({
 				id: "increase",
-				// label: `Seat change from ${yearObj[yearObj.length - 2]}-${
-				// 	yearObj[yearObj.length - 1]
-				// }`
-				label: `Seat change from 2021-2022`,
-			});
-			setSeatMatrixYear(data);
+				label: `Seat change from ${seatMatrixObj.data[0].latest_year - 1}-${
+					seatMatrixObj.data[0].latest_year
+				}`,
+			})
+			setSeatMatrixYear(data)
 		}
-	}, [yearObj]);
+	}, [seatMatrixObj.data])
 
 	const onPageChange = (event, value) => {
-		setPage(value);
-	};
+		setPage(value)
+	}
 
 	const createSortHandler = (property) => (event) => {
-		const isAsc = orderBy === property && order === "asc";
-		setorder(isAsc ? "desc" : "asc");
-		setorderBy(property);
-		setPage(1);
-	};
+		const isAsc = orderBy === property && order === "asc"
+		setorder(isAsc ? "desc" : "asc")
+		setorderBy(property)
+		setPage(1)
+	}
 
 	const handleChange = (event, newValue) => {
-		setTabValue(newValue);
-		setPage(1);
-	};
+		setTabValue(newValue)
+		setPage(1)
+	}
 
 	const handleSeatChange = () => {
-		setTabValue("increase");
-		setPage(1);
-	};
+		setTabValue("increase")
+		setPage(1)
+	}
 
 	return (
 		<div className='list-container'>
@@ -261,22 +251,21 @@ const SeatMatrix = ({
 				)}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
 const mapStateToProps = (state) => {
 	return {
 		instituteTypeObj: makeSelectInstituteType(state),
 		seatMatrixObj: makeSelectSeatMatrix(state),
-		yearObj: makeSelectYear(state),
-	};
-};
+	}
+}
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		seatMatrixComponent: (payload) => dispatch(fetchSeatMatrix(payload)),
 		instituteTypeComponent: (payload) => dispatch(fetchInstituteType(payload)),
-	};
-};
+	}
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SeatMatrix);
+export default connect(mapStateToProps, mapDispatchToProps)(SeatMatrix)

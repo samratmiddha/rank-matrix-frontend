@@ -1,10 +1,6 @@
-import { put, takeLatest } from "redux-saga/effects";
-import {
-	getErrorBody,
-	getErrorMessage,
-	getRequest,
-} from "../../constants/apis";
-import { toastDuration } from "../../constants/general";
+import { put, takeLatest } from "redux-saga/effects"
+import { getErrorBody, getErrorMessage, getRequest } from "../../constants/apis"
+import { toastDuration } from "../../constants/general"
 import {
 	fetchBranchListError,
 	fetchBranchListSuccess,
@@ -24,8 +20,8 @@ import {
 	fetchRoundSuccess,
 	fetchYearError,
 	fetchYearSuccess,
-} from "../actions/form";
-import { showToast } from "../actions/toast";
+} from "../actions/form"
+import { showToast } from "../actions/toast"
 import {
 	FETCH_BRANCH_FORM_LIST,
 	FETCH_BRANCH_ONE_ONE_LIST,
@@ -36,65 +32,65 @@ import {
 	FETCH_QUOTA,
 	FETCH_ROUND,
 	FETCH_YEAR,
-} from "../actionTypes";
+} from "../actionTypes"
 
 export function* fetchInstituteType(action) {
-	const requestURL = `/rankmatrix/api/available_type/?choice=${action.payload.choice}`;
+	const requestURL = `/rankmatrix/api/college_type/?choice=${action.payload.choice}`
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchInstituteTypeSuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchInstituteTypeSuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchInstituteTypeError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchInstituteTypeError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
 export function* fetchYear() {
-	const requestURL = "/rankmatrix/api/latest_year/";
+	const requestURL = "/rankmatrix/api/year/list"
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchYearSuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchYearSuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchYearError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchYearError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
 export function* fetchRound(action) {
-	const requestURL = `/rankmatrix/api/total_rounds/?year=${action.payload.year}`;
+	const requestURL = `/rankmatrix/api/rounds/?year=${action.payload.year}`
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchRoundSuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchRoundSuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchRoundError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchRoundError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
 export function* fetchGender() {
-	const requestURL = "/rankmatrix/api/gender/";
+	const requestURL = "/rankmatrix/api/gender/"
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchGenderSuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchGenderSuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchGenderError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchGenderError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
 export function* fetchCategory() {
-	const requestURL = "/rankmatrix/api/category/";
+	const requestURL = "/rankmatrix/api/category/"
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchCategorySuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchCategorySuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchCategoryError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchCategoryError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
@@ -107,50 +103,50 @@ export function* fetchQuota(action) {
 		action.payload.institute_code
 			? "&institute_code=" + action.payload.institute_code
 			: ""
-	}`;
+	}`
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchQuotaSuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchQuotaSuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchQuotaError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchQuotaError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
 export function* fetchInstituteList(action) {
-	const requestURL = `/rankmatrix/api/institute_list/?institute_type=${action.payload.institute_type}`;
+	const requestURL = `/rankmatrix/api/prediction/institute/list/?institute_type=${action.payload.institute_type}`
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchInstituteListSuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchInstituteListSuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchInstituteListError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchInstituteListError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
 export function* fetchBranchList(action) {
-	const requestURL = `/rankmatrix/api/one_all/branch_list/?institute_type=${action.payload.institute_type}`;
+	const requestURL = `/rankmatrix/api/one_all/branch_list/?institute_type=${action.payload.institute_type}`
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchBranchListSuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchBranchListSuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchBranchListError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchBranchListError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
 export function* fetchBranchOneOneList(action) {
-	const requestURL = `/rankmatrix/api/one_one/branch_list/?institute_id=${action.payload.instituteId}`;
+	const requestURL = `/rankmatrix/api/one_one/branch_list/?institute_id=${action.payload.instituteId}`
 	try {
-		const response = yield getRequest(requestURL);
-		yield put(fetchBranchOneOneListSuccess(response));
+		const response = yield getRequest(requestURL)
+		yield put(fetchBranchOneOneListSuccess(response))
 	} catch (err) {
-		const errBody = getErrorBody(err);
-		yield put(fetchBranchOneOneListError(errBody));
-		yield put(showToast(getErrorMessage(errBody), "error", toastDuration));
+		const errBody = getErrorBody(err)
+		yield put(fetchBranchOneOneListError(errBody))
+		yield put(showToast(getErrorMessage(errBody), "error", toastDuration))
 	}
 }
 
@@ -164,4 +160,4 @@ export const formSaga = [
 	takeLatest(FETCH_INSTITUTE_FORM_LIST, fetchInstituteList),
 	takeLatest(FETCH_BRANCH_FORM_LIST, fetchBranchList),
 	takeLatest(FETCH_BRANCH_ONE_ONE_LIST, fetchBranchOneOneList),
-];
+]

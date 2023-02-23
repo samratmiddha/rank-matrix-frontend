@@ -8,44 +8,44 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import FormDialog from "../../../components/formDialog/index";
-import { Header } from "../../../components/header";
-import { TableInfo } from "../../../components/tableHeader";
+} from "@mui/material"
+import React, { useEffect, useState } from "react"
+import { connect } from "react-redux"
+import FormDialog from "../../../components/formDialog/index"
+import { Header } from "../../../components/header"
+import { TableInfo } from "../../../components/tableHeader"
 import {
 	colorCode,
 	LightRankTooltip,
 	PredictionList,
-} from "../../../constants/general";
-import { fetchAllAllPrediction } from "../../../store/actions/prediction";
-import { makeSelectAllAllPrediction } from "../../../store/selectors/prediction";
-import "../../list.scss";
-import AllBranchOneCollegePrediction from "../All_One";
-import OneBranchAllInstitutesPrediction from "../One_All";
-import OneBranchOneInstitutesPrediction from "../One_One";
+} from "../../../constants/general"
+import { fetchAllAllPrediction } from "../../../store/actions/prediction"
+import { makeSelectAllAllPrediction } from "../../../store/selectors/prediction"
+import "../../list.scss"
+import AllBranchOneCollegePrediction from "../All_One"
+import OneBranchAllInstitutesPrediction from "../One_All"
+import OneBranchOneInstitutesPrediction from "../One_One"
 
 const AllBranchAllCollegePrediction = ({
 	predictionObj,
 	predictionComponent,
 }) => {
-	const [predictionType, setpredictionType] = useState("all_all");
-	const [instituteType, setinstituteType] = useState("");
-	const [category, setcategory] = useState("");
-	const [cutoff, setcutoff] = useState(10);
-	const [seatPool, setseatPool] = useState("");
-	const [quota, setquota] = useState("");
-	const [rank, setrank] = useState(0);
-	const [option, setoption] = useState("");
-	const [year, setyear] = useState(0);
-	const [round, setround] = useState(0);
-	const [openForm, setopenForm] = useState(false);
-	const [dataSubmit, setdataSubmit] = useState(false);
+	const [predictionType, setpredictionType] = useState("all_all")
+	const [instituteType, setinstituteType] = useState("")
+	const [category, setcategory] = useState("")
+	const [cutoff, setcutoff] = useState(10)
+	const [seatPool, setseatPool] = useState("")
+	const [quota, setquota] = useState("")
+	const [rank, setrank] = useState(0)
+	const [option, setoption] = useState("")
+	const [year, setyear] = useState(0)
+	const [round, setround] = useState(0)
+	const [openForm, setopenForm] = useState(false)
+	const [dataSubmit, setdataSubmit] = useState(false)
 
 	useEffect(() => {
-		setopenForm(true);
-	}, [predictionType]);
+		setopenForm(true)
+	}, [predictionType])
 
 	useEffect(() => {
 		if (dataSubmit) {
@@ -59,37 +59,37 @@ const AllBranchAllCollegePrediction = ({
 				round,
 				rank,
 				cutoff,
-			};
-			predictionComponent(payload);
-			localStorage.setItem("instituteType", instituteType);
-			localStorage.setItem("category", category);
-			localStorage.setItem("cutoff", cutoff);
-			localStorage.setItem("seatPool", seatPool);
-			localStorage.setItem("quota", quota);
-			localStorage.setItem("rank", rank);
-			localStorage.setItem("option", option);
-			localStorage.setItem("year", year);
-			localStorage.setItem("round", round);
-			setdataSubmit(false);
+			}
+			predictionComponent(payload)
+			localStorage.setItem("instituteType", instituteType)
+			localStorage.setItem("category", category)
+			localStorage.setItem("cutoff", cutoff)
+			localStorage.setItem("seatPool", seatPool)
+			localStorage.setItem("quota", quota)
+			localStorage.setItem("rank", rank)
+			localStorage.setItem("option", option)
+			localStorage.setItem("year", year)
+			localStorage.setItem("round", round)
+			setdataSubmit(false)
 		}
-	}, [dataSubmit]);
+	}, [dataSubmit])
 
 	const editDetailButtonClick = () => {
-		setopenForm(true);
-	};
+		setopenForm(true)
+	}
 
 	const toolTip = (color) => {
 		if (color === "green") {
-			return colorCode.green;
+			return colorCode.green
 		} else if (color === "yellow") {
-			return colorCode.yellow;
+			return colorCode.yellow
 		} else if (color === "orange") {
-			return colorCode.orange;
+			return colorCode.orange
 		} else if (color === "red") {
-			return colorCode.red;
+			return colorCode.red
 		}
-		return "";
-	};
+		return ""
+	}
 
 	if (predictionType === "all_one") {
 		return (
@@ -98,7 +98,7 @@ const AllBranchAllCollegePrediction = ({
 				predictionType={predictionType}
 				toolTip={toolTip}
 			/>
-		);
+		)
 	}
 	if (predictionType === "one_all") {
 		return (
@@ -107,7 +107,7 @@ const AllBranchAllCollegePrediction = ({
 				predictionType={predictionType}
 				toolTip={toolTip}
 			/>
-		);
+		)
 	}
 	if (predictionType === "one_one") {
 		return (
@@ -116,7 +116,7 @@ const AllBranchAllCollegePrediction = ({
 				predictionType={predictionType}
 				toolTip={toolTip}
 			/>
-		);
+		)
 	}
 
 	return (
@@ -189,33 +189,25 @@ const AllBranchAllCollegePrediction = ({
 												{predictionObj.data.institutes.map((institute) => (
 													<LightRankTooltip
 														title={toolTip(
-															predictionObj.data.round_data.find(
-																(obj) =>
-																	obj.branch_code === branch.id &&
-																	obj.institute_code === institute.id
-															)?.color
+															predictionObj.data.round_data[
+																`${branch.code}-${institute.code}`
+															]?.color
 														)}
 													>
 														<TableCell
 															align='center'
 															className={`${
-																predictionObj.data.round_data.find(
-																	(obj) =>
-																		obj.branch_code === branch.id &&
-																		obj.institute_code === institute.id
-																)?.color
+																predictionObj.data.round_data[
+																	`${branch.code}-${institute.code}`
+																]?.color
 															} rank`}
 														>
-															{predictionObj.data.round_data.find(
-																(obj) =>
-																	obj.branch_code === branch.id &&
-																	obj.institute_code === institute.id
-															)
-																? predictionObj.data.round_data.find(
-																		(obj) =>
-																			obj.branch_code === branch.id &&
-																			obj.institute_code === institute.id
-																  ).rank
+															{predictionObj.data.round_data[
+																`${branch.code}-${institute.code}`
+															]
+																? predictionObj.data.round_data[
+																		`${branch.code}-${institute.code}`
+																  ].rank
 																: "-"}
 														</TableCell>
 													</LightRankTooltip>
@@ -230,22 +222,22 @@ const AllBranchAllCollegePrediction = ({
 				)}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
 const mapStateToProps = (state) => {
 	return {
 		predictionObj: makeSelectAllAllPrediction(state),
-	};
-};
+	}
+}
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		predictionComponent: (payload) => dispatch(fetchAllAllPrediction(payload)),
-	};
-};
+	}
+}
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(AllBranchAllCollegePrediction);
+)(AllBranchAllCollegePrediction)

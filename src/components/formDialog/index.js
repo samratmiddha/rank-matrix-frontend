@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import {
 	Button,
 	Dialog,
@@ -10,13 +10,13 @@ import {
 	MenuItem,
 	Select,
 	Divider,
-} from "@mui/material";
-import "./index.scss";
+} from "@mui/material"
+import "./index.scss"
 import {
 	toastDuration,
 	optionsList,
 	choicesList,
-} from "../../constants/general";
+} from "../../constants/general"
 import {
 	makeSelectBranchList,
 	makeSelectBranchOneOneList,
@@ -27,8 +27,8 @@ import {
 	makeSelectQuota,
 	makeSelectRound,
 	makeSelectYear,
-} from "../../store/selectors/form";
-import { connect } from "react-redux";
+} from "../../store/selectors/form"
+import { connect } from "react-redux"
 import {
 	fetchBranchList,
 	fetchBranchOneOneList,
@@ -36,13 +36,13 @@ import {
 	fetchInstituteType,
 	fetchQuota,
 	fetchRound,
-} from "../../store/actions/form";
-import { showToast } from "../../store/actions/toast";
-import { useLocation } from "react-router-dom";
+} from "../../store/actions/form"
+import { showToast } from "../../store/actions/toast"
+import { useLocation } from "react-router-dom"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-	return <Slide direction='up' ref={ref} {...props} />;
-});
+	return <Slide direction='up' ref={ref} {...props} />
+})
 
 const FormDialog = ({
 	openForm,
@@ -83,140 +83,138 @@ const FormDialog = ({
 	isEditing,
 	showToastComponent,
 }) => {
-	const [open, setOpen] = useState(openForm);
-	const [year, setyear] = useState(parseInt(localStorage.getItem("year")) || 0);
+	const [open, setOpen] = useState(openForm)
+	const [year, setyear] = useState(parseInt(localStorage.getItem("year")) || 0)
 	const [instituteType, setinstituteType] = useState(
 		localStorage.getItem("instituteType") || ""
-	);
+	)
 	const [category, setcategory] = useState(
 		localStorage.getItem("category") || ""
-	);
+	)
 	const [cutoffVariation, setcutoffVariation] = useState(
 		parseInt(localStorage.getItem("cutoff")) || 10
-	);
+	)
 	const [seatPool, setseatPool] = useState(
 		localStorage.getItem("seatPool") || ""
-	);
-	const [quota, setquota] = useState(localStorage.getItem("quota") || "");
-	const [rank, setrank] = useState(
-		parseInt(localStorage.getItem("rank")) || ""
-	);
+	)
+	const [quota, setquota] = useState(localStorage.getItem("quota") || "")
+	const [rank, setrank] = useState(parseInt(localStorage.getItem("rank")) || "")
 	const [rankMain, setrankMain] = useState(
 		parseInt(localStorage.getItem("rankMain")) || ""
-	);
+	)
 	const [option, setoption] = useState(
 		localStorage.getItem("option") || "closing"
-	);
-	const [round, setround] = useState(localStorage.getItem("round") || "");
-	const [choice, setchoice] = useState(localStorage.getItem("choice") || "");
-	const [choiceEdit, setchoiceEdit] = useState(localStorage.getItem("choice"));
+	)
+	const [round, setround] = useState(localStorage.getItem("round") || "")
+	const [choice, setchoice] = useState(localStorage.getItem("choice") || "")
+	const [choiceEdit, setchoiceEdit] = useState(localStorage.getItem("choice"))
 	const [instituteId, setinstituteId] = useState(
 		localStorage.getItem("instituteId") || 0
-	);
+	)
 	const [branchId, setbranchId] = useState(
 		localStorage.getItem("branchId") || 0
-	);
-	const [rankLabel, setrankLabel] = useState("Rank");
+	)
+	const [rankLabel, setrankLabel] = useState("Rank")
 
-	const location = useLocation();
+	const location = useLocation()
 
 	useEffect(() => {
 		if (fetchinstituteTypeDetail) {
-			setchoice(localStorage.getItem("choice"));
+			setchoice(localStorage.getItem("choice"))
 			if (location.pathname === "/choices") {
 				if (choice !== "") {
 					const payload = {
 						choice,
-					};
-					instituteTypeComponent(payload);
+					}
+					instituteTypeComponent(payload)
 				}
 			}
 		}
-	}, [fetchinstituteTypeDetail, choice]);
+	}, [fetchinstituteTypeDetail, choice])
 
 	useEffect(() => {
-		setOpen(openForm);
-	}, [openForm]);
+		setOpen(openForm)
+	}, [openForm])
 
 	useEffect(() => {
 		if (year !== 0) {
 			const payload = {
 				year,
-			};
-			setround(localStorage.getItem("round") || "");
-			roundListComponent(payload);
+			}
+			setround(localStorage.getItem("round") || "")
+			roundListComponent(payload)
 		}
-	}, [year]);
+	}, [year])
 
 	useEffect(() => {
 		if (setInstituteId) {
 			const payload = {
 				instituteId,
-			};
-			branchOneOneListComponent(payload);
+			}
+			branchOneOneListComponent(payload)
 			const quotaPayload = {
 				institute_code: instituteId,
-			};
-			quotaListComponent(quotaPayload);
+			}
+			quotaListComponent(quotaPayload)
 		}
-	}, [instituteId]);
+	}, [instituteId])
 
 	useEffect(() => {
 		if (instituteType !== "") {
 			const payload = {
 				institute_type: instituteType,
-			};
+			}
 			if (!setInstituteId) {
-				quotaListComponent(payload);
+				quotaListComponent(payload)
 			}
 			if (setInstituteId) {
-				instituteListComponent(payload);
+				instituteListComponent(payload)
 			}
 			if (setBranchId) {
-				branchListComponent(payload);
+				branchListComponent(payload)
 			}
 			if (instituteType === "IIT") {
-				setrankLabel("JEE Advanced rank");
+				setrankLabel("JEE Advanced rank")
 			} else {
-				setrankLabel("JEE Main rank");
+				setrankLabel("JEE Main rank")
 			}
 		}
-	}, [instituteType]);
+	}, [instituteType])
 
 	useEffect(() => {
 		if (choice === "mains") {
-			setrankLabel("JEE Main Rank");
+			setrankLabel("JEE Main Rank")
 		} else {
-			setrankLabel("JEE Advanced Rank");
+			setrankLabel("JEE Advanced Rank")
 		}
-	}, [choice]);
+	}, [choice])
 
 	const handleChange = (event) => {
-		const selectdata = event.target;
+		const selectdata = event.target
 		if (selectdata.name === "institute_type") {
-			setinstituteType(selectdata.value);
+			setinstituteType(selectdata.value)
 		} else if (selectdata.name === "category") {
-			setcategory(selectdata.value);
+			setcategory(selectdata.value)
 		} else if (selectdata.name === "cutoff") {
-			setcutoffVariation(selectdata.value);
+			setcutoffVariation(selectdata.value)
 		} else if (selectdata.name === "seatPool") {
-			setseatPool(selectdata.value);
+			setseatPool(selectdata.value)
 		} else if (selectdata.name === "quota") {
-			setquota(selectdata.value);
+			setquota(selectdata.value)
 		} else if (selectdata.name === "rank") {
-			setrank(selectdata.value);
+			setrank(selectdata.value)
 		} else if (selectdata.name === "rankMain") {
-			setrankMain(selectdata.value);
+			setrankMain(selectdata.value)
 		} else if (selectdata.name === "option") {
-			setoption(selectdata.value);
+			setoption(selectdata.value)
 		} else if (selectdata.name === "year") {
-			setyear(selectdata.value);
+			setyear(selectdata.value)
 		} else if (selectdata.name === "round") {
-			setround(selectdata.value);
+			setround(selectdata.value)
 		} else if (selectdata.name === "institute_list") {
-			setinstituteId(selectdata.value);
+			setinstituteId(selectdata.value)
 		} else if (selectdata.name === "branch_list") {
-			setbranchId(selectdata.value);
+			setbranchId(selectdata.value)
 		} else if (selectdata.name === "choice_option") {
 			if (isEditing) {
 				if (selectdata.value !== choiceEdit) {
@@ -224,97 +222,97 @@ const FormDialog = ({
 						"All the choices you filled will be removed",
 						"warning",
 						toastDuration
-					);
+					)
 				}
 			}
-			setchoice(selectdata.value);
+			setchoice(selectdata.value)
 		}
-	};
+	}
 
 	const handleClose = () => {
-		setOpen(false);
-		setopenForm(false);
-	};
+		setOpen(false)
+		setopenForm(false)
+	}
 
 	const handleSubmit = () => {
-		let error = 0;
+		let error = 0
 		if (setInstituteType) {
 			if (instituteType.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setInstituteType(instituteType);
+				setInstituteType(instituteType)
 			}
 		}
 		if (setCategory) {
 			if (category.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setCategory(category);
+				setCategory(category)
 			}
 		}
 		if (setSeatPool) {
 			if (seatPool.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setSeatPool(seatPool);
+				setSeatPool(seatPool)
 			}
 		}
 		if (setQuota) {
 			if (quota.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setQuota(quota);
+				setQuota(quota)
 			}
 		}
 		if (setRank) {
 			if (rank === 0 || rank.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setRank(rank);
+				setRank(rank)
 			}
 		}
 		if (setRankMain) {
 			if (choice === "both") {
 				if (rankMain === 0 || rankMain.length === 0) {
-					error = 1;
+					error = 1
 				} else {
-					setRankMain(rankMain);
+					setRankMain(rankMain)
 				}
 			}
 		}
 		if (setYear) {
 			if (year === 0 || year.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setYear(year);
+				setYear(year)
 			}
 		}
 		if (setRound) {
 			if (round.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setRound(round);
+				setRound(round)
 			}
 		}
 		if (setOption) {
 			if (option.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setOption(option);
+				setOption(option)
 			}
 		}
 		if (setInstituteId) {
 			if (instituteId === 0 || instituteId.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setInstituteId(instituteId);
+				setInstituteId(instituteId)
 			}
 		}
 		if (setBranchId) {
 			if (branchId === 0 || branchId.length === 0) {
-				error = 1;
+				error = 1
 			} else {
-				setBranchId(branchId);
+				setBranchId(branchId)
 			}
 		}
 		if (error !== 0) {
@@ -322,24 +320,24 @@ const FormDialog = ({
 				"Please fill all the details",
 				"warning",
 				toastDuration
-			);
+			)
 		} else {
 			if (setChoice) {
-				setChoice(choice);
+				setChoice(choice)
 			}
 			if (setdataSubmit) {
-				setdataSubmit(true);
+				setdataSubmit(true)
 			}
 			if (setCutoff) {
-				setCutoff(cutoffVariation);
+				setCutoff(cutoffVariation)
 			}
-			handleClose();
+			handleClose()
 		}
-	};
+	}
 
 	const handlePredictionType = (event) => {
-		setPredictionType(event.target.value);
-	};
+		setPredictionType(event.target.value)
+	}
 
 	return (
 		<div>
@@ -407,7 +405,7 @@ const FormDialog = ({
 										/>
 									)}
 								</>
-							);
+							)
 						} else {
 							if (form.list === "option") {
 								return (
@@ -431,7 +429,7 @@ const FormDialog = ({
 											</MenuItem>
 										))}
 									</TextField>
-								);
+								)
 							} else if (form.list === "year") {
 								return (
 									<TextField
@@ -451,7 +449,7 @@ const FormDialog = ({
 											</MenuItem>
 										))}
 									</TextField>
-								);
+								)
 							} else if (form.list === "round") {
 								return (
 									<TextField
@@ -472,7 +470,7 @@ const FormDialog = ({
 												</MenuItem>
 											))}
 									</TextField>
-								);
+								)
 							} else if (form.list === "institute_type") {
 								return (
 									<TextField
@@ -487,13 +485,14 @@ const FormDialog = ({
 										defaultValue={instituteType}
 									>
 										{instituteTypeList.data &&
-											instituteTypeList.data.map((option) => (
-												<MenuItem key={option} value={option}>
-													{option}
+											instituteTypeList.data.results &&
+											instituteTypeList.data.results.map((option) => (
+												<MenuItem key={option.id} value={option.type}>
+													{option.type}
 												</MenuItem>
 											))}
 									</TextField>
-								);
+								)
 							} else if (form.list === "seatPool") {
 								return (
 									<TextField
@@ -509,12 +508,12 @@ const FormDialog = ({
 									>
 										{genderList &&
 											genderList.map((option) => (
-												<MenuItem key={option.id} value={option.gender}>
-													{option.gender}
+												<MenuItem key={option.id} value={option.seat_pool}>
+													{option.seat_pool}
 												</MenuItem>
 											))}
 									</TextField>
-								);
+								)
 							} else if (form.list === "category") {
 								return (
 									<TextField
@@ -535,7 +534,7 @@ const FormDialog = ({
 												</MenuItem>
 											))}
 									</TextField>
-								);
+								)
 							} else if (form.list === "quota") {
 								return (
 									<TextField
@@ -550,13 +549,17 @@ const FormDialog = ({
 										defaultValue={quota}
 									>
 										{quotaList.data &&
-											quotaList.data.map((option) => (
-												<MenuItem key={option.quota} value={option.quota}>
-													{option.quota}
-												</MenuItem>
-											))}
+											quotaList.data.quota &&
+											quotaList.data.quota.map(
+												(option) =>
+													option && (
+														<MenuItem key={option} value={option}>
+															{option}
+														</MenuItem>
+													)
+											)}
 									</TextField>
-								);
+								)
 							} else if (form.list === "institute_list") {
 								return (
 									<TextField
@@ -577,7 +580,7 @@ const FormDialog = ({
 												</MenuItem>
 											))}
 									</TextField>
-								);
+								)
 							} else if (form.list === "branch_list") {
 								return (
 									<TextField
@@ -593,44 +596,17 @@ const FormDialog = ({
 									>
 										{setInstituteId
 											? branchOneOneList.data &&
-											  branchOneOneList.data.map(
-													(option) =>
-														option.branch_detail && (
-															<MenuItem
-																key={option.branch_detail.id}
-																value={option.branch_detail.id}
-																className='branch-list-form'
-															>
-																<>
-																	<span>{option.branch_detail.name}</span>
-																	{instituteType === "IIT" &&
-																		option.branch_detail.IIT !== "Y" && (
-																			<span className='not-offered-branch'>
-																				&nbsp;&nbsp;*Branch discontinued
-																			</span>
-																		)}
-																	{instituteType === "NIT" &&
-																		option.branch_detail.NIT !== "Y" && (
-																			<span className='not-offered-branch'>
-																				&nbsp;&nbsp;*Branch discontinued
-																			</span>
-																		)}
-																	{instituteType === "IIIT" &&
-																		option.branch_detail.IIIT !== "Y" && (
-																			<span className='not-offered-branch'>
-																				&nbsp;&nbsp;*Branch discontinued
-																			</span>
-																		)}
-																	{instituteType === "GFTI" &&
-																		option.branch_detail.GFTI !== "Y" && (
-																			<span className='not-offered-branch'>
-																				&nbsp;&nbsp;*Branch discontinued
-																			</span>
-																		)}
-																</>
-															</MenuItem>
-														)
-											  )
+											  branchOneOneList.data.map((option) => (
+													<MenuItem
+														key={option.id}
+														value={option.id}
+														className='branch-list-form'
+													>
+														<>
+															<span>{option.branch_name}</span>
+														</>
+													</MenuItem>
+											  ))
 											: branchList.data &&
 											  branchList.data.map((option) => (
 													<MenuItem key={option.id} value={option.id}>
@@ -638,7 +614,7 @@ const FormDialog = ({
 													</MenuItem>
 											  ))}
 									</TextField>
-								);
+								)
 							} else if (form.list === "choice_option") {
 								return (
 									<TextField
@@ -658,7 +634,7 @@ const FormDialog = ({
 											</MenuItem>
 										))}
 									</TextField>
-								);
+								)
 							}
 						}
 					})}
@@ -669,8 +645,8 @@ const FormDialog = ({
 				</DialogActions>
 			</Dialog>
 		</div>
-	);
-};
+	)
+}
 
 const mapStateToProps = (state) => {
 	return {
@@ -683,8 +659,8 @@ const mapStateToProps = (state) => {
 		instituteList: makeSelectInstituteList(state),
 		branchList: makeSelectBranchList(state),
 		branchOneOneList: makeSelectBranchOneOneList(state),
-	};
-};
+	}
+}
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -697,7 +673,7 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(fetchBranchOneOneList(payload)),
 		showToastComponent: (message, type, duration) =>
 			dispatch(showToast(message, type, duration)),
-	};
-};
+	}
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(FormDialog)

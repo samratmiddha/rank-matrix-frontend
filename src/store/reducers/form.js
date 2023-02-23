@@ -1,4 +1,4 @@
-import produce from "immer";
+import produce from "immer"
 import {
 	FETCH_INSTITUTE_TYPE,
 	FETCH_INSTITUTE_TYPE_ERROR,
@@ -27,7 +27,7 @@ import {
 	FETCH_BRANCH_ONE_ONE_LIST,
 	FETCH_BRANCH_ONE_ONE_LIST_SUCCESS,
 	FETCH_BRANCH_ONE_ONE_LIST_ERROR,
-} from "../actionTypes";
+} from "../actionTypes"
 
 export const initialState = {
 	institutesType: {
@@ -63,131 +63,131 @@ export const initialState = {
 		error: false,
 		data: [],
 	},
-};
+}
 
 const reducer = (state = initialState, action) =>
 	produce(state, (draft) => {
 		switch (action.type) {
 			case FETCH_INSTITUTE_TYPE:
-				draft.institutesType.loading = true;
-				draft.institutesType.error = false;
-				draft.institutesType.data = [];
-				break;
+				draft.institutesType.loading = true
+				draft.institutesType.error = false
+				draft.institutesType.data = []
+				break
 			case FETCH_INSTITUTE_TYPE_SUCCESS:
-				draft.institutesType.loading = false;
-				draft.institutesType.error = false;
-				draft.institutesType.data = action.response.data;
-				break;
+				draft.institutesType.loading = false
+				draft.institutesType.error = false
+				draft.institutesType.data = action.response.data
+				break
 			case FETCH_INSTITUTE_TYPE_ERROR:
-				draft.institutesType.loading = false;
-				draft.institutesType.error = true;
-				draft.institutesType.data = [];
-				break;
+				draft.institutesType.loading = false
+				draft.institutesType.error = true
+				draft.institutesType.data = []
+				break
 			case FETCH_YEAR:
-				draft.year = [];
-				break;
+				draft.year = []
+				break
 			case FETCH_YEAR_SUCCESS:
-				draft.year = action.response.data.reverse();
-				break;
+				draft.year = action.response.data.year.reverse()
+				break
 			case FETCH_YEAR_ERROR:
-				draft.year = [];
-				break;
+				draft.year = []
+				break
 			case FETCH_ROUND:
-				draft.rounds.loading = true;
-				draft.rounds.error = false;
-				draft.rounds.data = [];
-				break;
+				draft.rounds.loading = true
+				draft.rounds.error = false
+				draft.rounds.data = []
+				break
 			case FETCH_ROUND_SUCCESS:
-				draft.rounds.loading = false;
-				draft.rounds.error = false;
-				draft.rounds.data = action.response.data;
-				break;
+				draft.rounds.loading = false
+				draft.rounds.error = false
+				draft.rounds.data = action.response.data.rounds
+				break
 			case FETCH_ROUND_ERROR:
-				draft.rounds.loading = false;
-				draft.rounds.error = true;
-				draft.rounds.data = [];
-				break;
+				draft.rounds.loading = false
+				draft.rounds.error = true
+				draft.rounds.data = []
+				break
 			case FETCH_CATEGORY:
-				draft.category = [];
-				break;
+				draft.category = []
+				break
 			case FETCH_CATEGORY_SUCCESS:
-				draft.category = action.response.data;
-				break;
+				draft.category = action.response.data
+				break
 			case FETCH_CATEGORY_ERROR:
-				draft.category = [];
-				break;
+				draft.category = []
+				break
 			case FETCH_GENDER:
-				draft.gender = [];
-				break;
+				draft.gender = []
+				break
 			case FETCH_GENDER_SUCCESS:
-				draft.gender = action.response.data;
-				break;
+				draft.gender = action.response.data
+				break
 			case FETCH_GENDER_ERROR:
-				draft.gender = [];
-				break;
+				draft.gender = []
+				break
 			case FETCH_QUOTA:
-				draft.quota.loading = true;
-				draft.quota.error = false;
-				draft.quota.data = [];
-				break;
+				draft.quota.loading = true
+				draft.quota.error = false
+				draft.quota.data = []
+				break
 			case FETCH_QUOTA_SUCCESS:
-				draft.quota.loading = false;
-				draft.quota.error = false;
-				draft.quota.data = action.response.data;
-				break;
+				draft.quota.loading = false
+				draft.quota.error = false
+				draft.quota.data = action.response.data
+				break
 			case FETCH_QUOTA_ERROR:
-				draft.quota.loading = false;
-				draft.quota.error = true;
-				draft.quota.data = [];
-				break;
+				draft.quota.loading = false
+				draft.quota.error = true
+				draft.quota.data = []
+				break
 			case FETCH_INSTITUTE_FORM_LIST:
-				draft.institutesList.loading = true;
-				draft.institutesList.error = false;
-				draft.institutesList.data = [];
-				break;
+				draft.institutesList.loading = true
+				draft.institutesList.error = false
+				draft.institutesList.data = []
+				break
 			case FETCH_INSTITUTE_FORM_LIST_SUCCESS:
-				draft.institutesList.loading = false;
-				draft.institutesList.error = false;
-				draft.institutesList.data = action.response.data;
-				break;
+				draft.institutesList.loading = false
+				draft.institutesList.error = false
+				draft.institutesList.data = action.response.data
+				break
 			case FETCH_INSTITUTE_FORM_LIST_ERROR:
-				draft.institutesList.loading = false;
-				draft.institutesList.error = true;
-				draft.institutesList.data = [];
-				break;
+				draft.institutesList.loading = false
+				draft.institutesList.error = true
+				draft.institutesList.data = []
+				break
 			case FETCH_BRANCH_FORM_LIST:
-				draft.branchList.loading = true;
-				draft.branchList.error = false;
-				draft.branchList.data = [];
-				break;
+				draft.branchList.loading = true
+				draft.branchList.error = false
+				draft.branchList.data = []
+				break
 			case FETCH_BRANCH_FORM_LIST_SUCCESS:
-				draft.branchList.loading = false;
-				draft.branchList.error = false;
-				draft.branchList.data = action.response.data;
-				break;
+				draft.branchList.loading = false
+				draft.branchList.error = false
+				draft.branchList.data = action.response.data
+				break
 			case FETCH_BRANCH_FORM_LIST_ERROR:
-				draft.branchList.loading = false;
-				draft.branchList.error = true;
-				draft.branchList.data = [];
-				break;
+				draft.branchList.loading = false
+				draft.branchList.error = true
+				draft.branchList.data = []
+				break
 			case FETCH_BRANCH_ONE_ONE_LIST:
-				draft.branchOneOneList.loading = true;
-				draft.branchOneOneList.error = false;
-				draft.branchOneOneList.data = [];
-				break;
+				draft.branchOneOneList.loading = true
+				draft.branchOneOneList.error = false
+				draft.branchOneOneList.data = []
+				break
 			case FETCH_BRANCH_ONE_ONE_LIST_SUCCESS:
-				draft.branchOneOneList.loading = false;
-				draft.branchOneOneList.error = false;
-				draft.branchOneOneList.data = action.response.data;
-				break;
+				draft.branchOneOneList.loading = false
+				draft.branchOneOneList.error = false
+				draft.branchOneOneList.data = action.response.data
+				break
 			case FETCH_BRANCH_ONE_ONE_LIST_ERROR:
-				draft.branchOneOneList.loading = false;
-				draft.branchOneOneList.error = true;
-				draft.branchOneOneList.data = [];
-				break;
+				draft.branchOneOneList.loading = false
+				draft.branchOneOneList.error = true
+				draft.branchOneOneList.data = []
+				break
 			default:
-				break;
+				break
 		}
-	});
+	})
 
-export default reducer;
+export default reducer

@@ -9,59 +9,59 @@ import {
 	TableHead,
 	TableRow,
 	TableSortLabel,
-} from "@mui/material";
-import DownloadIcon from "@mui/icons-material/Download";
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import FormDialog from "../../components/formDialog";
-import { Header } from "../../components/header";
+} from "@mui/material"
+import DownloadIcon from "@mui/icons-material/Download"
+import React, { useEffect, useState } from "react"
+import { connect } from "react-redux"
+import FormDialog from "../../components/formDialog"
+import { Header } from "../../components/header"
 import {
 	AddChoice,
 	fileName,
 	TestYourChoice,
 	toastDuration,
-} from "../../constants/general";
-import { choicesHeader, download_headers } from "../../constants/tableHeader";
-import { fetchTestChoice } from "../../store/actions/prediction";
-import { showToast } from "../../store/actions/toast";
-import { makeSelectTestChoice } from "../../store/selectors/prediction";
-import { CSVLink } from "react-csv";
-import "../list.scss";
-import { TableInfo } from "../../components/tableHeader";
+} from "../../constants/general"
+import { choicesHeader, download_headers } from "../../constants/tableHeader"
+import { fetchTestChoice } from "../../store/actions/prediction"
+import { showToast } from "../../store/actions/toast"
+import { makeSelectTestChoice } from "../../store/selectors/prediction"
+import { CSVLink } from "react-csv"
+import "../list.scss"
+import { TableInfo } from "../../components/tableHeader"
 
 const TestChoices = ({
 	testChoiceObj,
 	testChoiceComponent,
 	showToastComponent,
 }) => {
-	const [cutoff, setcutoff] = useState(10);
-	const [rank, setrank] = useState(0);
-	const [rankMain, setrankMain] = useState(0);
-	const [year, setyear] = useState(0);
-	const [round, setround] = useState(0);
-	const [choice, setchoice] = useState("");
-	const [instituteType, setinstituteType] = useState("");
-	const [instituteId, setinstituteId] = useState(0);
-	const [branchId, setbranchId] = useState(0);
-	const [openForm, setopenForm] = useState(false);
-	const [dataSubmit, setdataSubmit] = useState(false);
-	const [choiceFormOpen, setchoiceFormOpen] = useState(false);
-	const [isEditing, setisEditing] = useState(false);
-	const [seatPool, setseatPool] = useState("");
-	const [quota, setquota] = useState("");
-	const [category, setcategory] = useState("");
-	const [choiceDataSubmit, setchoiceDataSubmit] = useState(false);
-	const [disableAdd, setdisableAdd] = useState(true);
-	const [testChoices, settestChoices] = useState([]);
-	const [saveTestChoices, setsaveTestChoices] = useState([]);
+	const [cutoff, setcutoff] = useState(10)
+	const [rank, setrank] = useState(0)
+	const [rankMain, setrankMain] = useState(0)
+	const [year, setyear] = useState(0)
+	const [round, setround] = useState(0)
+	const [choice, setchoice] = useState("")
+	const [instituteType, setinstituteType] = useState("")
+	const [instituteId, setinstituteId] = useState(0)
+	const [branchId, setbranchId] = useState(0)
+	const [openForm, setopenForm] = useState(false)
+	const [dataSubmit, setdataSubmit] = useState(false)
+	const [choiceFormOpen, setchoiceFormOpen] = useState(false)
+	const [isEditing, setisEditing] = useState(false)
+	const [seatPool, setseatPool] = useState("")
+	const [quota, setquota] = useState("")
+	const [category, setcategory] = useState("")
+	const [choiceDataSubmit, setchoiceDataSubmit] = useState(false)
+	const [disableAdd, setdisableAdd] = useState(true)
+	const [testChoices, settestChoices] = useState([])
+	const [saveTestChoices, setsaveTestChoices] = useState([])
 
 	useEffect(() => {
-		setopenForm(true);
-	}, []);
+		setopenForm(true)
+	}, [])
 
 	useEffect(() => {
 		if (dataSubmit) {
-			settestChoices([]);
+			settestChoices([])
 			if (choice === localStorage.getItem("choice")) {
 				saveTestChoices.forEach((element) => {
 					const payload = {
@@ -76,21 +76,21 @@ const TestChoices = ({
 						round,
 						year,
 						choice,
-					};
-					testChoiceComponent(payload);
-				});
+					}
+					testChoiceComponent(payload)
+				})
 			}
-			localStorage.setItem("cutoff", cutoff);
-			localStorage.setItem("rank", rank);
-			localStorage.setItem("rankMain", rankMain);
-			localStorage.setItem("year", year);
-			localStorage.setItem("round", round);
-			localStorage.setItem("choice", choice);
-			setdisableAdd(false);
-			setchoiceFormOpen(true);
-			setdataSubmit(false);
+			localStorage.setItem("cutoff", cutoff)
+			localStorage.setItem("rank", rank)
+			localStorage.setItem("rankMain", rankMain)
+			localStorage.setItem("year", year)
+			localStorage.setItem("round", round)
+			localStorage.setItem("choice", choice)
+			setdisableAdd(false)
+			setchoiceFormOpen(true)
+			setdataSubmit(false)
 		}
-	}, [dataSubmit]);
+	}, [dataSubmit])
 
 	useEffect(() => {
 		if (choiceDataSubmit) {
@@ -106,28 +106,28 @@ const TestChoices = ({
 				round,
 				year,
 				choice,
-			};
-			testChoiceComponent(payload);
-			localStorage.setItem("instituteType", instituteType);
-			localStorage.setItem("instituteId", instituteId);
-			localStorage.setItem("branchId", branchId);
-			localStorage.setItem("seatPool", seatPool);
-			localStorage.setItem("quota", quota);
-			localStorage.setItem("category", category);
-			setchoiceDataSubmit(false);
+			}
+			testChoiceComponent(payload)
+			localStorage.setItem("instituteType", instituteType)
+			localStorage.setItem("instituteId", instituteId)
+			localStorage.setItem("branchId", branchId)
+			localStorage.setItem("seatPool", seatPool)
+			localStorage.setItem("quota", quota)
+			localStorage.setItem("category", category)
+			setchoiceDataSubmit(false)
 			if (isEditing) {
-				setisEditing(false);
+				setisEditing(false)
 			}
 		}
-	}, [choiceDataSubmit]);
+	}, [choiceDataSubmit])
 
 	useEffect(() => {
 		if (testChoiceObj.data.opening_rank) {
 			if (!testChoices.find((obj) => obj.id === testChoiceObj.data.id)) {
 				const choice = {
-					institute_type: testChoiceObj.data.institute.category,
-					institute_name: testChoiceObj.data.institute.name,
-					branch_name: testChoiceObj.data.branch.branch_code,
+					institute_type: testChoiceObj.data.institute_detail.type,
+					institute_name: testChoiceObj.data.institute_detail.name,
+					branch_name: testChoiceObj.data.branch_detail.name,
 					quota: testChoiceObj.data.quota,
 					seat_pool: testChoiceObj.data.seat_pool,
 					category: testChoiceObj.data.category,
@@ -135,45 +135,45 @@ const TestChoices = ({
 					closing_rank: testChoiceObj.data.closing_rank || "-",
 					color: testChoiceObj.data.color,
 					id: testChoiceObj.data.id,
-				};
+				}
 				const saveChoice = {
-					institute_id: testChoiceObj.data.institute.id,
-					branch_id: testChoiceObj.data.branch.id,
+					institute_id: testChoiceObj.data.institute_detail.id,
+					branch_id: testChoiceObj.data.branch_detail.id,
 					quota: testChoiceObj.data.quota,
 					seat_pool: testChoiceObj.data.seat_pool,
 					category: testChoiceObj.data.category,
 					id: testChoiceObj.data.id,
-				};
-				settestChoices((prevChoice) => [...prevChoice, choice]);
-				setsaveTestChoices((prevChoice) => [...prevChoice, saveChoice]);
+				}
+				settestChoices((prevChoice) => [...prevChoice, choice])
+				setsaveTestChoices((prevChoice) => [...prevChoice, saveChoice])
 			} else {
 				if (!isEditing) {
 					showToastComponent(
 						"You have already added this choice",
 						"error",
 						toastDuration
-					);
+					)
 				}
 			}
 		}
-	}, [testChoiceObj]);
+	}, [testChoiceObj])
 
 	const choiceButtonClick = () => {
-		setchoiceFormOpen(true);
-	};
+		setchoiceFormOpen(true)
+	}
 
 	const editDetailButtonClick = () => {
-		setisEditing(true);
-		setopenForm(true);
-	};
+		setisEditing(true)
+		setopenForm(true)
+	}
 
 	const downloadClick = () => {
 		showToastComponent(
 			"Your choices have been exported",
 			"success",
 			toastDuration
-		);
-	};
+		)
+	}
 
 	return (
 		<div className='list-container'>
@@ -289,21 +289,21 @@ const TestChoices = ({
 				)}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
 export const mapStateToProps = (state) => {
 	return {
 		testChoiceObj: makeSelectTestChoice(state),
-	};
-};
+	}
+}
 
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		testChoiceComponent: (payload) => dispatch(fetchTestChoice(payload)),
 		showToastComponent: (message, type, duration) =>
 			dispatch(showToast(message, type, duration)),
-	};
-};
+	}
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(TestChoices);
+export default connect(mapStateToProps, mapDispatchToProps)(TestChoices)

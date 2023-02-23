@@ -8,15 +8,15 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import FormDialog from "../../../components/formDialog";
-import { Header } from "../../../components/header";
-import { TableInfo } from "../../../components/tableHeader";
-import { LightRankTooltip, PredictionList } from "../../../constants/general";
-import { fetchOneOnePrediction } from "../../../store/actions/prediction";
-import { makeSelectOneOnePrediction } from "../../../store/selectors/prediction";
+} from "@mui/material"
+import React, { useEffect, useState } from "react"
+import { connect } from "react-redux"
+import FormDialog from "../../../components/formDialog"
+import { Header } from "../../../components/header"
+import { TableInfo } from "../../../components/tableHeader"
+import { LightRankTooltip, PredictionList } from "../../../constants/general"
+import { fetchOneOnePrediction } from "../../../store/actions/prediction"
+import { makeSelectOneOnePrediction } from "../../../store/selectors/prediction"
 
 const OneBranchOneInstitutesPrediction = ({
 	setpredictionType,
@@ -25,20 +25,20 @@ const OneBranchOneInstitutesPrediction = ({
 	predictionObj,
 	toolTip,
 }) => {
-	const [instituteType, setinstituteType] = useState("");
-	const [category, setcategory] = useState("");
-	const [cutoff, setcutoff] = useState(10);
-	const [seatPool, setseatPool] = useState("");
-	const [quota, setquota] = useState("");
-	const [rank, setrank] = useState(0);
-	const [branchId, setbranchId] = useState(0);
-	const [instituteId, setinstituteId] = useState(0);
-	const [openForm, setopenForm] = useState(false);
-	const [dataSubmit, setdataSubmit] = useState(false);
+	const [instituteType, setinstituteType] = useState("")
+	const [category, setcategory] = useState("")
+	const [cutoff, setcutoff] = useState(10)
+	const [seatPool, setseatPool] = useState("")
+	const [quota, setquota] = useState("")
+	const [rank, setrank] = useState(0)
+	const [branchId, setbranchId] = useState(0)
+	const [instituteId, setinstituteId] = useState(0)
+	const [openForm, setopenForm] = useState(false)
+	const [dataSubmit, setdataSubmit] = useState(false)
 
 	useEffect(() => {
-		setopenForm(true);
-	}, [predictionType]);
+		setopenForm(true)
+	}, [predictionType])
 
 	useEffect(() => {
 		if (dataSubmit) {
@@ -50,23 +50,23 @@ const OneBranchOneInstitutesPrediction = ({
 				quota,
 				rank,
 				cutoff,
-			};
-			predictionComponent(payload);
-			localStorage.setItem("instituteType", instituteType);
-			localStorage.setItem("category", category);
-			localStorage.setItem("cutoff", cutoff);
-			localStorage.setItem("seatPool", seatPool);
-			localStorage.setItem("quota", quota);
-			localStorage.setItem("rank", rank);
-			localStorage.setItem("branchId", branchId);
-			localStorage.setItem("instituteId", instituteId);
-			setdataSubmit(false);
+			}
+			predictionComponent(payload)
+			localStorage.setItem("instituteType", instituteType)
+			localStorage.setItem("category", category)
+			localStorage.setItem("cutoff", cutoff)
+			localStorage.setItem("seatPool", seatPool)
+			localStorage.setItem("quota", quota)
+			localStorage.setItem("rank", rank)
+			localStorage.setItem("branchId", branchId)
+			localStorage.setItem("instituteId", instituteId)
+			setdataSubmit(false)
 		}
-	}, [dataSubmit]);
+	}, [dataSubmit])
 
 	const editDetailButtonClick = () => {
-		setopenForm(true);
-	};
+		setopenForm(true)
+	}
 
 	return (
 		<div className='list-container'>
@@ -121,7 +121,6 @@ const OneBranchOneInstitutesPrediction = ({
 								component={Paper}
 								className='prediction-table-container'
 							>
-								{console.log(predictionObj)}
 								<Table sx={{ minWidth: 650 }}>
 									<TableHead className='prediction-table-head'>
 										<TableRow>
@@ -134,23 +133,41 @@ const OneBranchOneInstitutesPrediction = ({
 										</TableRow>
 									</TableHead>
 									<TableBody>
-										{predictionObj.data.round_data.map((obj, index) => (
+										{predictionObj.data.years.map((obj, index) => (
 											<TableRow key={index} className='prediction'>
-												<TableCell className='branch-cell'>
-													{predictionObj.data.years[index]}
-												</TableCell>
-												{obj.map((data, dataIndex) => (
-													<LightRankTooltip title={toolTip(data.color)}>
+												<TableCell className='branch-cell'>{obj}</TableCell>
+												{predictionObj.data.keys.map((key, index) => (
+													<LightRankTooltip
+														title={toolTip(
+															predictionObj.data.round_data[`${obj}-${key}`]
+																.color
+														)}
+													>
 														<TableCell
 															align='center'
-															key={dataIndex}
-															className={`${data.color} rank`}
+															className={`${
+																predictionObj.data.round_data[`${obj}-${key}`]
+																	.opening_rank != 0
+																	? predictionObj.data.round_data[
+																			`${obj}-${key}`
+																	  ].color
+																	: ""
+															} rank`}
 														>
-															{data.opening_rank ? (
+															{predictionObj.data.round_data[`${obj}-${key}`]
+																.opening_rank != 0 ? (
 																<>
-																	{data.opening_rank}
+																	{
+																		predictionObj.data.round_data[
+																			`${obj}-${key}`
+																		].opening_rank
+																	}
 																	<br /> to <br />
-																	{data.closing_rank}
+																	{
+																		predictionObj.data.round_data[
+																			`${obj}-${key}`
+																		].closing_rank
+																	}
 																</>
 															) : (
 																"-"
@@ -168,22 +185,22 @@ const OneBranchOneInstitutesPrediction = ({
 				)}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
 const mapStateToProps = (state) => {
 	return {
 		predictionObj: makeSelectOneOnePrediction(state),
-	};
-};
+	}
+}
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		predictionComponent: (payload) => dispatch(fetchOneOnePrediction(payload)),
-	};
-};
+	}
+}
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(OneBranchOneInstitutesPrediction);
+)(OneBranchOneInstitutesPrediction)

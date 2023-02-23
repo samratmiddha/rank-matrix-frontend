@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Header } from "../../../components/header";
-import { SearchBar } from "../../../components/search";
+import React, { useEffect, useState } from "react"
+import { connect } from "react-redux"
+import { Header } from "../../../components/header"
+import { SearchBar } from "../../../components/search"
 import {
 	makeSelectInstituteType,
 	makeSelectRound,
-	makeSelectYear,
-} from "../../../store/selectors/form";
-import { visuallyHidden } from "@mui/utils";
+} from "../../../store/selectors/form"
+import { visuallyHidden } from "@mui/utils"
 import {
 	Box,
 	CircularProgress,
@@ -19,48 +18,59 @@ import {
 	TableHead,
 	TableRow,
 	TableSortLabel,
-} from "@mui/material";
-import { rankHeader } from "../../../constants/tableHeader";
-import { CustomPagination } from "../../../components/pagination";
-import { makeSelectRankList } from "../../../store/selectors/list";
-import { fetchRankList } from "../../../store/actions/list";
-import { YearRoundSelect } from "../../../components/selectDialog";
-import { fetchInstituteType, fetchRound } from "../../../store/actions/form";
-import { ClickableChips } from "../../../components/chips";
-import { TableInfo } from "../../../components/tableHeader";
+} from "@mui/material"
+import { rankHeader } from "../../../constants/tableHeader"
+import { CustomPagination } from "../../../components/pagination"
+import { makeSelectRankList } from "../../../store/selectors/list"
+import { fetchRankList } from "../../../store/actions/list"
+import { YearRoundSelect } from "../../../components/selectDialog"
+import { fetchInstituteType, fetchRound } from "../../../store/actions/form"
+import { ClickableChips } from "../../../components/chips"
+import { TableInfo } from "../../../components/tableHeader"
 
 const Ranks = ({
 	instituteTypeObj,
 	instituteTypeComponent,
 	rankListObj,
 	rankListComponent,
-	yearObj,
 	roundListComponent,
 	roundObj,
 }) => {
-	const [instituteType, setInstituteType] = useState("IIT");
-	const [page, setPage] = useState(1);
-	const [searchWord, setSearchWord] = useState("");
-	const [orderBy, setorderBy] = useState("");
-	const [order, setorder] = useState("asc");
-	const [changeYear, setchangeYear] = useState("");
-	const [changeRound, setchangeRound] = useState("");
-	const [changeData, setchangeData] = useState(false);
-	const [year, setyear] = useState(2022);
-	const [round, setround] = useState(1);
+	const [instituteType, setInstituteType] = useState("IIT")
+	const [page, setPage] = useState(1)
+	const [searchWord, setSearchWord] = useState("")
+	const [orderBy, setorderBy] = useState("")
+	const [order, setorder] = useState("asc")
+	const [changeYear, setchangeYear] = useState("")
+	const [changeRound, setchangeRound] = useState("")
+	const [changeData, setchangeData] = useState(false)
+	const [year, setyear] = useState(2022)
+	const [round, setround] = useState(1)
+	const [yearObj, setyearObj] = useState([])
 
 	useEffect(() => {
 		const payload = {
 			choice: "both",
-		};
-		instituteTypeComponent(payload);
-	}, []);
+		}
+		instituteTypeComponent(payload)
+	}, [])
 
 	useEffect(() => {
-		if (yearObj.length > 0) {
-			setyear(yearObj[0]);
+		if (rankListObj.data.length > 0) {
+			setyear(rankListObj.data[0].latest_year)
+			if (yearObj.length == 0) {
+				let temp = []
+				for (
+					let index = rankListObj.data[0].latest_year;
+					index >= 2015;
+					index--
+				) {
+					temp.push(index)
+				}
+				setyearObj(temp)
+			}
 		}
-	}, [yearObj]);
+	}, [rankListObj.data])
 
 	useEffect(() => {
 		const payload = {
@@ -71,9 +81,9 @@ const Ranks = ({
 			orderType: order,
 			year: year,
 			round: round,
-		};
-		rankListComponent(payload);
-	}, [instituteType, page, searchWord, orderBy, order, year]);
+		}
+		rankListComponent(payload)
+	}, [instituteType, page, searchWord, orderBy, order, year])
 
 	useEffect(() => {
 		if (changeData) {
@@ -85,34 +95,34 @@ const Ranks = ({
 				orderType: order,
 				year: changeYear,
 				round: changeRound,
-			};
-			rankListComponent(payload);
-			setchangeData(false);
-			setchangeYear("");
-			setyear(changeYear);
-			setround(changeRound);
+			}
+			rankListComponent(payload)
+			setchangeData(false)
+			setchangeYear("")
+			setyear(changeYear)
+			setround(changeRound)
 		}
-	}, [changeData]);
+	}, [changeData])
 
 	useEffect(() => {
 		if (changeYear !== "") {
 			const payload = {
 				year: changeYear,
-			};
-			roundListComponent(payload);
+			}
+			roundListComponent(payload)
 		}
-	}, [changeYear]);
+	}, [changeYear])
 
 	const onPageChange = (event, value) => {
-		setPage(value);
-	};
+		setPage(value)
+	}
 
 	const createSortHandler = (property) => (event) => {
-		const isAsc = orderBy === property && order === "asc";
-		setorder(isAsc ? "desc" : "asc");
-		setorderBy(property);
-		setPage(1);
-	};
+		const isAsc = orderBy === property && order === "asc"
+		setorder(isAsc ? "desc" : "asc")
+		setorderBy(property)
+		setPage(1)
+	}
 
 	return (
 		<div className='list-container'>
@@ -254,24 +264,23 @@ const Ranks = ({
 				)}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
 const mapStateToProps = (state) => {
 	return {
 		instituteTypeObj: makeSelectInstituteType(state),
 		rankListObj: makeSelectRankList(state),
-		yearObj: makeSelectYear(state),
 		roundObj: makeSelectRound(state),
-	};
-};
+	}
+}
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		rankListComponent: (payload) => dispatch(fetchRankList(payload)),
 		roundListComponent: (payload) => dispatch(fetchRound(payload)),
 		instituteTypeComponent: (payload) => dispatch(fetchInstituteType(payload)),
-	};
-};
+	}
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ranks);
+export default connect(mapStateToProps, mapDispatchToProps)(Ranks)
