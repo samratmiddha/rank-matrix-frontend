@@ -5,7 +5,6 @@ import {
 	DialogActions,
 	DialogContent,
 	DialogTitle,
-	TextField,
 	Slide,
 	MenuItem,
 	Select,
@@ -39,6 +38,17 @@ import {
 } from "../../store/actions/form"
 import { showToast } from "../../store/actions/toast"
 import { useLocation } from "react-router-dom"
+import { RankField } from "./fields/rank"
+import { OpeningClosingField } from "./fields/openingClosing"
+import { YearField } from "./fields/year"
+import { RoundField } from "./fields/round"
+import { InstituteTypeField } from "./fields/instituteType"
+import { SeatPoolField } from "./fields/seatPool"
+import { CategoryField } from "./fields/category"
+import { QuotaField } from "./fields/quota"
+import { InstituteField } from "./fields/instituteList"
+import { BranchField } from "./fields/branchList"
+import { ChoiceField } from "./fields/choice"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />
@@ -189,46 +199,6 @@ const FormDialog = ({
 		}
 	}, [choice])
 
-	const handleChange = (event) => {
-		const selectdata = event.target
-		if (selectdata.name === "institute_type") {
-			setinstituteType(selectdata.value)
-		} else if (selectdata.name === "category") {
-			setcategory(selectdata.value)
-		} else if (selectdata.name === "cutoff") {
-			setcutoffVariation(selectdata.value)
-		} else if (selectdata.name === "seatPool") {
-			setseatPool(selectdata.value)
-		} else if (selectdata.name === "quota") {
-			setquota(selectdata.value)
-		} else if (selectdata.name === "rank") {
-			setrank(selectdata.value)
-		} else if (selectdata.name === "rankMain") {
-			setrankMain(selectdata.value)
-		} else if (selectdata.name === "option") {
-			setoption(selectdata.value)
-		} else if (selectdata.name === "year") {
-			setyear(selectdata.value)
-		} else if (selectdata.name === "round") {
-			setround(selectdata.value)
-		} else if (selectdata.name === "institute_list") {
-			setinstituteId(selectdata.value)
-		} else if (selectdata.name === "branch_list") {
-			setbranchId(selectdata.value)
-		} else if (selectdata.name === "choice_option") {
-			if (isEditing) {
-				if (selectdata.value !== choiceEdit) {
-					showToastComponent(
-						"All the choices you filled will be removed",
-						"warning",
-						toastDuration
-					)
-				}
-			}
-			setchoice(selectdata.value)
-		}
-	}
-
 	const handleClose = () => {
 		setOpen(false)
 		setopenForm(false)
@@ -374,266 +344,111 @@ const FormDialog = ({
 					{predictionData.formData.map((form) => {
 						if (form.type !== "select") {
 							return (
-								<>
-									{form.optional ? (
-										choice === "both" && (
-											<TextField
-												sx={{ maxWidth: "30%" }}
-												className='form-dialog'
-												label={"JEE Main Rank"}
-												variant='filled'
-												type={form.type}
-												name={form.name}
-												onChange={handleChange}
-												defaultValue={
-													form.name === "cutoff" ? cutoffVariation : rankMain
-												}
-											/>
-										)
-									) : (
-										<TextField
-											sx={{ maxWidth: "30%" }}
-											className='form-dialog'
-											label={form.title === "Rank" ? rankLabel : form.title}
-											variant='filled'
-											type={form.type}
-											name={form.name}
-											onChange={handleChange}
-											defaultValue={
-												form.name === "cutoff" ? cutoffVariation : rank
-											}
-										/>
-									)}
-								</>
+								<RankField
+									form={form}
+									cutoffVariation={cutoffVariation}
+									rank={rank}
+									rankMain={rankMain}
+									choice={choice}
+									rankLabel={rankLabel}
+									setrank={setrank}
+									setrankMain={setrankMain}
+								/>
 							)
 						} else {
 							if (form.list === "option") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={optionsList.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={option}
-									>
-										{optionsList.map((option) => (
-											<MenuItem
-												key={option}
-												value={option.split(" ")[0].toLowerCase()}
-											>
-												{option}
-											</MenuItem>
-										))}
-									</TextField>
+									<OpeningClosingField
+										form={form}
+										optionsList={optionsList}
+										option={option}
+										setoption={setoption}
+									/>
 								)
 							} else if (form.list === "year") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={yearList.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={year === 0 ? null : year}
-									>
-										{yearList.map((option) => (
-											<MenuItem key={option} value={option}>
-												{option}
-											</MenuItem>
-										))}
-									</TextField>
+									<YearField
+										form={form}
+										year={year}
+										yearList={yearList}
+										setyear={setyear}
+									/>
 								)
 							} else if (form.list === "round") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={roundList.data.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={round}
-									>
-										{roundList.data &&
-											roundList.data.map((option) => (
-												<MenuItem key={option} value={option.split(" ")[1]}>
-													{option}
-												</MenuItem>
-											))}
-									</TextField>
+									<RoundField
+										form={form}
+										round={round}
+										roundList={roundList}
+										setround={setround}
+									/>
 								)
 							} else if (form.list === "institute_type") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={instituteTypeList.data.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={instituteType}
-									>
-										{instituteTypeList.data &&
-											instituteTypeList.data.results &&
-											instituteTypeList.data.results.map((option) => (
-												<MenuItem key={option.id} value={option.type}>
-													{option.type}
-												</MenuItem>
-											))}
-									</TextField>
+									<InstituteTypeField
+										form={form}
+										instituteTypeList={instituteTypeList}
+										instituteType={instituteType}
+										setinstituteType={setinstituteType}
+									/>
 								)
 							} else if (form.list === "seatPool") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={genderList.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={seatPool}
-									>
-										{genderList &&
-											genderList.map((option) => (
-												<MenuItem key={option.id} value={option.seat_pool}>
-													{option.seat_pool}
-												</MenuItem>
-											))}
-									</TextField>
+									<SeatPoolField
+										form={form}
+										genderList={genderList}
+										setseatPool={setseatPool}
+										seatPool={seatPool}
+									/>
 								)
 							} else if (form.list === "category") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={categoryList.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={category}
-									>
-										{categoryList &&
-											categoryList.map((option) => (
-												<MenuItem key={option.id} value={option.category}>
-													{option.category}
-												</MenuItem>
-											))}
-									</TextField>
+									<CategoryField
+										form={form}
+										categoryList={categoryList}
+										setcategory={setcategory}
+										category={category}
+									/>
 								)
 							} else if (form.list === "quota") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={quotaList.data.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={quota}
-									>
-										{quotaList.data &&
-											quotaList.data.quota &&
-											quotaList.data.quota.map(
-												(option) =>
-													option && (
-														<MenuItem key={option} value={option}>
-															{option}
-														</MenuItem>
-													)
-											)}
-									</TextField>
+									<QuotaField
+										form={form}
+										quotaList={quotaList}
+										setquota={setquota}
+										quota={quota}
+									/>
 								)
 							} else if (form.list === "institute_list") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={instituteList.data.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={instituteId}
-									>
-										{instituteList.data &&
-											instituteList.data.map((option) => (
-												<MenuItem key={option.id} value={option.id}>
-													{option.name}
-												</MenuItem>
-											))}
-									</TextField>
+									<InstituteField
+										form={form}
+										instituteList={instituteList}
+										setinstituteId={setinstituteId}
+										instituteId={instituteId}
+									/>
 								)
 							} else if (form.list === "branch_list") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={branchList.data.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={branchId}
-									>
-										{setInstituteId
-											? branchOneOneList.data &&
-											  branchOneOneList.data.map((option) => (
-													<MenuItem
-														key={option.id}
-														value={option.id}
-														className='branch-list-form'
-													>
-														<>
-															<span>{option.branch_name}</span>
-														</>
-													</MenuItem>
-											  ))
-											: branchList.data &&
-											  branchList.data.map((option) => (
-													<MenuItem key={option.id} value={option.id}>
-														{option.branch_code}
-													</MenuItem>
-											  ))}
-									</TextField>
+									<BranchField
+										form={form}
+										branchList={branchList}
+										branchOneOneList={branchOneOneList}
+										setInstituteId={setInstituteId}
+										branchId={branchId}
+										setbranchId={setbranchId}
+									/>
 								)
 							} else if (form.list === "choice_option") {
 								return (
-									<TextField
-										sx={{ maxWidth: "30%" }}
-										className='form-dialog'
-										label={form.title}
-										variant='filled'
-										select
-										disabled={choicesList.length === 0}
-										onChange={handleChange}
-										name={form.name}
-										defaultValue={choice}
-									>
-										{choicesList.map((option, index) => (
-											<MenuItem key={index} value={option.value}>
-												{option.title}
-											</MenuItem>
-										))}
-									</TextField>
+									<ChoiceField
+										form={form}
+										choicesList={choicesList}
+										choice={choice}
+										isEditing={isEditing}
+										choiceEdit={choiceEdit}
+										setchoice={setchoice}
+									/>
 								)
 							}
 						}
