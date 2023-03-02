@@ -2,13 +2,14 @@ import { MenuItem, TextField } from "@mui/material"
 import React from "react"
 import { useDispatch } from "react-redux"
 import { toastDuration } from "../../../constants/general"
-import { showToast } from "../../store/actions/toast"
+import { showToast } from "../../../store/actions/toast"
 
 export const ChoiceField = (props) => {
+	const dispatch = useDispatch()
+
 	const handleChange = (event) => {
 		if (props.isEditing) {
 			if (event.target.value !== props.choiceEdit) {
-				const dispatch = useDispatch()
 				dispatch(
 					showToast(
 						"All the choices you filled will be removed",
@@ -18,7 +19,7 @@ export const ChoiceField = (props) => {
 				)
 			}
 		}
-		setchoice(event.target.value)
+		props.setchoice(event.target.value)
 	}
 
 	return (
