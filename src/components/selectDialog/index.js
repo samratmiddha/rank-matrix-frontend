@@ -95,8 +95,8 @@ export const YearRoundSelect = ({
 								{secondSelectList.loading ? (
 									<CircularProgress />
 								) : (
-									secondSelectList.data.rounds &&
-									secondSelectList.data.rounds.map((item) => (
+									secondSelectList.data &&
+									secondSelectList.data.map((item) => (
 										<MenuItem value={item}>{item}</MenuItem>
 									))
 								)}
