@@ -45,6 +45,7 @@
 		.insitute_head {
 			background-color: #f5f8ff;
 		}
+		
 		.filters {
 			display: flex;
 			justify-content: flex-end;
@@ -201,6 +202,10 @@
 		.MuiTabs-indicator {
 			background-color: #002942;
 		}
+	}
+	.header-cell{
+		display: flex;
+		justify-content: space-between;
 	}
 }
 

@@ -26,6 +26,7 @@ import "../../list.scss";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { fetchInstituteType } from "../../../store/actions/form";
 import { ClickableChips } from "../../../components/chips";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const CollegeList = ({
 	instituteListComponent,
@@ -129,8 +130,8 @@ const CollegeList = ({
 															: false
 													}
 													key={index}
-													align={header.alignment}
 												>
+													<div className="header-cell">
 													{header.order ? (
 														<TableSortLabel
 															active={orderBy === header.id}
@@ -149,6 +150,8 @@ const CollegeList = ({
 													) : (
 														header.label
 													)}
+													<MoreVertIcon/>
+													</div>
 												</TableCell>
 											))}
 										</TableRow>
