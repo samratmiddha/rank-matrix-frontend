@@ -147,7 +147,7 @@ const Ranks = ({
 						)}
 						{!instituteTypeObj.loading &&
 							!instituteTypeObj.error &&
-							instituteTypeObj.data.length > 0 && (
+							 (
 								<ClickableChips
 									chipList={instituteTypeObj.data}
 									defaultSelected={"IIT"}
