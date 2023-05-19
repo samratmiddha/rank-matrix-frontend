@@ -1,6 +1,10 @@
-export const INSTITUTE_CODE_FILTERS=[
+import { choices } from "./filterChoices";
+
+export const filters={
+
+INSTITUTE_CODE_FILTERS:[
     {
-        name:'contains',
+        name:'search',
         keyword:'code__icontains',
         type:'text'
     },
@@ -9,10 +13,10 @@ export const INSTITUTE_CODE_FILTERS=[
         keyword:'code',
         type:'text'
     },
-]
-export const INSTITUTE_NAME_FILTERS=[
+],
+ INSTITUTE_NAME_FILTERS:[
     {
-        name:'contains',
+        name:'search',
         keyword:'name__icontains',
         type:'text'
 
@@ -22,34 +26,33 @@ export const INSTITUTE_NAME_FILTERS=[
         keyword:'name',
         type:'text'
     }
-]
-export const INSTITUTE_STATE_FILTERS=[
+],
+ INSTITUTE_STATE_FILTERS:[
     {
         name:'choice',
-        keyword:'state_choice',
-        type:'choice'
+        keyword:'state',
+        type:'choice',
+        choices:'STATE_CHOICES'
     },
     {
-        name:'contains',
+        name:'search',
         keyword:'state__icontains',
         type:'text'
     }
-]
-export const INSTITUTE_NIRF_FILTERS=[
+],
+ INSTITUTE_NIRF_FILTERS:[
     {
-        name:'less than',
-        keyword:'nirf_1__lt',
+        name:'range',
+        max_keyword:'nirf_1__lte',
+        min_keyword:'nirf_1__gte',
         type:'number',
-    },
-    {
-        name:'greater than',
-        keyword:'nirf_1__gt',
-        type:'number'
+        min:0,
+        max:200,
     }
-]
-export const INSTITUTE_WEBSITE_FILTERS=[
+],
+ INSTITUTE_WEBSITE_FILTERS:[
     {
-        name:'contains',
+        name:'search',
         keyword:'website__icontains',
         type:'text'
     },
@@ -58,87 +61,122 @@ export const INSTITUTE_WEBSITE_FILTERS=[
         keyword:'website',
         type:'text'
     }
-]
-export const SEAT_MATRIX_INSTITUTE_FILTER=[
+],
+ INSTITUTE_FILTER:[
     {
-        name:'contains',
+        name:'search',
         keyword:'institute_code__name__icontains',
         type:'text'
     },
     {
         name:'choices',
         keyword:'instute_code__name',
-        type:'choice'
+        type:'choice',
+        choices:'INSTITUTE_CHOICES',
     }
-]
-export const SEAT_MATRIX_BRANCH_FILTER=[
+],
+ BRANCH_FILTER:[
     {
-        name:'contains',
+        name:'search',
         keyword:'branch_code__branch_name__icontains',
         type:'text'
+       
     },
     {
         name:'choice',
-        keyword:'branch_code__branch_name'
+        keyword:'branch_code__branch_name',
+        choices:'BRANCH_CHOICES',
     }
-]
-export const SEAT_MATRIX_CATEGORY_FILTER=[
+],
+ BRANCH_DURATION_FILTER:[
     {
-        name:'contains',
+        name:'choice',
+        keyword:'branch_code__duration',
+        choices:'DURATION_CHOICES',
+    }
+ ],
+ BRANCH_DEGREE_FILTER:[
+    {
+        name:'search',
+        keyword:'branch_code__degree__icontains',
+        type:'text'
+       
+    },
+    {
+        name:'choice',
+        keyword:'branch_code__degree',
+        choices:'DEGREE_CHOICES',
+    }
+
+ ],
+ SEATS_FILTER:[
+    {
+        name:'range',
+        max_keyword:'seats__lte',
+        min_keyword:'seats__gte',
+        type:'number',
+        min:0,
+        max:100,
+    }
+ ],
+
+ CATEGORY_FILTER:[
+    {
+        name:'search',
         keyword:'category__category__icontains',
         type:'text'
     },
     {
         name:'choice',
         keyword:'category__category',
-        type:'choice'
+        type:'choice',
+        choices:'CATEGORY_CHOICES'
     }
-]
-export const SEAT_MATRIX_QUOTA_FILTER=[
+],
+ QUOTA_FILTER:[
     {
-        name:'contains',
+        name:'search',
         keyword:'quota__quota__icontains',
         type:'text'
     },
     {
         name:'choice',
         keyword:'quota__quota',
-        type:'choice'
+        type:'choice',
+        choices:'QUOTA_CHOICES'
     }
-]
-export const SEAT_MATRIX_SEAT_POOL_FILTER=[
+],
+ SEAT_POOL_FILTER:[
     {
-        name:'contains',
+        name:'search',
         keyword:'seat_pool__seat_pool__icontains',
         type:'text'
     },
     {
         name:'choice',
         keyword:'seat_pool__seat_pool',
-        type:'choice'
+        type:'choice',
+        choices:'SEAT_POOL_CHOICES'
     }
-]
-export const SEAT_MATRIX_OPENING_RANK_FILTER=[
+],
+ OPENING_RANK_FILTER:[
     {
-        name:'greater than',
-        keyword:'opening_rank_gt',
-        type:'number'
-    },
-    {
-        name:'less than',
-        keyword:'opening_rank_lt',
-        type:'number'
+        name:'range',
+        min_keyword:'opening_rank_gt',
+        max_keyword:'opening_rank_lt',
+        min:0,
+        max:50000,
+        type:'number',
     }
-]
-export const SEAT_MATRIX_CLOSING_RANK_FILTER=[
+],
+ CLOSING_RANK_FILTER:[
     {
-        name:'greater than',
-        keyword:'closing_rank_gt',
-        type:'number'
-    },
-    {
-        name:'less than',
-        keyword:'closing_rank_lt',
+        name:'range',
+        min_keyword:'closing_rank_gt',
+        max_keyword:'closing_rank_lt',
+        min:0,
+        max:50000,
         type:'number'
     }
 ]
+}

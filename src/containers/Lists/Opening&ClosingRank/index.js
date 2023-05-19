@@ -18,24 +18,34 @@ import {
 	TableHead,
 	TableRow,
 	TableSortLabel,
+	IconButton
 } from "@mui/material"
 import { rankHeader } from "../../../constants/tableHeader"
 import { CustomPagination } from "../../../components/pagination"
 import { makeSelectRankList } from "../../../store/selectors/list"
-import { fetchRankList } from "../../../store/actions/list"
+import { fetchRankList, setRankListFilterValues } from "../../../store/actions/list"
 import { YearRoundSelect } from "../../../components/selectDialog"
 import { fetchInstituteType, fetchRound } from "../../../store/actions/form"
 import { ClickableChips } from "../../../components/chips"
 import { TableInfo } from "../../../components/tableHeader"
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { FilterBox } from "../../../components/FilterBox";
 
 const Ranks = ({
 	instituteTypeObj,
 	instituteTypeComponent,
 	rankListObj,
+	rankFilterComponent,
 	rankListComponent,
 	roundListComponent,
 	roundObj,
 }) => {
+
+	const filter_anchor_el = rankHeader.reduce((accumulator,obj)=>{
+		accumulator[obj.id]=null;
+		return accumulator
+	},{});
+
 	const [instituteType, setInstituteType] = useState("IIT")
 	const [page, setPage] = useState(1)
 	const [searchWord, setSearchWord] = useState("")
@@ -47,8 +57,11 @@ const Ranks = ({
 	const [year, setyear] = useState(2022)
 	const [round, setround] = useState(1)
 	const [yearObj, setyearObj] = useState([])
-
+	const [filterAnchorEl,setFilterAnchor]= useState(filter_anchor_el);
+	const filterValues = rankListObj.filterValues;
+    console.log(instituteTypeObj,"instituteobj");
 	useEffect(() => {
+		console.log("checking");
 		const payload = {
 			choice: "both",
 		}
@@ -56,6 +69,7 @@ const Ranks = ({
 	}, [])
 
 	useEffect(() => {
+		console.log("checking2")
 		if (rankListObj.data.length > 0) {
 			setyear(rankListObj.data[0].latest_year)
 			if (yearObj.length == 0) {
@@ -74,16 +88,17 @@ const Ranks = ({
 
 	useEffect(() => {
 		const payload = {
-			typeList: instituteType,
+			type_list: instituteType,
 			page,
 			search: searchWord,
 			orderField: orderBy,
-			orderType: order,
+			ordering: order,
 			year: year,
 			round: round,
+			...filterValues,
 		}
 		rankListComponent(payload)
-	}, [instituteType, page, searchWord, orderBy, order, year])
+	}, [instituteType, page, searchWord, orderBy, order, year,filterValues])
 
 	useEffect(() => {
 		if (changeData) {
@@ -117,12 +132,34 @@ const Ranks = ({
 		setPage(value)
 	}
 
-	const createSortHandler = (property) => (event) => {
+	const createSortHandler = (property,toggle=true,ordering="asc") => (event) => {
 		const isAsc = orderBy === property && order === "asc"
-		setorder(isAsc ? "desc" : "asc")
+		if(toggle){setorder(isAsc ? "desc" : "asc");}
+		else{
+			setorder(ordering)
+		}
 		setorderBy(property)
 		setPage(1)
 	}
+	const handleFilterOpen=(id,event)=>{
+		console.log(id,event)
+		const modified_object={
+			...filterAnchorEl,
+			[id]:event.target
+
+		}
+		setFilterAnchor(modified_object);
+		console.log(filterAnchorEl,"filterAnchorEl");
+	}
+	const handleFilterClose=(id)=>{
+		const modified_filters={
+			...filterAnchorEl,
+			[id]:null
+
+		}
+		setFilterAnchor(modified_filters);
+	}
+
 
 	return (
 		<div className='list-container'>
@@ -180,7 +217,6 @@ const Ranks = ({
 					<CircularProgress />
 				) : (
 					!rankListObj.error &&
-					rankListObj.data.length !== 0 &&
 					instituteType !== "" && (
 						<>
 							<TableContainer component={Paper}>
@@ -198,6 +234,7 @@ const Ranks = ({
 													}
 													key={index}
 												>
+													<div className="header-cell">
 													{header.order ? (
 														<TableSortLabel
 															active={orderBy === header.id}
@@ -216,10 +253,30 @@ const Ranks = ({
 													) : (
 														header.label
 													)}
+													<IconButton onClick={(e)=>{
+														handleFilterOpen(header.id,e)
+													}}>
+													<MoreVertIcon />
+													</IconButton>
+													</div>
+													<FilterBox
+													headerName={header.id}
+													anchorEl={filterAnchorEl[header.id]}
+													handleClose={handleFilterClose}
+													filterName={header.filterName}
+													hid={header.id}
+													filterValues={filterValues}
+													setFilterValues={rankFilterComponent}
+													sortHandler={createSortHandler}
+													>
+
+													</FilterBox>
+												
 												</TableCell>
 											))}
 										</TableRow>
 									</TableHead>
+									{rankListObj.data.length!==0&&(
 									<TableBody>
 										{rankListObj.data.map((row) => (
 											<TableRow
@@ -250,6 +307,7 @@ const Ranks = ({
 											</TableRow>
 										))}
 									</TableBody>
+									)}
 								</Table>
 							</TableContainer>
 							{rankListObj.total_pages > 1 && (
@@ -280,6 +338,7 @@ const mapDispatchToProps = (dispatch) => {
 		rankListComponent: (payload) => dispatch(fetchRankList(payload)),
 		roundListComponent: (payload) => dispatch(fetchRound(payload)),
 		instituteTypeComponent: (payload) => dispatch(fetchInstituteType(payload)),
+		rankFilterComponent:(payload)=>dispatch(setRankListFilterValues(payload)),
 	}
 }
 

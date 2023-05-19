@@ -77,6 +77,7 @@ const reducer = (state = initialState, action) =>
 				draft.institutesType.loading = false
 				draft.institutesType.error = false
 				draft.institutesType.data = action.response.data
+				console.log(action.response.data.results,"bla bla")
 				break
 			case FETCH_INSTITUTE_TYPE_ERROR:
 				draft.institutesType.loading = false

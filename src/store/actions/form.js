@@ -29,6 +29,7 @@ import {
 } from "../actionTypes";
 
 export const fetchInstituteType = (payload) => {
+    console.log("hii",payload)
     return {
         type: FETCH_INSTITUTE_TYPE,
         payload,

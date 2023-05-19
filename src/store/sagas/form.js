@@ -38,6 +38,7 @@ export function* fetchInstituteType(action) {
 	const requestURL = `/rankmatrix/api/college_type/?choice=${action.payload.choice}`
 	try {
 		const response = yield getRequest(requestURL)
+		console.log("response",response)
 		yield put(fetchInstituteTypeSuccess(response))
 	} catch (err) {
 		const errBody = getErrorBody(err)

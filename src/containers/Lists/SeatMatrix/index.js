@@ -15,10 +15,11 @@ import {
 	TableRow,
 	TableSortLabel,
 	Tabs,
+	IconButton
 } from "@mui/material"
 import { Header } from "../../../components/header"
 import { SearchBar } from "../../../components/search"
-import { fetchSeatMatrix } from "../../../store/actions/list"
+import { fetchSeatMatrix, setSeatMatrixFilterValues } from "../../../store/actions/list"
 import { makeSelectInstituteType } from "../../../store/selectors/form"
 import { makeSelectSeatMatrix } from "../../../store/selectors/list"
 import "../../list.scss"
@@ -26,13 +27,22 @@ import { CustomPagination } from "../../../components/pagination"
 import { seatMatrixHeader } from "../../../constants/tableHeader"
 import { fetchInstituteType } from "../../../store/actions/form"
 import { ClickableChips } from "../../../components/chips"
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { FilterBox } from "../../../components/FilterBox";
 
 const SeatMatrix = ({
 	seatMatrixComponent,
+	seatMatrixFilterComponent,
 	instituteTypeObj,
 	instituteTypeComponent,
 	seatMatrixObj,
 }) => {
+
+	const filter_anchor_el = seatMatrixHeader.reduce((accumulator,obj)=>{
+		accumulator[obj.id]=null;
+		return accumulator
+	},{});
+
 	const [instituteType, setInstituteType] = useState("IIT")
 	const [page, setPage] = useState(1)
 	const [searchWord, setSearchWord] = useState("")
@@ -40,6 +50,8 @@ const SeatMatrix = ({
 	const [order, setorder] = useState("asc")
 	const [tabValue, setTabValue] = useState(2022)
 	const [seatMatrixYear, setSeatMatrixYear] = useState([])
+	const [filterAnchorEl,setFilterAnchor]= useState(filter_anchor_el);
+	const filterValues = seatMatrixObj.filterValues;
 
 	useEffect(() => {
 		const payload = {
@@ -53,8 +65,9 @@ const SeatMatrix = ({
 			page,
 			search: searchWord,
 			orderField: orderBy,
-			orderType: order,
-			typeList: instituteType,
+			ordering: order,
+			type_list: instituteType,
+			...filterValues,
 		}
 		if (tabValue !== "increase") {
 			payload["year"] = tabValue
@@ -62,7 +75,7 @@ const SeatMatrix = ({
 			payload["increase"] = true
 		}
 		seatMatrixComponent(payload)
-	}, [instituteType, page, searchWord, orderBy, order, tabValue])
+	}, [instituteType, page, searchWord, orderBy, order, tabValue,filterValues])
 
 	useEffect(() => {
 		if (seatMatrixObj.data.length > 0 && seatMatrixYear.length == 0) {
@@ -89,9 +102,12 @@ const SeatMatrix = ({
 		setPage(value)
 	}
 
-	const createSortHandler = (property) => (event) => {
+	const createSortHandler = (property,toggle=true,ordering="asc") => (event) => {
 		const isAsc = orderBy === property && order === "asc"
-		setorder(isAsc ? "desc" : "asc")
+		if(toggle){setorder(isAsc ? "desc" : "asc");}
+		else{
+			setorder(ordering)
+		}
 		setorderBy(property)
 		setPage(1)
 	}
@@ -105,7 +121,25 @@ const SeatMatrix = ({
 		setTabValue("increase")
 		setPage(1)
 	}
+	const handleFilterOpen=(id,event)=>{
+		console.log(id,event)
+		const modified_object={
+			...filterAnchorEl,
+			[id]:event.target
 
+		}
+		setFilterAnchor(modified_object);
+		console.log(filterAnchorEl,"filterAnchorEl");
+	}
+	const handleFilterClose=(id)=>{
+		const modified_filters={
+			...filterAnchorEl,
+			[id]:null
+
+		}
+		setFilterAnchor(modified_filters);
+	}
+   
 	return (
 		<div className='list-container'>
 			<Header heading={"Seat Matrix"} />
@@ -166,7 +200,6 @@ const SeatMatrix = ({
 					<CircularProgress />
 				) : (
 					!seatMatrixObj.error &&
-					seatMatrixObj.data.length !== 0 &&
 					instituteType !== "" && (
 						<>
 							<TableContainer component={Paper}>
@@ -184,6 +217,7 @@ const SeatMatrix = ({
 													}
 													key={index}
 												>
+													<div className="header-cell">
 													{header.order ? (
 														<TableSortLabel
 															active={orderBy === header.id}
@@ -202,10 +236,30 @@ const SeatMatrix = ({
 													) : (
 														header.label
 													)}
+													<IconButton onClick={(e)=>{
+														handleFilterOpen(header.id,e)
+													}}>
+													<MoreVertIcon />
+													</IconButton>
+													</div>
+													<FilterBox
+													headerName={header.id}
+													anchorEl={filterAnchorEl[header.id]}
+													handleClose={handleFilterClose}
+													filterName={header.filterName}
+													hid={header.id}
+													filterValues={filterValues}
+													setFilterValues={seatMatrixFilterComponent}
+													sortHandler={createSortHandler}
+													>
+
+													</FilterBox>
+													
 												</TableCell>
 											))}
 										</TableRow>
 									</TableHead>
+									{seatMatrixObj.data.length!==0&&(
 									<TableBody>
 										{seatMatrixObj.data.map((row) => (
 											<TableRow
@@ -237,6 +291,7 @@ const SeatMatrix = ({
 											</TableRow>
 										))}
 									</TableBody>
+									)}
 								</Table>
 							</TableContainer>
 							{seatMatrixObj.total_pages > 1 && (
@@ -265,6 +320,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		seatMatrixComponent: (payload) => dispatch(fetchSeatMatrix(payload)),
 		instituteTypeComponent: (payload) => dispatch(fetchInstituteType(payload)),
+		seatMatrixFilterComponent:(payload) => dispatch(setSeatMatrixFilterValues(payload)),
 	}
 }
 
