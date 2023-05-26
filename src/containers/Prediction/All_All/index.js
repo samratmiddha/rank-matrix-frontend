@@ -129,6 +129,9 @@ const AllBranchAllCollegePrediction = ({
 					).title
 				}
 			/>
+			<div>
+				
+			</div>
 			<FormDialog
 				openForm={openForm}
 				setopenForm={setopenForm}
@@ -139,12 +142,12 @@ const AllBranchAllCollegePrediction = ({
 				setPredictionType={setpredictionType}
 				setInstituteType={setinstituteType}
 				setCategory={setcategory}
-				setCutoff={setcutoff}
+				// setCutoff={setcutoff}
 				setSeatPool={setseatPool}
 				setQuota={setquota}
 				setRank={setrank}
-				setYear={setyear}
-				setRound={setround}
+				// setYear={setyear}
+				// setRound={setround}
 				setOption={setoption}
 				setdataSubmit={setdataSubmit}
 			/>
