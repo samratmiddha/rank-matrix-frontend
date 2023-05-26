@@ -38,7 +38,6 @@ export function* fetchInstituteType(action) {
 	const requestURL = `/rankmatrix/api/college_type/?choice=${action.payload.choice}`
 	try {
 		const response = yield getRequest(requestURL)
-		console.log("response",response)
 		yield put(fetchInstituteTypeSuccess(response))
 	} catch (err) {
 		const errBody = getErrorBody(err)
@@ -96,15 +95,13 @@ export function* fetchCategory() {
 }
 
 export function* fetchQuota(action) {
-	const requestURL = `/rankmatrix/api/quota/?${
-		action.payload.institute_type
+	const requestURL = `/rankmatrix/api/quota/?${action.payload.institute_type
 			? "institute_type=" + action.payload.institute_type
 			: ""
-	}${
-		action.payload.institute_code
+		}${action.payload.institute_code
 			? "&institute_code=" + action.payload.institute_code
 			: ""
-	}`
+		}`
 	try {
 		const response = yield getRequest(requestURL)
 		yield put(fetchQuotaSuccess(response))

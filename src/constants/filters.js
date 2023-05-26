@@ -1,182 +1,134 @@
-import { choices } from "./filterChoices";
 
-export const filters={
+export const filters = {
 
-INSTITUTE_CODE_FILTERS:[
-    {
-        name:'search',
-        keyword:'code__icontains',
-        type:'text'
-    },
-    {
-        name:'exact',
-        keyword:'code',
-        type:'text'
-    },
-],
- INSTITUTE_NAME_FILTERS:[
-    {
-        name:'search',
-        keyword:'name__icontains',
-        type:'text'
+    INSTITUTE_CODE_FILTERS: [
+        {
+            name: 'search',
+            keyword: 'code__icontains',
+            type: 'text'
+        },
+    ],
+    INSTITUTE_NAME_FILTERS: [
+        {
+            name: 'search',
+            keyword: 'name__icontains',
+            type: 'text'
 
-    },
-    {
-        name:'exact',
-        keyword:'name',
-        type:'text'
-    }
-],
- INSTITUTE_STATE_FILTERS:[
-    {
-        name:'choice',
-        keyword:'state',
-        type:'choice',
-        choices:'STATE_CHOICES'
-    },
-    {
-        name:'search',
-        keyword:'state__icontains',
-        type:'text'
-    }
-],
- INSTITUTE_NIRF_FILTERS:[
-    {
-        name:'range',
-        max_keyword:'nirf_1__lte',
-        min_keyword:'nirf_1__gte',
-        type:'number',
-        min:0,
-        max:200,
-    }
-],
- INSTITUTE_WEBSITE_FILTERS:[
-    {
-        name:'search',
-        keyword:'website__icontains',
-        type:'text'
-    },
-    {
-        name:'exact',
-        keyword:'website',
-        type:'text'
-    }
-],
- INSTITUTE_FILTER:[
-    {
-        name:'search',
-        keyword:'institute_code__name__icontains',
-        type:'text'
-    },
-    {
-        name:'choices',
-        keyword:'instute_code__name',
-        type:'choice',
-        choices:'INSTITUTE_CHOICES',
-    }
-],
- BRANCH_FILTER:[
-    {
-        name:'search',
-        keyword:'branch_code__branch_name__icontains',
-        type:'text'
-       
-    },
-    {
-        name:'choice',
-        keyword:'branch_code__branch_name',
-        choices:'BRANCH_CHOICES',
-    }
-],
- BRANCH_DURATION_FILTER:[
-    {
-        name:'choice',
-        keyword:'branch_code__duration',
-        choices:'DURATION_CHOICES',
-    }
- ],
- BRANCH_DEGREE_FILTER:[
-    {
-        name:'search',
-        keyword:'branch_code__degree__icontains',
-        type:'text'
-       
-    },
-    {
-        name:'choice',
-        keyword:'branch_code__degree',
-        choices:'DEGREE_CHOICES',
-    }
+        },
+    ],
+    INSTITUTE_STATE_FILTERS: [
+        {
+            name: 'choice',
+            keyword: 'state',
+            type: 'choice',
+            choices: 'STATE_CHOICES'
+        },
+        {
+            name: 'search',
+            keyword: 'state__icontains',
+            type: 'text'
+        }
+    ],
+    INSTITUTE_NIRF_FILTERS: [
+        {
+            name: 'range',
+            max_keyword: 'nirf_1__lte',
+            min_keyword: 'nirf_1__gte',
+            type: 'number',
+            min: 0,
+            max: 200,
+        }
+    ],
+    INSTITUTE_WEBSITE_FILTERS: [
+        {
+            name: 'search',
+            keyword: 'website__icontains',
+            type: 'text'
+        },
+    ],
+    INSTITUTE_FILTER: [
+        {
+            name: 'search',
+            keyword: 'institute_code__name__icontains',
+            type: 'text'
+        },
+    ],
+    BRANCH_FILTER: [
+        {
+            name: 'search',
+            keyword: 'branch_code__branch_name__icontains',
+            type: 'text'
 
- ],
- SEATS_FILTER:[
-    {
-        name:'range',
-        max_keyword:'seats__lte',
-        min_keyword:'seats__gte',
-        type:'number',
-        min:0,
-        max:100,
-    }
- ],
+        },
+    ],
+    BRANCH_DURATION_FILTER: [
+        {
+            name: 'choice',
+            keyword: 'branch_code__duration',
+            choices: 'DURATION_CHOICES',
+        }
+    ],
+    BRANCH_DEGREE_FILTER: [
+        {
+            name: 'choice',
+            keyword: 'branch_code__degree',
+            choices: 'DEGREE_CHOICES',
+        }
 
- CATEGORY_FILTER:[
-    {
-        name:'search',
-        keyword:'category__category__icontains',
-        type:'text'
-    },
-    {
-        name:'choice',
-        keyword:'category__category',
-        type:'choice',
-        choices:'CATEGORY_CHOICES'
-    }
-],
- QUOTA_FILTER:[
-    {
-        name:'search',
-        keyword:'quota__quota__icontains',
-        type:'text'
-    },
-    {
-        name:'choice',
-        keyword:'quota__quota',
-        type:'choice',
-        choices:'QUOTA_CHOICES'
-    }
-],
- SEAT_POOL_FILTER:[
-    {
-        name:'search',
-        keyword:'seat_pool__seat_pool__icontains',
-        type:'text'
-    },
-    {
-        name:'choice',
-        keyword:'seat_pool__seat_pool',
-        type:'choice',
-        choices:'SEAT_POOL_CHOICES'
-    }
-],
- OPENING_RANK_FILTER:[
-    {
-        name:'range',
-        min_keyword:'opening_rank_gt',
-        max_keyword:'opening_rank_lt',
-        min:0,
-        max:50000,
-        type:'number',
-    }
-],
- CLOSING_RANK_FILTER:[
-    {
-        name:'range',
-        min_keyword:'closing_rank_gt',
-        max_keyword:'closing_rank_lt',
-        min:0,
-        max:50000,
-        type:'number'
-    }
-]
+    ],
+    SEATS_FILTER: [
+        {
+            name: 'range',
+            max_keyword: 'seats__lte',
+            min_keyword: 'seats__gte',
+            type: 'number',
+            min: 0,
+            max: 100,
+        }
+    ],
+
+    CATEGORY_FILTER: [
+        {
+            name: 'choice',
+            keyword: 'category__category',
+            type: 'choice',
+            choices: 'CATEGORY_CHOICES'
+        }
+    ],
+    QUOTA_FILTER: [
+        {
+            name: 'choice',
+            keyword: 'quota__quota',
+            type: 'choice',
+            choices: 'QUOTA_CHOICES'
+        }
+    ],
+    SEAT_POOL_FILTER: [
+        {
+            name: 'choice',
+            keyword: 'seat_pool__seat_pool',
+            type: 'choice',
+            choices: 'SEAT_POOL_CHOICES'
+        }
+    ],
+    OPENING_RANK_FILTER: [
+        {
+            name: 'range',
+            min_keyword: 'opening_rank_gt',
+            max_keyword: 'opening_rank_lt',
+            min: 0,
+            max: 50000,
+            type: 'number',
+        }
+    ],
+    CLOSING_RANK_FILTER: [
+        {
+            name: 'range',
+            min_keyword: 'closing_rank_gt',
+            max_keyword: 'closing_rank_lt',
+            min: 0,
+            max: 50000,
+            type: 'number'
+        }
+    ]
 }

@@ -18,7 +18,8 @@ import {
 	TableHead,
 	TableRow,
 	TableSortLabel,
-	IconButton
+	IconButton,
+	Tooltip
 } from "@mui/material"
 import { rankHeader } from "../../../constants/tableHeader"
 import { CustomPagination } from "../../../components/pagination"
@@ -30,6 +31,7 @@ import { ClickableChips } from "../../../components/chips"
 import { TableInfo } from "../../../components/tableHeader"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { FilterBox } from "../../../components/FilterBox";
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const Ranks = ({
 	instituteTypeObj,
@@ -41,10 +43,10 @@ const Ranks = ({
 	roundObj,
 }) => {
 
-	const filter_anchor_el = rankHeader.reduce((accumulator,obj)=>{
-		accumulator[obj.id]=null;
+	const filter_anchor_el = rankHeader.reduce((accumulator, obj) => {
+		accumulator[obj.id] = null;
 		return accumulator
-	},{});
+	}, {});
 
 	const [instituteType, setInstituteType] = useState("IIT")
 	const [page, setPage] = useState(1)
@@ -57,11 +59,9 @@ const Ranks = ({
 	const [year, setyear] = useState(2022)
 	const [round, setround] = useState(1)
 	const [yearObj, setyearObj] = useState([])
-	const [filterAnchorEl,setFilterAnchor]= useState(filter_anchor_el);
+	const [filterAnchorEl, setFilterAnchor] = useState(filter_anchor_el);
 	const filterValues = rankListObj.filterValues;
-    console.log(instituteTypeObj,"instituteobj");
 	useEffect(() => {
-		console.log("checking");
 		const payload = {
 			choice: "both",
 		}
@@ -69,7 +69,6 @@ const Ranks = ({
 	}, [])
 
 	useEffect(() => {
-		console.log("checking2")
 		if (rankListObj.data.length > 0) {
 			setyear(rankListObj.data[0].latest_year)
 			if (yearObj.length == 0) {
@@ -98,7 +97,7 @@ const Ranks = ({
 			...filterValues,
 		}
 		rankListComponent(payload)
-	}, [instituteType, page, searchWord, orderBy, order, year,filterValues])
+	}, [instituteType, page, searchWord, orderBy, order, year, filterValues])
 
 	useEffect(() => {
 		if (changeData) {
@@ -132,32 +131,36 @@ const Ranks = ({
 		setPage(value)
 	}
 
-	const createSortHandler = (property,toggle=true,ordering="asc") => (event) => {
+	const createSortHandler = (property, toggle = true, ordering = "asc") => (event) => {
 		const isAsc = orderBy === property && order === "asc"
-		if(toggle){setorder(isAsc ? "desc" : "asc");}
-		else{
+		if (toggle) { setorder(isAsc ? "desc" : "asc"); }
+		else {
 			setorder(ordering)
 		}
 		setorderBy(property)
 		setPage(1)
 	}
-	const handleFilterOpen=(id,event)=>{
-		console.log(id,event)
-		const modified_object={
+	const handleFilterOpen = (id, event) => {
+		const modified_object = {
 			...filterAnchorEl,
-			[id]:event.target
+			[id]: event.target
 
 		}
 		setFilterAnchor(modified_object);
-		console.log(filterAnchorEl,"filterAnchorEl");
 	}
-	const handleFilterClose=(id)=>{
-		const modified_filters={
+	const handleFilterClose = (id) => {
+		const modified_filters = {
 			...filterAnchorEl,
-			[id]:null
+			[id]: null
 
 		}
 		setFilterAnchor(modified_filters);
+	}
+	const resetAllFilters = () => {
+		rankFilterComponent({});
+		setSearchWord("");
+		setorderBy("");
+		setorder("asc");
 	}
 
 
@@ -200,12 +203,19 @@ const Ranks = ({
 								heading={`JoSAA ${year} Round ${round}`}
 								className='non-mobile'
 							/>
-							<SearchBar
-								labelText={"Search by any keyword"}
-								defaultWord={searchWord}
-								setSearchKey={setSearchWord}
-								setPage={setPage}
-							/>
+							<div className="searchBarContainer">
+								<Tooltip title="reset all filters" placement="left">
+									<IconButton onClick={resetAllFilters}>
+										<RestartAltIcon />
+									</IconButton>
+								</Tooltip>
+								<SearchBar
+									labelText={"Search by any keyword"}
+									defaultWord={searchWord}
+									setSearchKey={setSearchWord}
+									setPage={setPage}
+								/>
+							</div>
 							<TableInfo
 								heading={`JoSAA ${year} Round ${round}`}
 								className='mobile'
@@ -235,78 +245,78 @@ const Ranks = ({
 													key={index}
 												>
 													<div className="header-cell">
-													{header.order ? (
-														<TableSortLabel
-															active={orderBy === header.id}
-															direction={orderBy === header.id ? order : "asc"}
-															onClick={createSortHandler(header.id)}
-														>
-															{header.label}
-															{orderBy === header.id ? (
-																<Box component='span' sx={visuallyHidden}>
-																	{order === "desc"
-																		? "sorted descending"
-																		: "sorted ascending"}
-																</Box>
-															) : null}
-														</TableSortLabel>
-													) : (
-														header.label
-													)}
-													<IconButton onClick={(e)=>{
-														handleFilterOpen(header.id,e)
-													}}>
-													<MoreVertIcon />
-													</IconButton>
+														{header.order ? (
+															<TableSortLabel
+																active={orderBy === header.id}
+																direction={orderBy === header.id ? order : "asc"}
+																onClick={createSortHandler(header.id)}
+															>
+																{header.label}
+																{orderBy === header.id ? (
+																	<Box component='span' sx={visuallyHidden}>
+																		{order === "desc"
+																			? "sorted descending"
+																			: "sorted ascending"}
+																	</Box>
+																) : null}
+															</TableSortLabel>
+														) : (
+															header.label
+														)}
+														<IconButton onClick={(e) => {
+															handleFilterOpen(header.id, e)
+														}}>
+															<MoreVertIcon />
+														</IconButton>
 													</div>
 													<FilterBox
-													headerName={header.id}
-													anchorEl={filterAnchorEl[header.id]}
-													handleClose={handleFilterClose}
-													filterName={header.filterName}
-													hid={header.id}
-													filterValues={filterValues}
-													setFilterValues={rankFilterComponent}
-													sortHandler={createSortHandler}
+														headerName={header.id}
+														anchorEl={filterAnchorEl[header.id]}
+														handleClose={handleFilterClose}
+														filterName={header.filterName}
+														hid={header.id}
+														filterValues={filterValues}
+														setFilterValues={rankFilterComponent}
+														sortHandler={createSortHandler}
 													>
 
 													</FilterBox>
-												
+
 												</TableCell>
 											))}
 										</TableRow>
 									</TableHead>
-									{rankListObj.data.length!==0&&(
-									<TableBody>
-										{rankListObj.data.map((row) => (
-											<TableRow
-												sx={{
-													"&:last-child td, &:last-child th": { border: 0 },
-												}}
-												key={row.id}
-											>
-												<TableCell className='noto-sans'>
-													{row.institute_detail.full_name}
-												</TableCell>
-												<TableCell className='noto-sans'>
-													{row.branch_detail.full_name}
-												</TableCell>
-												<TableCell className='noto-sans'>
-													{row.category}
-												</TableCell>
-												<TableCell className='noto-sans'>{row.quota}</TableCell>
-												<TableCell className='noto-sans'>
-													{row.seat_pool}
-												</TableCell>
-												<TableCell className='noto-sans'>
-													{row.opening_rank}
-												</TableCell>
-												<TableCell className='noto-sans'>
-													{row.closing_rank}
-												</TableCell>
-											</TableRow>
-										))}
-									</TableBody>
+									{rankListObj.data.length !== 0 && (
+										<TableBody>
+											{rankListObj.data.map((row) => (
+												<TableRow
+													sx={{
+														"&:last-child td, &:last-child th": { border: 0 },
+													}}
+													key={row.id}
+												>
+													<TableCell className='noto-sans'>
+														{row.institute_detail.full_name}
+													</TableCell>
+													<TableCell className='noto-sans'>
+														{row.branch_detail.full_name}
+													</TableCell>
+													<TableCell className='noto-sans'>
+														{row.category}
+													</TableCell>
+													<TableCell className='noto-sans'>{row.quota}</TableCell>
+													<TableCell className='noto-sans'>
+														{row.seat_pool}
+													</TableCell>
+													<TableCell className='noto-sans'>
+														{row.opening_rank}
+													</TableCell>
+													<TableCell className='noto-sans'>
+														{row.closing_rank}
+													</TableCell>
+												</TableRow>
+											))}
+										</TableBody>
 									)}
 								</Table>
 							</TableContainer>
@@ -338,7 +348,7 @@ const mapDispatchToProps = (dispatch) => {
 		rankListComponent: (payload) => dispatch(fetchRankList(payload)),
 		roundListComponent: (payload) => dispatch(fetchRound(payload)),
 		instituteTypeComponent: (payload) => dispatch(fetchInstituteType(payload)),
-		rankFilterComponent:(payload)=>dispatch(setRankListFilterValues(payload)),
+		rankFilterComponent: (payload) => dispatch(setRankListFilterValues(payload)),
 	}
 }
 
